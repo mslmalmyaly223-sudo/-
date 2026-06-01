@@ -2749,7 +2749,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 30;
+        const CURRENT_APP_VERSION = 31;
 
 async function checkForUpdates() {
     try {
@@ -4137,15 +4137,32 @@ if (isPremiumValid(userData) && premiumTab && premiumTab.classList.contains('act
 
         function isPremiumValid(user) {
             if(!user.isPremium || !user.premiumExpiry) return false;
-            const now = new Date();
-            const expiry = user.premiumExpiry.toDate();
-            const isValid = expiry > now;
             
-            if (!isValid && user.isPremium) {
-                deactivatePremiumFeatures(user.uid);
+            try {
+                const now = new Date();
+                let expiry;
+                
+                // توافقية كاملة مع جميع صيغ الوقت لتجنب انهيار الكود
+                if (typeof user.premiumExpiry.toDate === 'function') {
+                    expiry = user.premiumExpiry.toDate();
+                } else if (user.premiumExpiry.seconds) {
+                    expiry = new Date(user.premiumExpiry.seconds * 1000);
+                } else {
+                    expiry = new Date(user.premiumExpiry);
+                }
+                
+                const isValid = expiry > now;
+                
+                // التأكد من وجود uid قبل الإيقاف لتجنب مشاكل الصلاحيات
+                if (!isValid && user.isPremium && user.uid) {
+                    deactivatePremiumFeatures(user.uid);
+                }
+                
+                return isValid;
+            } catch (error) {
+                console.error("Error parsing premium date:", error);
+                return false;
             }
-            
-            return isValid;
         }
 
         async function deactivatePremiumFeatures(uid) {
@@ -4597,7 +4614,14 @@ async function startStudentMatch(sub, chapter, opponent) {
             }
             
             let limit = isPremiumValid(userData) ? 15 : 10;
-            const shuffledQs = qDocs.sort(() => 0.5 - Math.random()).slice(0, limit);
+            
+            // خوارزمية Fisher-Yates لضمان عشوائية مطلقة في سحب الأسئلة (مستحيل التكرار النمطي)
+            let shuffledArray = [...qDocs];
+            for (let i = shuffledArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+            }
+            const shuffledQs = shuffledArray.slice(0, limit);
             
             localMatchData = {
                 status: 'active', grade: userData.grade,
@@ -4900,7 +4924,12 @@ function renderGame(data) {
         const correctAns = ansList.find(ans => ans.isCorrect);
         if (correctAns) currentQuestionCorrectAnswer = correctAns.value;
 
-        ansList.sort(() => 0.5 - Math.random());
+        // خوارزمية Fisher-Yates لخلط أماكن الإجابات بشكل جذري ومستحيل الغش
+        for (let i = ansList.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [ansList[i], ansList[j]] = [ansList[j], ansList[i]];
+        }
+
         ansList.forEach(ansObj => {
             const btn = document.createElement('button');
             btn.className = "answer-neutral w-full py-4 border-2 rounded-xl text-lg font-bold shadow-sm active:scale-95 transition";
@@ -5701,15 +5730,30 @@ async function promptForRevengeSubject(opponentName) {
              const div = document.getElementById('admin-all-list');
              div.innerHTML = GLOBAL_LOADER_HTML;
              try {
-                 const cachedData = localStorage.getItem('cached_questions_packet');
-                 if(cachedData) {
-                     allAdminQuestions = JSON.parse(cachedData);
-                 } else {
-                     div.innerHTML = '<p class="text-center text-gray-400">لا توجد أسئلة، قم بفتح التطبيق لتحديث الحزمة أولاً.</p>';
+                 // جلب الأسئلة مباشرة من الفايربيس لضمان رؤية جميع البيانات الحقيقية والجديدة
+                 const qSnap = await getDocs(collection(db, "questions"));
+                 allAdminQuestions = [];
+                 qSnap.forEach(doc => {
+                     const data = doc.data();
+                     allAdminQuestions.push({
+                         id: doc.id,
+                         question: data.question,
+                         answers: data.answers || [],
+                         correct: data.correct,
+                         type: data.type,
+                         grade: data.grade,
+                         subject: data.subject,
+                         chapter: data.chapter || ''
+                     });
+                 });
+
+                 if(allAdminQuestions.length === 0) {
+                     div.innerHTML = '<p class="text-center text-gray-400">لا توجد أسئلة في قاعدة البيانات حالياً.</p>';
                      return;
                  }
              } catch (error) {
-                 div.innerHTML = '<p class="text-center text-gray-400">خطأ في تحميل الأسئلة من الذاكرة</p>';
+                 console.error("Error loading admin questions:", error);
+                 div.innerHTML = '<p class="text-center text-gray-400">خطأ في تحميل الأسئلة من قاعدة البيانات</p>';
                  return;
              }
              filterAdminQuestions();
@@ -7823,7 +7867,12 @@ preloadAndSetAvatar(userData.avatarGender);
         const qMCQ = await getQuestions(sub, chap, 'mcq');
         const qTF = await getQuestions(sub, chap, 'tf');
         // جلب 30 سؤال مختلط
-        let allQs = qMCQ.concat(qTF).sort(() => 0.5 - Math.random()).slice(0, 30);
+        let combinedQs = qMCQ.concat(qTF);
+        for (let i = combinedQs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [combinedQs[i], combinedQs[j]] = [combinedQs[j], combinedQs[i]];
+        }
+        let allQs = combinedQs.slice(0, 30);
 
         if(allQs.length < 15) {
             showBeautifulAlert('error', 'نقص أسئلة', 'لا توجد أسئلة كافية في هذا الفصل حالياً لاختبارك (يجب توفر 15 سؤال على الأقل).');
@@ -8298,32 +8347,49 @@ window.deleteAITask = function(taskId) {
 let currentViewedUserId = null;
 
 window.openPublicProfile = async function(uid) {
-    if (uid === currentUser.uid) {
+    if (!currentUser || uid === currentUser.uid) {
         switchTab('profile');
         return;
     }
 
     currentViewedUserId = uid;
 
-    document.getElementById('pub-profile-name').innerText = "جاري التحميل...";
-    document.getElementById('pub-profile-img').src = 'https://ui-avatars.com/api/?name=Loading';
-    document.getElementById('pub-profile-name-container').innerHTML = `<h2 id="pub-profile-name" class="text-xl font-black text-gray-800 drop-shadow-sm">جاري التحميل...</h2>`;
-    document.getElementById('pub-profile-id').innerText = '...';
-    document.getElementById('pub-profile-grade').innerText = '...';
-    document.getElementById('pub-profile-gov').classList.add('hidden');
-    document.getElementById('pub-profile-bio').innerText = '...';
-    document.getElementById('pub-profile-points').innerText = '0';
-    document.getElementById('pub-profile-money').innerText = '$0';
-    document.getElementById('pub-stat-best-rank').innerText = '-';
-    document.getElementById('pub-stat-worst-rank').innerText = '-';
-    document.getElementById('pub-last-seen').innerText = 'جاري الحساب...';
-    document.getElementById('pub-online-status').className = 'absolute bottom-1 right-1 w-4 h-4 bg-gray-400 border-2 border-white rounded-full shadow-sm';
+    // دالة مساعدة لتحديث العناصر بأمان لمنع الانهيار إذا كان العنصر غير موجود
+    const safeSetText = (id, text) => { const el = document.getElementById(id); if(el) el.innerText = text; };
+    const safeSetHTML = (id, html) => { const el = document.getElementById(id); if(el) el.innerHTML = html; };
+    const safeSetSrc = (id, src) => { const el = document.getElementById(id); if(el) el.src = src; };
 
-    document.getElementById('pub-profile-header-bg').className = 'w-full h-28 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-gradient-to-r from-indigo-500 to-purple-600';
-    document.getElementById('pub-profile-full-bg').className = 'absolute inset-0 z-0 opacity-10 transition-all duration-500';
+    safeSetText('pub-profile-name', 'جاري التحميل...');
+    safeSetSrc('pub-profile-img', 'https://ui-avatars.com/api/?name=Loading');
+    safeSetHTML('pub-profile-name-container', '<h2 id="pub-profile-name" class="text-xl font-black text-gray-800 drop-shadow-sm">جاري التحميل...</h2>');
+    safeSetText('pub-profile-id', '...');
+    safeSetText('pub-profile-grade', '...');
+    
+    const govSpan = document.getElementById('pub-profile-gov');
+    if (govSpan) govSpan.classList.add('hidden');
+    
+    safeSetText('pub-profile-bio', '...');
+    safeSetText('pub-profile-points', '0');
+    safeSetText('pub-profile-money', '$0');
+    safeSetText('pub-stat-best-rank', '-');
+    safeSetText('pub-stat-worst-rank', '-');
+    safeSetText('pub-stat-winstreak', '0');
+    safeSetText('pub-stat-correct', '0');
+    safeSetText('pub-stat-worst', '0');
+    safeSetText('pub-last-seen', 'جاري الحساب...');
+    
+    const onlineStatus = document.getElementById('pub-online-status');
+    if (onlineStatus) onlineStatus.className = 'absolute bottom-1 right-1 w-4 h-4 bg-gray-400 border-2 border-white rounded-full shadow-sm';
+
+    const headerBg = document.getElementById('pub-profile-header-bg');
+    if (headerBg) headerBg.className = 'w-full h-28 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-gradient-to-r from-indigo-500 to-purple-600';
+    
+    const fullBg = document.getElementById('pub-profile-full-bg');
+    if (fullBg) fullBg.className = 'absolute inset-0 z-0 opacity-10 transition-all duration-500';
 
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('screen-public-profile').classList.add('active');
+    const profileScreen = document.getElementById('screen-public-profile');
+    if (profileScreen) profileScreen.classList.add('active');
 
     try {
         const userDoc = await getDoc(doc(db, "users", uid));
@@ -8335,36 +8401,50 @@ window.openPublicProfile = async function(uid) {
 
         const u = userDoc.data();
 
-        document.getElementById('pub-profile-img').src = u.photo || 'https://ui-avatars.com/api/?name=User';
-        document.getElementById('pub-profile-id').innerText = u.uniqueId;
-        document.getElementById('pub-btn-copy-id').onclick = () => window.copyIdText(u.uniqueId);
+        safeSetSrc('pub-profile-img', u.photo || 'https://ui-avatars.com/api/?name=User');
+        safeSetText('pub-profile-id', u.uniqueId || 'غير متوفر');
+        
+        const copyBtn = document.getElementById('pub-btn-copy-id');
+        if (copyBtn && u.uniqueId) copyBtn.onclick = () => window.copyIdText(u.uniqueId);
 
-        let nameHtml = `<h2 id="pub-profile-name" class="text-xl font-black text-gray-800 drop-shadow-sm">${u.name}</h2>`;
+        let nameHtml = `<h2 id="pub-profile-name" class="text-xl font-black text-gray-800 drop-shadow-sm">${u.name || 'مستخدم مجهول'}</h2>`;
         if (isPremiumValid(u) && u.selectedBadge) {
             nameHtml += `<span class="px-2.5 py-0.5 text-[10px] text-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.3)] font-bold ml-1.5 border border-white/60" style="background-color: ${u.selectedBadgeColor || '#f59e0b'}">${u.selectedBadge}</span>`;
         }
-        document.getElementById('pub-profile-name-container').innerHTML = nameHtml;
+        safeSetHTML('pub-profile-name-container', nameHtml);
 
-        document.getElementById('pub-profile-grade').innerText = u.grade ? getGradeName(u.grade) : 'مرحلة غير محددة';
+        safeSetText('pub-profile-grade', u.grade ? getGradeName(u.grade) : 'مرحلة غير محددة');
 
-        const govSpan = document.getElementById('pub-profile-gov');
-        if (u.governorate) {
+        if (u.governorate && govSpan) {
             govSpan.innerText = u.governorate;
             govSpan.classList.remove('hidden');
         }
 
-        document.getElementById('pub-profile-bio').innerText = u.bio || 'لا توجد سيرة ذاتية';
-        document.getElementById('pub-profile-points').innerText = u.points || 0;
-        document.getElementById('pub-profile-money').innerText = `$${u.balance || 0}`;
-        document.getElementById('pub-stat-best-rank').innerText = u.bestRank ? `#${u.bestRank}` : '-';
-        document.getElementById('pub-stat-worst-rank').innerText = u.worstRank ? `#${u.worstRank}` : '-';
+        safeSetText('pub-profile-bio', u.bio || 'لا توجد سيرة ذاتية');
+        safeSetText('pub-profile-points', u.points || 0);
+        safeSetText('pub-profile-money', `$${u.balance || 0}`);
+        safeSetText('pub-stat-best-rank', u.bestRank ? `#${u.bestRank}` : '-');
+        safeSetText('pub-stat-worst-rank', u.worstRank ? `#${u.worstRank}` : '-');
+        safeSetText('pub-stat-winstreak', u.bestWinStreak || u.winStreak || 0);
+        safeSetText('pub-stat-correct', u.bestCorrectStreak || 0);
+        safeSetText('pub-stat-worst', u.worstMatchScore !== undefined ? u.worstMatchScore : '-');
 
         let lastSeenText = 'غير متصل منذ فترة';
         let isOnline = false;
 
         const lastLoginValue = u.lastLogin;
         if (lastLoginValue) {
-            const lastLoginDate = typeof lastLoginValue === 'string' ? new Date(lastLoginValue) : (lastLoginValue.toDate ? lastLoginValue.toDate() : new Date(lastLoginValue));
+            let lastLoginDate;
+            if (typeof lastLoginValue === 'string') {
+                lastLoginDate = new Date(lastLoginValue);
+            } else if (typeof lastLoginValue.toDate === 'function') {
+                lastLoginDate = lastLoginValue.toDate();
+            } else if (lastLoginValue.seconds) {
+                lastLoginDate = new Date(lastLoginValue.seconds * 1000);
+            } else {
+                lastLoginDate = new Date(lastLoginValue);
+            }
+            
             if (!isNaN(lastLoginDate.getTime())) {
                 const diffMs = Date.now() - lastLoginDate.getTime();
                 const diffMins = Math.floor(diffMs / 60000);
@@ -8384,34 +8464,23 @@ window.openPublicProfile = async function(uid) {
             }
         }
 
-        document.getElementById('pub-last-seen').innerText = lastSeenText;
-        document.getElementById('pub-online-status').className = `absolute bottom-1 right-1 w-4 h-4 border-2 border-white rounded-full shadow-sm ${isOnline ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`;
+        safeSetText('pub-last-seen', lastSeenText);
+        if (onlineStatus) {
+            onlineStatus.className = `absolute bottom-1 right-1 w-4 h-4 border-2 border-white rounded-full shadow-sm ${isOnline ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`;
+        }
 
         if (isPremiumValid(u) && u.selectedBgTheme && u.selectedBgTheme !== 'bg-rank-default') {
-            const headerBg = document.getElementById('pub-profile-header-bg');
-            const fullBg = document.getElementById('pub-profile-full-bg');
-
-            headerBg.className = `w-full h-28 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-transparent`;
-            fullBg.className = `absolute inset-0 z-0 transition-all duration-500 ${u.selectedBgTheme}`;
-            fullBg.style.opacity = '0.95';
+            if (headerBg) headerBg.className = `w-full h-28 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-transparent`;
+            if (fullBg) {
+                fullBg.className = `absolute inset-0 z-0 transition-all duration-500 ${u.selectedBgTheme}`;
+                fullBg.style.opacity = '0.95';
+            }
 
             const bgEmojiMap = {
-                'bg-love': '❤️',
-                'bg-medical': '✚',
-                'bg-law': '⚖️',
-                'bg-edu': '🎓',
-                'bg-eng': '⚙️',
-                'bg-smart': '💡',
-                'bg-space': '🌑',
-                'bg-galaxy': '🌌',
-                'bg-fire': '🔥',
-                'bg-ocean': '🌊',
-                'bg-forest': '🍃',
-                'bg-hacker': '💻',
-                'bg-royal': '👑',
-                'bg-neon': '✨',
-                'bg-cyberpunk': '👾',
-                'bg-crystal': '💎'
+                'bg-love': '❤️', 'bg-medical': '✚', 'bg-law': '⚖️', 'bg-edu': '🎓',
+                'bg-eng': '⚙️', 'bg-smart': '💡', 'bg-space': '🌑', 'bg-galaxy': '🌌',
+                'bg-fire': '🔥', 'bg-ocean': '🌊', 'bg-forest': '🍃', 'bg-hacker': '💻',
+                'bg-royal': '👑', 'bg-neon': '✨', 'bg-cyberpunk': '👾', 'bg-crystal': '💎'
             };
 
             const selectedEmoji = bgEmojiMap[u.selectedBgTheme] || '🌟';
@@ -8420,88 +8489,56 @@ window.openPublicProfile = async function(uid) {
 
             const container = document.createElement('div');
             container.className = 'floating-emojis-container';
-            container.style.cssText = `
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 1;
-                pointer-events: none;
-                overflow: hidden;
-            `;
+            container.style.cssText = `position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden;`;
 
             const positions = [
-                { top: '8%', left: '15%' },
-                { top: '12%', left: '75%' },
-                { top: '40%', left: '3%' },
-                { top: '45%', left: '50%' },
-                { top: '38%', left: '90%' },
-                { top: '78%', left: '15%' },
-                { top: '82%', left: '75%' }
+                { top: '8%', left: '15%' }, { top: '12%', left: '75%' },
+                { top: '40%', left: '3%' }, { top: '45%', left: '50%' },
+                { top: '38%', left: '90%' }, { top: '78%', left: '15%' }, { top: '82%', left: '75%' }
             ];
 
             for (let i = 0; i < 7; i++) {
                 const emoji = document.createElement('div');
                 emoji.innerText = selectedEmoji;
-                emoji.style.cssText = `
-                    position: absolute;
-                    font-size: 38px;
-                    top: ${positions[i].top};
-                    left: ${positions[i].left};
-                    opacity: 0.55;
-                    filter: drop-shadow(0 0 3px rgba(255,255,255,0.3));
-                    pointer-events: none;
-                    animation: floatHorizontal${i} ${12 + (i * 1.5)}s linear infinite;
-                    z-index: 1;
-                `;
+                emoji.style.cssText = `position: absolute; font-size: 38px; top: ${positions[i].top}; left: ${positions[i].left}; opacity: 0.55; filter: drop-shadow(0 0 3px rgba(255,255,255,0.3)); pointer-events: none; animation: floatHorizontal${i} ${12 + (i * 1.5)}s linear infinite; z-index: 1;`;
 
                 const styleId = `dynamic-emoji-style-${i}`;
                 if (!document.querySelector(`#${styleId}`)) {
                     const style = document.createElement('style');
                     style.id = styleId;
-                    style.textContent = `
-                        @keyframes floatHorizontal${i} {
-                            0% {
-                                transform: translateX(0%);
-                                opacity: 0.55;
-                            }
-                            50% {
-                                opacity: 0.85;
-                            }
-                            100% {
-                                transform: translateX(-150%);
-                                opacity: 0.55;
-                            }
-                        }
-                    `;
+                    style.textContent = `@keyframes floatHorizontal${i} { 0% { transform: translateX(0%); opacity: 0.55; } 50% { opacity: 0.85; } 100% { transform: translateX(-150%); opacity: 0.55; } }`;
                     document.head.appendChild(style);
                 }
-
                 container.appendChild(emoji);
             }
 
-            const profileScreen = document.getElementById('screen-public-profile');
-            profileScreen.appendChild(container);
-
-            const scrollContainer = profileScreen.querySelector('.scroll-container');
-            if (scrollContainer) {
-                scrollContainer.style.position = 'relative';
-                scrollContainer.style.zIndex = '10';
+            if (profileScreen) {
+                profileScreen.appendChild(container);
+                const scrollContainer = profileScreen.querySelector('.scroll-container');
+                if (scrollContainer) {
+                    scrollContainer.style.position = 'relative';
+                    scrollContainer.style.zIndex = '10';
+                }
             }
         } else {
-            fullBg.className = 'absolute inset-0 z-0 opacity-10 transition-all duration-500';
-            fullBg.style.opacity = '0.1';
+            if (fullBg) {
+                fullBg.className = 'absolute inset-0 z-0 opacity-10 transition-all duration-500';
+                fullBg.style.opacity = '0.1';
+            }
         }
 
-        document.getElementById('pub-btn-friendly').dataset.uid = uid;
-        document.getElementById('pub-btn-friendly').dataset.uniqueid = u.uniqueId;
+        // تحديث جميع أزرار "طلب مباراة ودية" الموجودة في الصفحة لتجنب الأخطاء
+        const friendlyBtns = document.querySelectorAll('#pub-btn-friendly');
+        friendlyBtns.forEach(btn => {
+            btn.dataset.uid = uid;
+            btn.dataset.uniqueid = u.uniqueId || '';
+        });
 
         history.pushState({ screen: 'screen-public-profile', type: 'sub' }, '', '#public-profile');
 
     } catch (error) {
         console.error("Error loading profile:", error);
-        showBeautifulAlert('error', 'خطأ', 'تعذر جلب بيانات اللاعب');
+        showBeautifulAlert('error', 'خطأ', 'تعذر جلب بيانات اللاعب.');
         closePublicProfile();
     }
 };
