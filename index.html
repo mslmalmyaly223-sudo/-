@@ -2749,7 +2749,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 29;
+        const CURRENT_APP_VERSION = 30;
 
 async function checkForUpdates() {
     try {
@@ -5257,26 +5257,22 @@ function showWithdrawalResult() {
             pointsLost = 10;
         }
     } else {
-        } else {
         if (myScore > opScore) {
             msg = "فوز ساحق!";
             icon = "🏆";
             playSound('win');
             pointsGained = myScore * 2;
             if (isPremiumValid(userData)) pointsGained *= 2;
-            pointsLost = 0;
         } else if (myScore < opScore) {
             msg = "حظ أوفر!";
             icon = "😢";
             playSound('lose');
-            pointsGained = 0;
-            pointsLost = opScore;   // <--- رجعت مثل ما كان قبل (بدون مضاعفة وبدون حد أدنى)
+            pointsLost = opScore;
         } else {
             msg = myScore > 0 ? "تعادل إيجابي!" : "تعادل سلبي!";
             icon = myScore > 0 ? "🤝" : "😐";
             playSound('draw');
             pointsGained = myScore > 0 ? myScore : 1;
-            pointsLost = 0;
         }
     }
 
@@ -5317,15 +5313,16 @@ function showWithdrawalResult() {
 
                 if (!window.isCurrentMatchFriendly) {
                     if (myScore > opScore) {
-                        await updateDoc(doc(db, "users", opId), { points: increment(-pointsGained) });
+                        updateDoc(doc(db, "users", opId), { points: increment(-pointsGained) });
                     } else if (myScore < opScore) {
-                        let opAdd = pointsLost;
-                        const opSnap = await getDoc(doc(db, "users", opId));
-                        if (opSnap.exists()) {
-                            let opData = opSnap.data();
-                            if (opData.isPremium && opData.premiumExpiry?.toDate() > new Date()) opAdd *= 2;
-                            await updateDoc(doc(db, "users", opId), { points: increment(opAdd) });
-                        }
+                        let opAdd = opScore * 2;
+                        getDoc(doc(db, "users", opId)).then(opSnap => {
+                            if (opSnap.exists()) {
+                                let opData = opSnap.data();
+                                if (opData.isPremium && opData.premiumExpiry?.toDate() > new Date()) opAdd *= 2;
+                                updateDoc(doc(db, "users", opId), { points: increment(opAdd) });
+                            }
+                        });
                     }
                 }
 
@@ -5346,13 +5343,13 @@ function showWithdrawalResult() {
 
                     addDoc(collection(db, "notifications"), {
                         userId: opId, type: 'reward',
-                        message: `🎉 مبروك! لقد فزت على "${userData.name}" بنتيجة ${opScore}-${myScore} ${matchTypeTxt} وتمت إضافة النقاط لرصيدك.`,
+                        message: `🎉 مبروك! لقد فزت على "${userData.name}" بنتيجة ${opScore}-${myScore} ${matchTypeTxt} (أثناء غيابك) وتمت إضافة النقاط لرصيدك.`,
                         read: false, createdAt: serverTimestamp()
                     });
                 }
             }
 
-                                    if (!window.isCurrentMatchFriendly || currentGameMode === 'achievement_test') {
+            if (!window.isCurrentMatchFriendly || currentGameMode === 'achievement_test') {
                 myChange = pointsGained > 0 ? pointsGained : -pointsLost;
 
                 let dbUpdates = {};
@@ -5382,25 +5379,12 @@ function showWithdrawalResult() {
                 }
 
                 await updateDoc(doc(db, "users", currentUser.uid), dbUpdates);
-                
-                // 🔥 التزامن السريع: جلب البيانات الجديدة من Firebase بعد التحديث مباشرة
-                const updatedUserDoc = await getDoc(doc(db, "users", currentUser.uid));
-                if (updatedUserDoc.exists()) {
-                    const freshUserData = updatedUserDoc.data();
-                    userData.points = freshUserData.points || 0;
-                    userData.winStreak = freshUserData.winStreak || 0;
-                    userData.bestWinStreak = freshUserData.bestWinStreak || 0;
-                    userData.bestCorrectStreak = freshUserData.bestCorrectStreak || 0;
-                    userData.worstMatchScore = freshUserData.worstMatchScore || 0;
-                } else {
-                    userData.points += myChange;
-                }
-                
+                userData.points += myChange;
                 setupHeaderUI();
 
                 if (pointsGained > 0 && userData.governorate) {
                     try {
-                        await updateDoc(doc(db, "governorates", userData.governorate), { totalPoints: increment(pointsGained) });
+                        updateDoc(doc(db, "governorates", userData.governorate), { totalPoints: increment(pointsGained) });
                     } catch (e) {}
                 }
             }
