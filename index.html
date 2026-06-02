@@ -2862,7 +2862,7 @@ document.addEventListener('click', function(e) {
         const subjects = {
     '6sci': ['اسلامية', 'قواعد', 'ادب', 'انكليزي', 'احياء', 'رياضيات', 'كيمياء', 'فيزياء'],
     '6lit': ['اسلامية', 'قواعد', 'ادب', 'انكليزي', 'تاريخ', 'رياضيات', 'جغرافية', 'اقتصاد'],
-    '3med': ['اسلامية', 'عربي', 'انكليزي', 'رياضيات', 'كيمياء', 'فيزياء', 'اجتماعيات', 'احياء']
+    '3med': ['اسلامية', 'قواعد', 'ادب', 'انكليزي', 'رياضيات', 'كيمياء', 'فيزياء', 'اجتماعيات', 'احياء']
 };
 
         // المواد المشتركة بين (السادس العلمي والسادس الأدبي) فـقـط
@@ -2899,12 +2899,13 @@ document.addEventListener('click', function(e) {
     },
     '3med': {
         'اسلامية': ['أحكام التلاوة', 'الفصل الاول', 'الفصل الثاني', 'الفصل الثالث', 'الفصل الرابع', 'الفصل الخامس'],
-        'عربي': generateChapters(7),
+        'قواعد': ['الجزء الاول', 'الجزء الثاني'],
+        'ادب': ['الجزء الاول', 'الجزء الثاني'],
         'انكليزي': generateChapters(8, 'الوحدة'),
         'رياضيات': generateChapters(6),
         'كيمياء': generateChapters(6),
         'فيزياء': generateChapters(9),
-        'اجتماعيات': generateChapters(8),
+        'اجتماعيات': ['الجغرافية', 'التاريخ', 'الوطنية'],
         'احياء': generateChapters(8)
     }
 };
@@ -6961,40 +6962,23 @@ window.addFileToAIQueue = async function() {
         }
 
         const queue = getAIQueue();
-        const NUM_CHUNKS = 8; 
-        let chunksArray = [];
         
-        // تقسيم النص وحفظ الأجزاء في مصفوفة (Array)
-        if (fullText.length > 1000) {
-            const chunkSize = Math.ceil(fullText.length / NUM_CHUNKS);
-            for (let c = 0; c < NUM_CHUNKS; c++) {
-                let start = c * chunkSize;
-                let end = Math.min((c + 1) * chunkSize, fullText.length);
-                let chunkText = fullText.substring(start, end);
-                if (chunkText.trim().length > 0) {
-                    chunksArray.push(chunkText);
-                }
-            }
-        } else {
-            if (fullText.trim().length > 0) chunksArray.push(fullText);
-        }
-
-        // إنشاء مهمة (مستطيل) واحد يحتوي على كل الأجزاء
-        if (chunksArray.length > 0) {
+        // إرسال النص دفعة واحدة بدون تقسيم (أمر رقم 3)
+        if (fullText.trim().length > 0) {
             queue.push({
                 id: Date.now().toString(),
                 grade: grade,
                 subject: subject,
                 chapter: chapter,
                 type: selectedBulkType,
-                chunksText: chunksArray, // هنا خزنّا كل الأجزاء
-                totalChunks: chunksArray.length, // العدد الكلي (مثلاً 8)
-                processedChunks: 0, // العداد يبدأ من صفر
+                fullText: fullText, // قراءة وحفظ النص من البداية للنهاية بدون قص (أمر رقم 4)
+                totalChunks: 1, // للمحافظة على شكل الواجهة
+                processedChunks: 0,
                 status: 'waiting', 
-                questions: [], // الاسئلة راح تتجمع هنا
+                questions: [],
                 createdAt: Date.now()
             });
-            showBeautifulAlert('success', 'تم الإضافة', `تمت إضافة الملف كطابور واحد! سيتم استخراج ${chunksArray.length} أجزاء تباعاً 🚀.`);
+            showBeautifulAlert('success', 'تم الإضافة', `تمت إضافة الملف كطابور واحد! سيتم استخراج الأسئلة من كامل المنهج دفعة واحدة 🚀.`);
         }
 
         saveAIQueue(queue);
@@ -7117,8 +7101,7 @@ async function processNextInQueue() {
     const cooldownUntil = localStorage.getItem('admin_ai_cooldown');
     const cooldownBanner = document.getElementById('ai-cooldown-banner');
     const timerText = document.getElementById('ai-cooldown-timer');
-    
-    // فحص الاستراحة (لو خلصت طاقة الذكاء الاصطناعي)
+
     if (cooldownUntil && Date.now() < parseInt(cooldownUntil)) {
         if (cooldownBanner) {
             cooldownBanner.classList.remove('hidden');
@@ -7127,7 +7110,6 @@ async function processNextInQueue() {
             const seconds = Math.floor((diffMs % 60000) / 1000);
             if (timerText) timerText.innerText = `${minutes}:${seconds < 10 ? '0'+seconds : seconds}`;
         }
-        // إعادة المحاولة بعد ثانية للتحقق من انتهاء الحظر
         setTimeout(processNextInQueue, 1000);
         return; 
     } else {
@@ -7136,17 +7118,12 @@ async function processNextInQueue() {
     }
 
     const queue = getAIQueue();
-    
-    // 1. البحث عن مهمة قيد المعالجة حالياً (Processing) لتكملة أجزائها
     let activeTaskIndex = queue.findIndex(t => t.status === 'processing');
-    
-    // 2. إذا ماكو، نبحث عن مهمة جديدة بانتظار البدء (Waiting)
     if (activeTaskIndex === -1) {
         activeTaskIndex = queue.findIndex(t => t.status === 'waiting');
     }
 
     if (activeTaskIndex === -1) {
-        // لا توجد مهام بالطابور! إيقاف المعالج وإطفاء خدمة الخلفية
         isQueueProcessing = false; 
         if(typeof window.SketchwareJS !== 'undefined' && window.SketchwareJS.stopBackgroundService) {
             window.SketchwareJS.stopBackgroundService();
@@ -7154,211 +7131,154 @@ async function processNextInQueue() {
         return;
     }
 
-    // تجهيز المهمة للبدء
     const task = queue[activeTaskIndex];
     task.status = 'processing';
     saveAIQueue(queue);
 
-    const currentChunkText = task.chunksText[task.processedChunks];
-
     let subjectInstructions = "";
-    if (task.subject === 'رياضيات') {
-        subjectInstructions = "استخرج مسائل حسابية ومعادلات فقط. للخيارات الخاطئة ضع نواتج مموهة ومحتملة. استخدم صيغة LaTeX الرياضية (بين $ للسطري و $$ للمستقل) لجميع الأرقام والمعادلات.";
-    } else if (['فيزياء', 'كيمياء', 'اقتصاد'].includes(task.subject)) {
-        subjectInstructions = "استخرج 50% مسائل وحسابات رياضية، و 50% كلاميات (تعاليل، تعاريف، مفاهيم). استخدم صيغة LaTeX الرياضية (بين $ للسطري و $$ للمستقل) للأرقام والمعادلات.";
+    if (['رياضيات', 'فيزياء', 'كيمياء', 'اقتصاد'].includes(task.subject)) {
+        subjectInstructions = "هذه مادة علمية/رقمية. استخرج المسائل، القوانين، والمفاهيم العلمية الأساسية. للخيارات الخاطئة ضع نواتج أو مفاهيم قريبة للتمويه، وتأكد أن الإجابة الصحيحة دقيقة علمياً. استخدم صيغة LaTeX الرياضية (بين $ للسطري و $$ للمستقل) للأرقام والمعادلات.";
     } else if (['انكليزي', 'عربي', 'قواعد', 'ادب'].includes(task.subject)) {
-        subjectInstructions = "استخرج أسئلة تركز على القواعد، المعاني، والمفردات المذكورة في النص بشكل دقيق.";
+        subjectInstructions = "هذه مادة لغوية/أدبية. ركز على القواعد والمفردات والإعراب والأحكام المذكورة حصراً في النص. اجعل الخيارات الخاطئة قريبة لغوياً.";
     } else {
-        subjectInstructions = "استخرج أسئلة شرحيات وحفظيات متنوعة تغطي التعاليل، التعاريف، والفراغات.";
+        subjectInstructions = "هذه مادة حفظية/شرحيات. استخرج أسئلة واضحة من التعاليل، التعاريف، والأسس المهمة في صلب النص فقط.";
     }
 
-    const promptMCQ = `أنت خبير تربوي. المطلوب استخراج 25 سؤال اختيار من متعدد (MCQ) من هذا النص للمادة: ${task.subject}.
-التعليمات: ${subjectInstructions}
-- (شرط التوزيع): استخرج الأسئلة بشكل مشتت ومتنوع من كامل النص المرفق.
-- يجب أن تكون الخيارات الثلاثة متساوية تماماً في الطول.
-النص:
-${currentChunkText}`;
+    const promptMCQ = `أنت أستاذ وموجه تربوي عراقي محترف تضع أسئلة وزارية. مهمتك وضع أسئلة ذكية، عادلة، ومنطقية جداً.
+    المادة الحالية: ${task.subject}. 
+    ${subjectInstructions}
+    
+    شروط الاستخراج (إجباري جداً):
+    1. استخرج الأسئلة حصرياً من النص المرفق. يمنع منعاً باتاً تأليف أي معلومة خارجية.
+    2. ممنوع الإشارة إلى أرقام الصفحات، الملازم، أو كتابة "في النص المرفق" أو "حسب الكاتب". اطرح السؤال العلمي مباشرة وكأنه في ورقة امتحان.
+    3. يجب أن تقوم بتوزيع استخراج الأسئلة على كامل النص المرفق (من أول سطر إلى آخر سطر) لضمان تغطية المادة بالكامل.
+    4. استخرج أقصى عدد ممكن من الأسئلة المتاحة (حتى 150 سؤالاً)، بشرط عدم تكرار الفكرة، وأن تكون الأسئلة منطقية وواردة في الامتحانات.
+    
+    شروط الاختيارات (MCQ):
+    1. لكل سؤال 3 خيارات فقط. خيار واحد صحيح فقط.
+    2. الخيارات الخاطئة يجب أن تكون "مشتتات ذكية" لاختبار تركيز الطالب.
+    3. الإرجاع بصيغة JSON مصفوفة.
+    
+    النص: ${task.fullText}`;
 
-    const promptTF = `أنت خبير تربوي. المطلوب استخراج 25 سؤال صح وخطأ من هذا النص للمادة: ${task.subject}.
-التعليمات: ${subjectInstructions}
-- (شرط التوزيع): استخرج الأسئلة بشكل مشتت ومتنوع من كامل النص المرفق.
-- اجعل نصف الإجابات صحيحة ونصفها خاطئ بالتلاعب بكلمة جوهرية أو رقم.
-النص:
-${currentChunkText}`;
+    const promptTF = `أنت أستاذ وموجه تربوي عراقي محترف تضع أسئلة وزارية. مهمتك وضع أسئلة "صح وخطأ" ذكية ومنطقية.
+    المادة الحالية: ${task.subject}.
+    ${subjectInstructions}
+    
+    شروط الاستخراج (إجباري جداً):
+    1. استخرج الأسئلة حصرياً من النص المرفق. يمنع منعاً باتاً تأليف معلومات خارجية.
+    2. ممنوع الإشارة إلى أرقام الصفحات أو إضافة أي تعليق مثل "مكتوب في الصفحة". اطرح المعلومة العلمية مباشرة في السؤال.
+    3. قم بعمل مسح وتوزيع للأسئلة على كامل مساحة النص المرفق لتغطيته بالكامل.
+    4. استخرج أقصى عدد ممكن من الأسئلة المتاحة (حتى 150 سؤالاً).
+    
+    شروط الصح والخطأ:
+    1. نصف الأسئلة تقريباً إجابتها "خطأ" والنصف الآخر "صح".
+    2. لصياغة جملة "خطأ" بذكاء: خذ حقيقة منهجية مهمة من النص وغير كلمة مفصلية فيها (رقم، قانون، معنى) لتصبح خاطئة علمياً.
+    3. الإرجاع بصيغة JSON مصفوفة.
+    
+    النص: ${task.fullText}`;
 
     const finalPrompt = task.type === 'mcq' ? promptMCQ : promptTF;
 
-    const schemaMCQ = {
-        type: "OBJECT",
-        properties: {
-            data: {
-                type: "ARRAY",
-                items: {
-                    type: "OBJECT",
-                    properties: {
-                        question: { type: "STRING" },
-                        answers: { type: "ARRAY", items: { type: "STRING" } },
-                        correct: { type: "INTEGER" }
-                    },
-                    required: ["question", "answers", "correct"]
-                }
-            }
-        },
-        required: ["data"]
-    };
-
-    const schemaTF = {
-        type: "OBJECT",
-        properties: {
-            data: {
-                type: "ARRAY",
-                items: {
-                    type: "OBJECT",
-                    properties: {
-                        question: { type: "STRING" },
-                        correct: { type: "BOOLEAN" }
-                    },
-                    required: ["question", "correct"]
-                }
-            }
-        },
-        required: ["data"]
-    };
+    const schemaMCQ = { type: "OBJECT", properties: { data: { type: "ARRAY", items: { type: "OBJECT", properties: { question: { type: "STRING" }, answers: { type: "ARRAY", items: { type: "STRING" } }, correct: { type: "INTEGER" } }, required: ["question", "answers", "correct"] } } }, required: ["data"] };
+    const schemaTF = { type: "OBJECT", properties: { data: { type: "ARRAY", items: { type: "OBJECT", properties: { question: { type: "STRING" }, correct: { type: "BOOLEAN" } }, required: ["question", "correct"] } } }, required: ["data"] };
 
     const currentSchema = task.type === 'mcq' ? schemaMCQ : schemaTF;
 
-    let isSuccess = false;
-    let extractedQuestions = [];
+    let isExtractionSuccessful = false;
+    let finalQuestions = [];
     let lastErrorMessage = "غير معروف";
 
+    // اللوب السحري: يجرب المفاتيح واحد ورا الثاني تدريجياً (أمر رقم 1 و 5)
     for (let keyIndex = 0; keyIndex < GEMINI_API_KEYS.length; keyIndex++) {
         const currentKey = GEMINI_API_KEYS[keyIndex];
-        let keyWorks = false;
-
+        
         try {
             const modelsRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${currentKey}`);
             if (!modelsRes.ok) {
-                lastErrorMessage = `المفتاح رقم ${keyIndex + 1} محظور`;
+                console.log(`فشل المفتاح ${keyIndex + 1}، جاري تجربة المفتاح التالي...`);
                 continue;
             }
             
             const modelsData = await modelsRes.json();
+            const availableModels = modelsData.models.filter(m => 
+                m.supportedGenerationMethods && 
+                m.supportedGenerationMethods.includes("generateContent") && 
+                m.name.includes("gemini")
+            );
+
+            if(availableModels.length === 0) continue;
+
+            // اختيار النموذج المطابق للدالة القديمة (أمر رقم 2)
+            const targetModel = availableModels.find(m => m.name.includes("2.5") && m.name.includes("flash")) 
+                             || availableModels.find(m => m.name.includes("2.0") && m.name.includes("flash"))
+                             || availableModels.find(m => m.name.includes("flash")) 
+                             || availableModels[0];
+
+            console.log(`تم العثور على النموذج: ${targetModel.name} باستخدام المفتاح ${keyIndex + 1}`);
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/${targetModel.name}:generateContent?key=${currentKey}`;
             
-            let validModels = modelsData.models.filter(m => {
-                const nameLower = m.name.toLowerCase();
-                return nameLower.includes("gemini") && 
-                       m.supportedGenerationMethods.includes("generateContent") &&
-                       !nameLower.includes("lite") && 
-                       !nameLower.includes("light");
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: finalPrompt }] }],
+                    generationConfig: { response_mime_type: "application/json", response_schema: currentSchema, temperature: 0.6 }
+                })
             });
-            
-            if(validModels.length === 0) continue;
-            validModels.sort((a, b) => a.name.localeCompare(b.name));
 
-            for (const targetModel of validModels) {
-                try {
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/${targetModel.name}:generateContent?key=${currentKey}`;
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: finalPrompt }] }],
-                            generationConfig: { 
-                                response_mime_type: "application/json",
-                                response_schema: currentSchema,
-                                temperature: 0.2, 
-                                maxOutputTokens: 8192
-                            }
-                        })
-                    });
+            const result = await response.json();
 
-                    const result = await response.json();
-                    
-                    if (!response.ok || result.error) {
-                        lastErrorMessage = `نموذج ${targetModel.name} رفض الطلب: ${result.error?.message}`;
-                        continue;
-                    }
+            if (response.ok && !result.error) {
+                const questionsText = result.candidates[0].content.parts[0].text;
+                const parsedData = JSON.parse(questionsText);
+                let rawArray = Array.isArray(parsedData) ? parsedData : (parsedData.data || []);
 
-                    const questionsText = result.candidates[0].content.parts[0].text;
-                    
-                    try {
-                        const parsedData = JSON.parse(questionsText);
-                        let rawArray = Array.isArray(parsedData) ? parsedData : (parsedData.data || []);
-                        
-                        if (rawArray.length > 0) {
-                            extractedQuestions = rawArray.map(q => {
-                                if (task.type === 'mcq') {
-                                    let safeAnswers = q.answers || q.options || q.choices || q.الخيارات;
-                                    if (!Array.isArray(safeAnswers) || safeAnswers.length === 0) {
-                                        safeAnswers = ["خطأ في الاستخراج", "بيانات مفقودة", "تمويه فارغ"];
-                                    }
-                                    return {
-                                        question: q.question || q.السؤال || "سؤال غير معروف",
-                                        answers: safeAnswers,
-                                        correct: typeof q.correct === 'number' ? q.correct : 0
-                                    };
-                                } else {
-                                    let isTrue = true;
-                                    if (q.correct === false || q.correct === 'false' || q.correct === 0) isTrue = false;
-                                    return {
-                                        question: q.question || q.السؤال || "سؤال غير معروف",
-                                        correct: isTrue
-                                    };
-                                }
-                            });
-                            
-                            isSuccess = true;
-                            keyWorks = true;
-                            break;
+                if (rawArray.length > 0) {
+                    finalQuestions = rawArray.map(q => {
+                        if (task.type === 'mcq') {
+                            let safeAnswers = q.answers || q.options || q.choices || q.الخيارات;
+                            if (!Array.isArray(safeAnswers) || safeAnswers.length === 0) safeAnswers = ["خطأ في الاستخراج", "بيانات مفقودة", "تمويه فارغ"];
+                            return { question: q.question || q.السؤال || "سؤال غير معروف", answers: safeAnswers, correct: typeof q.correct === 'number' ? q.correct : 0 };
                         } else {
-                            lastErrorMessage = `النموذج ${targetModel.name} أرجع بيانات فارغة`;
+                            let isTrue = true;
+                            if (q.correct === false || q.correct === 'false' || q.correct === 0) isTrue = false;
+                            return { question: q.question || q.السؤال || "سؤال غير معروف", correct: isTrue };
                         }
-                    } catch (parseError) {
-                        lastErrorMessage = `خطأ في القراءة JSON: ${parseError.message}`;
-                    }
-
-                } catch (modelErr) { 
-                    lastErrorMessage = `فشل الاتصال: ${modelErr.message}`;
+                    });
+                    isExtractionSuccessful = true;
+                    console.log(`تم الاستخراج بنجاح باستخدام المفتاح ${keyIndex + 1}`);
+                    break; // بمجرد النجاح، نخرج من اللوب ونوقف البحث
                 }
-            } 
+            } else {
+                lastErrorMessage = result.error?.message || "خطأ في الاستجابة";
+                console.log(`المفتاح ${keyIndex + 1} فشل، جاري المحاولة...`);
+            }
         } catch (e) {
-            lastErrorMessage = `مشكلة شبكة`;
+            lastErrorMessage = e.message;
         }
-        
-        if (keyWorks) break; 
     }
 
-    const currentQueue = getAIQueue();
-    const taskToUpdate = currentQueue.find(t => t.id === task.id);
+    // حفظ النتيجة النهائية في الطابور
+    const finalQueue = getAIQueue();
+    const taskToUpdate = finalQueue.find(t => t.id === task.id);
     
-    if (isSuccess && taskToUpdate) {
-        // دمج الأسئلة المستخرجة مع الأسئلة السابقة لنفس الملف
-        taskToUpdate.questions = taskToUpdate.questions.concat(extractedQuestions);
-        // زيادة العداد
-        taskToUpdate.processedChunks++;
-        taskToUpdate.errorReason = null;
-        
-        // التحقق إذا خلصنا كل أجزاء الملف
-        if (taskToUpdate.processedChunks >= taskToUpdate.totalChunks) {
+    if (taskToUpdate) {
+        if (isExtractionSuccessful && finalQuestions.length > 0) {
+            taskToUpdate.questions = finalQuestions;
             taskToUpdate.status = 'extracted';
-            taskToUpdate.chunksText = []; // تفريغ الذاكرة لأن خلصنا
+            taskToUpdate.processedChunks = 1; // لكي تظهر مكتملة في الواجهة
+            taskToUpdate.fullText = ""; // تفريغ النص لتوفير مساحة الذاكرة
+        } else {
+            taskToUpdate.status = 'failed';
+            taskToUpdate.errorReason = lastErrorMessage || "استنفدت جميع المفاتيح قدرتها أو النص غير صالح.";
         }
-        
-        saveAIQueue(currentQueue);
-        
-        // إذا نجح الاستخراج، نستدعي الجزء البعده مباشرة بدون توقف
-        setTimeout(processNextInQueue, 2000);
-        
-    } else {
-        if (taskToUpdate) {
-            taskToUpdate.status = 'failed'; 
-            taskToUpdate.errorReason = lastErrorMessage;
-            saveAIQueue(currentQueue);
-            showBeautifulAlert('error', 'توقف الاستخراج', `تم إيقاف استخراج باقي أجزاء الملف.\nالسبب: ${lastErrorMessage}\n\nيمكنك الضغط على 'استكمال الباقي' للمحاولة من جديد.`);
-        }
-        // في حالة الفشل نوقف المعالج، حتى يضغط المستخدم على "استكمال الباقي"
-        isQueueProcessing = false;
+        saveAIQueue(finalQueue);
     }
+
+    // الانتقال لمعالجة الملف التالي الموجود بالطابور فوراً
+    setTimeout(processNextInQueue, 2000); 
 }
 
 window.retryAITask = function(taskId) {
