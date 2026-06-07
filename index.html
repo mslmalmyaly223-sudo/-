@@ -850,8 +850,15 @@
 /* تنسيق الخط النجفي/الكوفي في الأسفل */
 .najafi-kufi-text {
     font-family: 'Reem Kufi', sans-serif;
+    font-size: 1.4rem; /* تكبير الخط */
+    font-weight: 900; /* أقصى سماكة متوفرة */
+    letter-spacing: 0.15em; /* زيادة العرض والمسافة بين الحروف للفخامة */
+    background: linear-gradient(to bottom, #312e81, #4f46e5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 4px 15px rgba(79, 70, 229, 0.4); /* ظل فخم */
     opacity: 0;
-    animation: fadeInNajafi 1s ease-out 1.5s forwards;
+    animation: fadeInNajafi 1.2s ease-out 1.5s forwards;
 }
 
 @keyframes fadeInNajafi {
@@ -1467,6 +1474,45 @@
                         <input type="file" id="edit-pic-input" hidden accept="image/*" onchange="updateProfilePic(this)">
                     </div>
                 </div>
+
+                <!-- بطاقة إحصائيات أبطال العراق الفخمة -->
+                <div class="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-3xl p-5 mb-6 mt-2 shadow-[0_10px_25px_rgba(49,46,129,0.3)] relative overflow-hidden">
+                    <!-- مؤثرات الإضاءة الخلفية -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-indigo-500 opacity-10 rounded-full blur-2xl transform -translate-x-5 translate-y-5"></div>
+                    
+                    <div class="flex items-center gap-3 mb-5 relative z-10">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg border border-yellow-200">
+                            <i class="fas fa-trophy text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-black text-white text-base">تصنيف أبطال العراق</h3>
+                            <p class="text-[10px] text-indigo-200 font-bold mt-0.5">سجلك التاريخي في الترتيب العام</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2.5 relative z-10">
+                        <!-- المركز الحالي -->
+                        <div class="bg-white/10 rounded-2xl p-3 border border-white/10 text-center backdrop-blur-md shadow-inner">
+                            <i class="fas fa-medal text-yellow-400 mb-1.5 text-lg drop-shadow-md"></i>
+                            <p class="text-[9px] text-gray-300 font-bold mb-0.5 uppercase tracking-wide">المركز الحالي</p>
+                            <p id="my-stat-current-rank" class="text-xl font-black text-white drop-shadow-sm">-</p>
+                        </div>
+                        <!-- أفضل مركز -->
+                        <div class="bg-emerald-500/10 rounded-2xl p-3 border border-emerald-500/20 text-center backdrop-blur-md shadow-inner">
+                            <i class="fas fa-arrow-trend-up text-emerald-400 mb-1.5 text-lg drop-shadow-md"></i>
+                            <p class="text-[9px] text-gray-300 font-bold mb-0.5 uppercase tracking-wide">أفضل مركز</p>
+                            <p id="my-stat-best-rank" class="text-xl font-black text-emerald-300 drop-shadow-sm">-</p>
+                        </div>
+                        <!-- أسوء مركز -->
+                        <div class="bg-rose-500/10 rounded-2xl p-3 border border-rose-500/20 text-center backdrop-blur-md shadow-inner">
+                            <i class="fas fa-arrow-trend-down text-rose-400 mb-1.5 text-lg drop-shadow-md"></i>
+                            <p class="text-[9px] text-gray-300 font-bold mb-0.5 uppercase tracking-wide">أسوء مركز</p>
+                            <p id="my-stat-worst-rank" class="text-xl font-black text-rose-300 drop-shadow-sm">-</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- نهاية البطاقة -->
 
                 <div class="space-y-3 pb-20">
             <button onclick="openPage('screen-wallet')" class="stat-btn border-green-100 bg-green-50">
@@ -2431,7 +2477,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 34;
+        const CURRENT_APP_VERSION = 35;
 
 async function checkForUpdates() {
     try {
@@ -2917,17 +2963,54 @@ window.initGlobalLeaderboardListener = async function(forceRefresh = false) {
                 uniqueId: d.uniqueId, isPremium: d.isPremium, premiumExpiry: d.premiumExpiry,
                 selectedBadge: d.selectedBadge, selectedBadgeColor: d.selectedBadgeColor,
                 selectedBgTheme: d.selectedBgTheme, bio: d.bio, governorate: d.governorate,
-                avatarGender: d.avatarGender // <--- الإضافة السحرية لحل مشكلة اللقب
+                avatarGender: d.avatarGender
             });
         });
 
         window.globalLeaderboardData = tempList;
 
-        if (currentUser) {
+        if (currentUser && userData) {
             const myIndex = window.globalLeaderboardData.findIndex(u => u.id === currentUser.uid);
             myCachedRank = myIndex !== -1 ? myIndex + 1 : "+50";
+            
             const rankEl = document.getElementById('my-rank-text');
             if (rankEl) rankEl.innerText = "#" + myCachedRank;
+            
+            // --- التعديل السحري: تسجيل أفضل وأسوء مركز ديناميكياً ولحظياً ---
+            if (myIndex !== -1 && userData.points > 0) {
+                let liveRank = myIndex + 1;
+                let needsUpdate = false;
+                
+                // إذا ماعنده أفضل مركز أو مركزه الحالي أفضل من السابق (رقم أقل يعني أحسن)
+                if (!userData.bestRank || liveRank < userData.bestRank) {
+                    userData.bestRank = liveRank;
+                    needsUpdate = true;
+                }
+                
+                // إذا ماعنده أسوء مركز أو مركزه الحالي أسوء من السابق (رقم أكبر يعني أسوء)
+                if (!userData.worstRank || liveRank > userData.worstRank) {
+                    userData.worstRank = liveRank;
+                    needsUpdate = true;
+                }
+                
+                if (needsUpdate) {
+                    // التحديث بالفايربيس حتى يظل محفوظ بحسابه للأبد
+                    updateDoc(doc(db, "users", currentUser.uid), { 
+                        bestRank: userData.bestRank, 
+                        worstRank: userData.worstRank 
+                    }).catch(e => console.log("Rank Update Error:", e));
+                }
+            }
+            
+            // تحديث الأرقام ببطاقة الحساب مباشرة وبدون رفرش
+            const bestEl = document.getElementById('my-stat-best-rank');
+            const worstEl = document.getElementById('my-stat-worst-rank');
+            const currentEl = document.getElementById('my-stat-current-rank');
+            
+            if (bestEl) bestEl.innerText = userData.bestRank ? "#" + userData.bestRank : '-';
+            if (worstEl) worstEl.innerText = userData.worstRank ? "#" + userData.worstRank : '-';
+            if (currentEl) currentEl.innerText = myCachedRank.toString().includes('#') ? myCachedRank : "#" + myCachedRank;
+            // -----------------------------------------------------------------
         }
 
         const leaderboardTab = document.getElementById('tab-leaderboard');
@@ -3417,21 +3500,45 @@ window.checkDailyReward = async () => {
     const currentDayIndex = iraqDate.getDay(); 
     const grid = document.getElementById('reward-grid-container');
     grid.innerHTML = '';
+    // إضافة كلاسات الجريد هنا لترتيب العناصر بشكل احترافي
+    grid.className = "grid grid-cols-3 gap-3 my-4"; 
     
     for(let i = 0; i < 7; i++) {
-        let cls = "day-box";
+        let cls = "relative flex flex-col items-center justify-center p-3 rounded-2xl border-2 transition-all duration-300 ";
+        let content = '';
+        const rewardItem = GLOBAL_DAILY_REWARDS[i];
+        let rewardText = rewardItem.type === 'money' ? `$${rewardItem.value}` : `${rewardItem.value}`;
+        let rewardIcon = rewardItem.type === 'money' ? '<i class="fas fa-money-bill-wave text-emerald-500 mb-1 text-xl"></i>' : '<i class="fas fa-gem text-indigo-500 mb-1 text-xl"></i>';
+
         if (i < currentDayIndex) {
-            cls += " claimed opacity-80"; 
+            // الأيام السابقة (تم استلامها)
+            cls += "bg-gray-50 border-gray-200 opacity-70 grayscale-[50%]";
+            content = `
+                <div class="absolute inset-0 bg-white/60 rounded-2xl flex items-center justify-center z-10">
+                    <i class="fas fa-check-circle text-green-500 text-2xl drop-shadow-md"></i>
+                </div>
+                ${rewardIcon}
+                <p class="text-[10px] text-gray-500 font-bold">${rewardItem.dayName}</p>
+                <span class="font-black text-gray-400 text-sm">${rewardText}</span>`;
         } else if (i === currentDayIndex) {
-            cls += " active"; 
+            // اليوم الحالي (المتاح للاستلام)
+            cls += "bg-gradient-to-b from-indigo-50 to-purple-50 border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.4)] transform scale-105 z-10";
+            if (i === 6) cls += " col-span-3"; // يوم السبت يأخذ العرض بالكامل لجمالية التصميم
+            content = `
+                <div class="absolute -top-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-[9px] font-black px-3 py-1 rounded-full shadow-md animate-pulse">هذا اليوم</div>
+                ${rewardIcon}
+                <p class="text-[11px] text-indigo-900 font-black mb-0.5">${rewardItem.dayName}</p>
+                <span class="font-black text-indigo-600 text-base">${rewardText}</span>`;
         } else {
-            cls += " locked opacity-50"; 
+            // الأيام القادمة (مغلقة)
+            cls += "bg-white border-gray-100 opacity-60";
+            content = `
+                ${rewardIcon}
+                <p class="text-[10px] text-gray-400 font-bold">${rewardItem.dayName}</p>
+                <span class="font-black text-gray-300 text-sm">${rewardText}</span>
+                <i class="fas fa-lock absolute bottom-1.5 right-1.5 text-gray-300 text-[10px]"></i>`;
         }
         
-        const rewardItem = GLOBAL_DAILY_REWARDS[i]; // استخدام المصفوفة العامة
-        let rewardText = rewardItem.type === 'money' ? `$${rewardItem.value}` : `${rewardItem.value} نقطة`;
-        
-        let content = `<style>.day-box.claimed::after { content: '✖'; }</style><p class="text-[10px] whitespace-nowrap">${rewardItem.dayName}</p><span>${rewardText}</span>`;
         grid.innerHTML += `<div class="${cls}">${content}</div>`;
     }
     document.getElementById('daily-reward-screen').classList.remove('hidden');
@@ -3700,9 +3807,9 @@ window.markNotificationsAsRead = () => window.markAllNotificationsAsRead(false);
         function setupProfileUI() {
             document.getElementById('profile-name-text').innerText = userData.name;
             const idEl = document.getElementById('profile-id-text');
-idEl.innerText = "ID: " + userData.uniqueId;
-idEl.classList.add('cursor-pointer', 'hover:text-indigo-500', 'transition');
-idEl.onclick = () => window.copyIdText(userData.uniqueId);
+            idEl.innerText = "ID: " + userData.uniqueId;
+            idEl.classList.add('cursor-pointer', 'hover:text-indigo-500', 'transition');
+            idEl.onclick = () => window.copyIdText(userData.uniqueId);
             document.getElementById('profile-img').src = userData.photo;
             
             let bioText = userData.bio || "لا يوجد سيرة ذاتية";
@@ -3723,7 +3830,18 @@ idEl.onclick = () => window.copyIdText(userData.uniqueId);
                 container.insertBefore(badgeSpan, document.getElementById('profile-name-text').nextSibling);
             }
             
+            // --- السطر الجديد لربط إحصائيات أبطال العراق بالملف الشخصي ---
+            const safeSetText = (id, text) => { const el = document.getElementById(id); if(el) el.innerText = text; };
+            safeSetText('my-stat-best-rank', userData.bestRank ? `#${userData.bestRank}` : '-');
+            safeSetText('my-stat-worst-rank', userData.worstRank ? `#${userData.worstRank}` : '-');
             
+            // جلب المركز الحالي من المتغير العالمي الخاص بالتصنيف
+            let currentRankDisplay = "-";
+            if (typeof myCachedRank !== 'undefined' && myCachedRank !== "...") {
+                currentRankDisplay = myCachedRank.toString().includes('#') ? myCachedRank : `#${myCachedRank}`;
+            }
+            safeSetText('my-stat-current-rank', currentRankDisplay);
+            // -------------------------------------------------------------
 
             document.getElementById('wallet-balance').innerText = userData.balance || 0;
             if ((userData.balance || 0) >= 100) {
@@ -6882,26 +7000,61 @@ async function processNextInQueue() {
             subjectInstructions = "استخرج أسئلة شرحيات وحفظيات متنوعة تغطي التعاليل، التعاريف، والفراغات.";
         }
 
-        const promptMCQ = `أنت خبير تربوي عراقي. المطلوب استخراج أسئلة اختيار من متعدد (MCQ) شاملة (حوالي 100 إلى 150 سؤال) من النص المرفق للمادة: ${task.subject}.
+        const promptMCQ = `أنت أستاذ وخبير تربوي عراقي محترف جداً. 
+المطلوب: استخراج أسئلة اختيار من متعدد (MCQ) تتراوح بين (150 إلى 550 سؤال) من النص المرفق للمادة: ${task.subject}.
 التعليمات: ${subjectInstructions}
-- (الشمولية التامة): إياك أن تتجاهل نهاية النص. يجب مسح النص بالكامل من الكلمة الأولى وحتى السطر الأخير. وزع الأسئلة بإنصاف على البداية، الوسط، والنهاية.
-- (الأفكار): نوع الأفكار (سهل، متوسط، ذكي) بواقعية تناسب الامتحانات الوزارية من داخل النص حصراً.
-- (السرعة): اطبع مصفوفة الـ JSON مباشرة وبأسرع ما يمكن، بدون أي مقدمات أو شروحات. تأكد من إغلاق الـ JSON بشكل صحيح.
+- (الذكاء والابتعاد عن العبثية): استخرج الأسئلة من صلب المادة العلمية والحقائق فقط! يُمنع منعاً باتاً استخراج أسئلة تعتمد على أرقام الصفحات، العناوين الجانبية، أو أسئلة مثل "ماذا بعد التمرين كذا؟" أو "النشاط رقم 5". ركز على المفاهيم، التعاليل، والمسائل.
+- (الخيارات الثلاثة): يجب أن يحتوي كل سؤال على 3 خيارات فقط لا غير (1 صحيح و 2 خاطئة لكن مموهة بذكاء).
+- (الشمولية): امسح النص بالكامل ولا تتجاهل نهايته.
+- (السرعة): اطبع مصفوفة الـ JSON مباشرة.
 النص:
 ${currentChunkText}`;
 
-        const promptTF = `أنت خبير تربوي عراقي. المطلوب استخراج أسئلة صح وخطأ شاملة (حوالي 100 إلى 150 سؤال) من النص المرفق للمادة: ${task.subject}.
+        const promptTF = `أنت أستاذ وخبير تربوي عراقي محترف جداً. 
+المطلوب: استخراج أسئلة صح وخطأ تتراوح بين (150 إلى 550 سؤال) من النص المرفق للمادة: ${task.subject}.
 التعليمات: ${subjectInstructions}
-- (الشمولية التامة): إياك أن تتجاهل نهاية النص. يجب مسح النص بالكامل من الكلمة الأولى وحتى السطر الأخير. وزع الأسئلة بإنصاف على البداية، الوسط، والنهاية.
-- (الأفكار): نوع الأفكار (سهل، متوسط، ذكي) بواقعية تناسب الامتحانات الوزارية. اجعل نصفها صح ونصفها خطأ.
-- (السرعة): اطبع مصفوفة الـ JSON مباشرة وبأسرع ما يمكن، بدون أي مقدمات أو شروحات. تأكد من إغلاق الـ JSON بشكل صحيح.
+- (الذكاء والابتعاد عن العبثية): يُمنع منعاً باتاً استخراج أسئلة تخص أرقام التمارين والصفحات والمحتوى غير العلمي. ركز فقط على الحقائق والمعلومات المنهجية.
+- (الشمولية): اجعل نصف الأسئلة (صح) ونصفها (خطأ) بناءً على تغيير بعض الكلمات بذكاء للإيقاع بالطالب.
+- (السرعة): اطبع مصفوفة الـ JSON مباشرة.
 النص:
 ${currentChunkText}`;
 
-        const finalPrompt = task.type === 'mcq' ? promptMCQ : promptTF;
+const schemaMCQ = { 
+    type: "OBJECT", 
+    properties: { 
+        data: { 
+            type: "ARRAY", 
+            items: { 
+                type: "OBJECT", 
+                properties: { 
+                    question: { type: "STRING" }, 
+                    answers: { type: "ARRAY", items: { type: "STRING" }, description: "يجب استخراج 3 خيارات فقط لا غير لكل سؤال" }, 
+                    correct: { type: "INTEGER", description: "رقم الإجابة الصحيحة: 0 أو 1 أو 2" } 
+                }, 
+                required: ["question", "answers", "correct"] 
+            } 
+        } 
+    }, 
+    required: ["data"] 
+};
 
-        const schemaMCQ = { type: "OBJECT", properties: { data: { type: "ARRAY", items: { type: "OBJECT", properties: { question: { type: "STRING" }, answers: { type: "ARRAY", items: { type: "STRING" } }, correct: { type: "INTEGER" } }, required: ["question", "answers", "correct"] } } }, required: ["data"] };
-        const schemaTF = { type: "OBJECT", properties: { data: { type: "ARRAY", items: { type: "OBJECT", properties: { question: { type: "STRING" }, correct: { type: "BOOLEAN" } }, required: ["question", "correct"] } } }, required: ["data"] };
+const schemaTF = { 
+    type: "OBJECT", 
+    properties: { 
+        data: { 
+            type: "ARRAY", 
+            items: { 
+                type: "OBJECT", 
+                properties: { 
+                    question: { type: "STRING" }, 
+                    correct: { type: "BOOLEAN" } 
+                }, 
+                required: ["question", "correct"] 
+            } 
+        } 
+    }, 
+    required: ["data"] 
+};
 
         const currentSchema = task.type === 'mcq' ? schemaMCQ : schemaTF;
 
