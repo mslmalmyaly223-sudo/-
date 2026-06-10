@@ -11,7 +11,6 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
     <script>
         window.MathJax = {
@@ -894,6 +893,27 @@
     100% { background-position: 0% 100%; }
 }
 
+/* ستايلات اللفل الاحترافية */
+.user-level-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 900;
+    margin-right: 5px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ألوان متغيرة حسب المستوى */
+.level-tier-low { background: linear-gradient(135deg, #3b82f6, #1d4ed8); } /* أزرق: لفل 1-5 */
+.level-tier-mid { background: linear-gradient(135deg, #10b981, #047857); } /* أخضر: لفل 6-10 */
+.level-tier-high { background: linear-gradient(135deg, #f59e0b, #b45309); } /* ذهبي: لفل 11-20 */
+.level-tier-pro { background: linear-gradient(135deg, #ef4444, #991b1b); animation: pulse-red 2s infinite; } /* أحمر: لفل 21-50 */
+.level-tier-god { background: linear-gradient(135deg, #a855f7, #6b21a8, #ec4899); animation: glitch 2s infinite; } /* أسطوري: 51+ */
+
     </style>
 </head>
 <body>
@@ -1450,8 +1470,8 @@
 
         <div id="tab-profile" class="screen pt-20">
     <div class="scroll-container px-5">
-        <div class="bg-white p-6 rounded-3xl shadow-sm text-center mb-6 mt-4 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-10"></div>
+        <div id="private-profile-card" class="bg-white p-6 rounded-3xl shadow-sm text-center mb-6 mt-4 relative overflow-hidden bg-cover bg-center bg-no-repeat">
+            <div id="private-profile-gradient" class="absolute top-0 left-0 w-full h-16 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-10 z-0"></div>
                     <div class="relative z-10">
                         <img id="profile-img" src="" class="w-24 h-24 rounded-full mx-auto border-4 border-white shadow-md mb-3 object-cover">
                         <div class="flex items-center justify-center gap-2 flex-wrap" id="profile-name-container">
@@ -1475,45 +1495,6 @@
                     </div>
                 </div>
 
-                <!-- بطاقة إحصائيات أبطال العراق الفخمة -->
-                <div class="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-3xl p-5 mb-6 mt-2 shadow-[0_10px_25px_rgba(49,46,129,0.3)] relative overflow-hidden">
-                    <!-- مؤثرات الإضاءة الخلفية -->
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
-                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-indigo-500 opacity-10 rounded-full blur-2xl transform -translate-x-5 translate-y-5"></div>
-                    
-                    <div class="flex items-center gap-3 mb-5 relative z-10">
-                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg border border-yellow-200">
-                            <i class="fas fa-trophy text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-black text-white text-base">تصنيف أبطال العراق</h3>
-                            <p class="text-[10px] text-indigo-200 font-bold mt-0.5">سجلك التاريخي في الترتيب العام</p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-2.5 relative z-10">
-                        <!-- المركز الحالي -->
-                        <div class="bg-white/10 rounded-2xl p-3 border border-white/10 text-center backdrop-blur-md shadow-inner">
-                            <i class="fas fa-medal text-yellow-400 mb-1.5 text-lg drop-shadow-md"></i>
-                            <p class="text-[9px] text-gray-300 font-bold mb-0.5 uppercase tracking-wide">المركز الحالي</p>
-                            <p id="my-stat-current-rank" class="text-xl font-black text-white drop-shadow-sm">-</p>
-                        </div>
-                        <!-- أفضل مركز -->
-                        <div class="bg-emerald-500/10 rounded-2xl p-3 border border-emerald-500/20 text-center backdrop-blur-md shadow-inner">
-                            <i class="fas fa-arrow-trend-up text-emerald-400 mb-1.5 text-lg drop-shadow-md"></i>
-                            <p class="text-[9px] text-gray-300 font-bold mb-0.5 uppercase tracking-wide">أفضل مركز</p>
-                            <p id="my-stat-best-rank" class="text-xl font-black text-emerald-300 drop-shadow-sm">-</p>
-                        </div>
-                        <!-- أسوء مركز -->
-                        <div class="bg-rose-500/10 rounded-2xl p-3 border border-rose-500/20 text-center backdrop-blur-md shadow-inner">
-                            <i class="fas fa-arrow-trend-down text-rose-400 mb-1.5 text-lg drop-shadow-md"></i>
-                            <p class="text-[9px] text-gray-300 font-bold mb-0.5 uppercase tracking-wide">أسوء مركز</p>
-                            <p id="my-stat-worst-rank" class="text-xl font-black text-rose-300 drop-shadow-sm">-</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- نهاية البطاقة -->
-
                 <div class="space-y-3 pb-20">
             <button onclick="openPage('screen-wallet')" class="stat-btn border-green-100 bg-green-50">
                 <div class="flex items-center gap-3">
@@ -1522,25 +1503,34 @@
                 </div>
                 <i class="fas fa-chevron-left text-gray-300"></i>
             </button>
+            
+            <button onclick="openPage('screen-hacker-store')" class="stat-btn border-purple-200 bg-purple-50 mt-2 shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-purple-600 shadow-inner">
+                        <i class="fas fa-store text-lg"></i>
+                    </div>
+                    <span class="font-bold text-purple-800">متجر الهكر 🛒</span>
+                </div>
+                <i class="fas fa-chevron-left text-gray-300"></i>
+            </button>
 
             <button onclick="window.open('https://t.me/mslmr19', '_blank')" class="stat-btn border-blue-100 bg-blue-50">
-    <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-600"><i class="fas fa-headset"></i></div>
-        <span class="font-bold text-blue-700">التواصل مع الدعم</span>
-    </div>
-    <i class="fas fa-chevron-left text-gray-300"></i>
-</button>      
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-600"><i class="fas fa-headset"></i></div>
+                    <span class="font-bold text-blue-700">التواصل مع الدعم</span>
+                </div>
+                <i class="fas fa-chevron-left text-gray-300"></i>
+            </button>      
 
-<!-- الزر الجديد لقناة التلكرام -->
-<button onclick="window.open('https://t.me/Ministerial_hacker', '_blank')" class="stat-btn border-indigo-100 bg-indigo-50 mt-1">
-    <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-indigo-600"><i class="fab fa-telegram-plane text-xl"></i></div>
-        <span class="font-bold text-indigo-800">قناة التلكرام الرسمية</span>
-    </div>
-    <i class="fas fa-chevron-left text-gray-300"></i>
-</button>
+            <button onclick="window.open('https://t.me/Ministerial_hacker', '_blank')" class="stat-btn border-indigo-100 bg-indigo-50 mt-1">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-indigo-600"><i class="fab fa-telegram-plane text-xl"></i></div>
+                    <span class="font-bold text-indigo-800">قناة التلكرام الرسمية</span>
+                </div>
+                <i class="fas fa-chevron-left text-gray-300"></i>
+            </button>
 
-<div id="admin-hub-btn-container" class="hidden">
+            <div id="admin-hub-btn-container" class="hidden">
                 <button onclick="openPage('screen-admin-hub')" class="stat-btn border-red-200 bg-red-50 shadow-md">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-red-600 relative">
@@ -1553,7 +1543,15 @@
                 </button>
             </div>
 
-            <button onclick="logout()" class="stat-btn mt-6 border-red-100 text-red-500">
+            <button onclick="openPage('screen-settings')" class="stat-btn border-gray-200 bg-gray-50 mt-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-600"><i class="fas fa-cog text-xl"></i></div>
+                    <span class="font-bold text-gray-800">الإعدادات</span>
+                </div>
+                <i class="fas fa-chevron-left text-gray-300"></i>
+            </button>
+
+            <button onclick="logout()" class="stat-btn mt-2 border-red-100 text-red-500">
                 <div class="flex items-center gap-3">
                     <i class="fas fa-sign-out-alt px-3"></i>
                     <span class="font-bold">تسجيل الخروج</span>
@@ -1666,6 +1664,81 @@
     </div>
 </div>
                 </div>
+            </div>
+        </div>
+        
+        <div id="screen-hacker-store" class="screen pt-20 bg-slate-50">
+            <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
+                <button onclick="backToProfile()" class="text-gray-500 hover:text-gray-800 transition"><i class="fas fa-arrow-right text-xl"></i></button>
+                <h1 class="font-black text-lg text-purple-800">متجر الهكر 🛒</h1>
+                <div class="mr-auto bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100 flex items-center gap-1 shadow-sm">
+                    <span id="store-user-balance" class="font-bold text-emerald-700">$0</span>
+                </div>
+            </div>
+            
+            <div class="scroll-container px-5 py-6 space-y-5 pb-24">
+                
+                <div class="bg-white p-5 rounded-2xl border-2 border-yellow-200 shadow-md relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-yellow-400 text-white text-[10px] font-black px-3 py-1 rounded-bl-xl shadow-sm">يدوي</div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-white text-2xl shadow-inner shrink-0 animate-pulse">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-black text-gray-800 text-lg">اشتراك المميزين (شهر)</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-bold">احصل على كل ميزات הـ VIP (أسئلة أكثر، نقاط مضاعفة، أدوات هكر).</p>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-lg font-black text-emerald-600">30$</span>
+                                <button id="btn-buy-sub" onclick="buyStoreItem('sub', 30)" class="bg-indigo-600 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-indigo-700 transition active:scale-95">شراء الآن</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border-2 border-blue-200 shadow-md relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-[10px] font-black px-3 py-1 rounded-bl-xl shadow-sm">تلقائي</div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center text-white text-2xl shadow-inner shrink-0">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div class="flex-1 w-full">
+                            <h3 class="font-black text-gray-800 text-lg">خلفية مخصصة (شهر)</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-bold">ارفع صورة من جهازك لتصبح خلفية حسابك في التصنيف والملف الشخصي.</p>
+                            
+                            <div class="mt-3 flex gap-2 items-center w-full">
+                                <input type="file" id="store-bg-upload" accept="image/*" class="hidden" onchange="previewStoreBg(this)">
+                                <button onclick="document.getElementById('store-bg-upload').click()" class="flex-1 bg-gray-100 text-gray-600 text-xs font-bold py-2 rounded-lg border border-gray-300 hover:bg-gray-200">اختر صورة 📁</button>
+                                <span id="store-bg-status" class="text-[10px] text-red-500 font-bold">لم يتم الاختيار</span>
+                            </div>
+
+                            <div class="flex justify-between items-center mt-4 w-full">
+                                <span class="text-lg font-black text-emerald-600">25$</span>
+                                <button onclick="buyStoreItem('bg', 25)" class="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-blue-700 transition active:scale-95">شراء وتركيب</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border-2 border-pink-200 shadow-md relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-pink-500 text-white text-[10px] font-black px-3 py-1 rounded-bl-xl shadow-sm">تلقائي</div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-pink-400 to-rose-600 rounded-xl flex items-center justify-center text-white text-2xl shadow-inner shrink-0">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="flex-1 w-full">
+                            <h3 class="font-black text-gray-800 text-lg">شعار مخصص (شهر)</h3>
+                            <p class="text-xs text-gray-500 mt-1 font-bold">اكتب أي لقب بجانب اسمك يظهر للجميع بالتصنيف.</p>
+                            
+                            <input type="text" id="store-badge-text" placeholder="اكتب الشعار (15 حرف كحد أقصى)" maxlength="15" class="input-box mt-3 text-sm font-bold text-center border-pink-100 focus:border-pink-500">
+
+                            <div class="flex justify-between items-center mt-4 w-full">
+                                <span class="text-lg font-black text-emerald-600">15$</span>
+                                <button onclick="buyStoreItem('badge', 15)" class="bg-pink-600 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-pink-700 transition active:scale-95">شراء وتركيب</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -1948,7 +2021,7 @@
             </div>
         </div> 
         
-        <div class="fixed bottom-0 w-full bg-white border-t border-gray-100 flex justify-around items-center h-20 pb-2 z-40 shadow-[0_-5px_20px_rgba(0,0,0,0.03)]">
+        <div class="fixed bottom-4 left-4 right-4 bg-white/95 backdrop-blur-xl border border-gray-100 flex justify-around items-center h-16 rounded-full z-50 shadow-[0_10px_40px_rgba(0,0,0,0.1)]">
     <div onclick="switchTab('challenges')" class="nav-item active flex-1 flex flex-col items-center justify-center h-full cursor-pointer">
         <i class="fas fa-gamepad text-xl mb-1"></i><span class="text-[10px] font-bold">التحديات</span>
     </div>
@@ -2065,20 +2138,20 @@
             
             <div id="pub-profile-full-bg" class="absolute inset-0 z-0 opacity-10 transition-all duration-500"></div>
 
-            <div id="pub-profile-header-bg" class="w-full h-28 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-gradient-to-r from-indigo-500 to-purple-600">
-                <button onclick="closePublicProfile()" class="absolute top-6 right-4 w-7 h-7 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition shadow-sm border border-white/30">
-                    <i class="fas fa-arrow-right text-xs"></i>
-                </button>
+            <div class="scroll-container px-4 pt-0 pb-20 relative z-10">
                 
-                <div class="absolute -bottom-10 left-1/2 transform -translate-x-1/2">
-                    <div class="relative">
-                        <img id="pub-profile-img" src="" class="w-20 h-20 rounded-full border-[3px] border-white shadow-lg object-cover bg-white">
-                        <div id="pub-online-status" class="absolute bottom-1 right-1 w-4 h-4 bg-gray-400 border-2 border-white rounded-full shadow-sm"></div>
+                <div id="pub-profile-header-bg" class="-mx-4 w-[calc(100%+2rem)] h-36 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-gradient-to-r from-indigo-500 to-purple-600 mb-14">
+                    <button onclick="closePublicProfile()" class="absolute top-6 right-4 w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition shadow-sm border border-white/30 z-20">
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </button>
+                    
+                    <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2 z-20">
+                        <div class="relative">
+                            <img id="pub-profile-img" src="" class="w-24 h-24 rounded-full border-4 border-white shadow-xl object-cover bg-white">
+                            <div id="pub-online-status" class="absolute bottom-1 right-1 w-5 h-5 bg-gray-400 border-[3px] border-white rounded-full shadow-sm"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="scroll-container px-4 pt-12 pb-20 relative z-10">
                 
                 <div class="text-center mb-4 animate-[fadeIn_0.3s_ease-out]">
                     <div class="flex items-center justify-center gap-1.5 flex-wrap mb-1" id="pub-profile-name-container">
@@ -2453,9 +2526,81 @@
     </div>
 </div>
 
+<div id="screen-settings" class="screen pt-20">
+    <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
+        <button onclick="backToProfile()" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
+        <h1 class="font-bold text-lg text-gray-800">الإعدادات ⚙️</h1>
+    </div>
+    <div class="scroll-container px-5 py-6">
+        <div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-100">
+            <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">إعدادات الحساب</h3>
+            
+            <button onclick="document.getElementById('change-password-modal').classList.remove('hidden')" class="stat-btn bg-gray-50 border-gray-200 mb-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-indigo-600"><i class="fas fa-lock"></i></div>
+                    <span class="font-bold text-gray-700 text-sm">تغيير كلمة المرور</span>
+                </div>
+                <i class="fas fa-chevron-left text-gray-300"></i>
+            </button>
+
+            <button onclick="document.getElementById('change-email-modal').classList.remove('hidden')" class="stat-btn bg-gray-50 border-gray-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-purple-600"><i class="fas fa-envelope"></i></div>
+                    <span class="font-bold text-gray-700 text-sm">تغيير البريد الإلكتروني</span>
+                </div>
+                <i class="fas fa-chevron-left text-gray-300"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="change-password-modal" class="modal-overlay hidden" style="z-index: 99999;">
+    <div class="modal-content relative bg-white p-6 rounded-3xl max-w-sm w-full mx-4 shadow-2xl">
+        <button onclick="document.getElementById('change-password-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i class="fas fa-times"></i></button>
+        <h3 class="font-black text-lg text-indigo-700 mb-4 text-center">تغيير كلمة المرور</h3>
+        
+        <div class="space-y-3 mb-6 text-right">
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-1">كلمة المرور الحالية</label>
+                <input type="password" id="old-pass-input" placeholder="••••••••" class="input-box">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-1">كلمة المرور الجديدة</label>
+                <input type="password" id="new-pass-input" placeholder="••••••••" class="input-box">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-1">تأكيد كلمة المرور الجديدة</label>
+                <input type="password" id="confirm-new-pass-input" placeholder="••••••••" class="input-box">
+            </div>
+        </div>
+        
+        <button onclick="changeUserPassword()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl shadow-md hover:bg-indigo-700 transition">تأكيد وتغيير</button>
+    </div>
+</div>
+
+<div id="change-email-modal" class="modal-overlay hidden" style="z-index: 99999;">
+    <div class="modal-content relative bg-white p-6 rounded-3xl max-w-sm w-full mx-4 shadow-2xl">
+        <button onclick="document.getElementById('change-email-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i class="fas fa-times"></i></button>
+        <h3 class="font-black text-lg text-purple-700 mb-4 text-center">تغيير البريد الإلكتروني</h3>
+        
+        <div class="space-y-3 mb-6 text-right">
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-1">كلمة المرور الحالية (للتأكيد)</label>
+                <input type="password" id="email-auth-pass-input" placeholder="••••••••" class="input-box">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-500 mb-1">البريد الإلكتروني الجديد</label>
+                <input type="email" id="new-email-input" placeholder="new@gmail.com" class="input-box">
+            </div>
+        </div>
+        
+        <button onclick="changeUserEmail()" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl shadow-md hover:bg-purple-700 transition">تأكيد وتغيير</button>
+    </div>
+</div>
+
 <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence, sendPasswordResetEmail, EmailAuthProvider, reauthenticateWithCredential, updatePassword, updateEmail } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, doc, setDoc, updateDoc, onSnapshot, query, where, orderBy, limit, deleteDoc, serverTimestamp, increment, getDoc, writeBatch, Timestamp, runTransaction, getCountFromServer } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 
@@ -2477,7 +2622,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 35;
+        const CURRENT_APP_VERSION = 37;
 
 async function checkForUpdates() {
     try {
@@ -2854,43 +2999,46 @@ if (userData.grade) {
             const timerEl = document.getElementById('weekly-timer');
 
             async function checkAutoDistribute() {
-    try {
-        const now = getIraqDate();
-        const dayOfWeek = now.getDay();
-        
-        // إذا كنا في يوم الجمعة (5) أو السبت (6) أو الأحد (0)
-        // هذا يضمن أن التوزيع يحدث حتى لو دخل اللاعب بعد 10 ساعات من موعد التصفير!
-        if (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) {
-            
-            // حساب تاريخ يوم الجمعة الحالي بالضبط ليكون القفل موحد
-            let thisFriday = new Date(now);
-            const daysSinceFriday = (dayOfWeek === 5) ? 0 : (dayOfWeek === 6) ? 1 : 2;
-            thisFriday.setDate(now.getDate() - daysSinceFriday);
-            
-            const weekLockId = `week_lock_${thisFriday.getFullYear()}_${thisFriday.getMonth()}_${thisFriday.getDate()}`;
-            const lockRef = doc(db, "system_settings", weekLockId);
-            const lockSnap = await getDoc(lockRef);
-            
-            if (!lockSnap.exists()) {
                 try {
-                    await runTransaction(db, async (transaction) => {
-                        const tDoc = await transaction.get(lockRef);
-                        if (tDoc.exists()) throw "تم التوزيع مسبقاً";
-                        transaction.set(lockRef, {
-                            timestamp: serverTimestamp(),
-                            distributedBy: currentUser?.uid || 'auto-system',
-                            lockedAt: new Date().toISOString()
-                        });
-                    });
-                    console.log("⏳ حان الوقت! جاري التصفير الشامل والتوزيع التلقائي المتأخر...");
-                    await autoDistributeWeeklyPrizes();
-                } catch (e) {
-                    console.log("تم إيقاف التوزيع المتكرر: ", e);
-                }
+                    const now = getIraqDate();
+                    // التوزيع يشتغل إذا چان اليوم سبت (6) أو أحد (0) في حال محد فتح التطبيق السبت
+                    if (now.getDay() === 6 || now.getDay() === 0) {
+                        
+                        // نولد قفل (Lock) خاص بهذا الأسبوع حتى مستحيل يتكرر التوزيع
+                        let thisSaturday = new Date(now);
+                        if (now.getDay() === 0) thisSaturday.setDate(now.getDate() - 1); 
+                        
+                        const weekLockId = `week_lock_${thisSaturday.getFullYear()}_${thisSaturday.getMonth()}_${thisSaturday.getDate()}`;
+                        const lockRef = doc(db, "system_settings", weekLockId);
+                        const lockSnap = await getDoc(lockRef);
+                        
+                        // إذا القفل ماموجود، يعني التوزيع مال هذا الأسبوع بعده ما صاير
+                        if (!lockSnap.exists()) {
+                            try {
+                                // نستخدم (Transaction) حتى إذا 100 طالب فتحوا التطبيق بنفس الثانية، بس أول واحد يقفلها البقية ينرفضون!
+                                await runTransaction(db, async (transaction) => {
+                                    const tDoc = await transaction.get(lockRef);
+                                    if (tDoc.exists()) throw "تم التوزيع مسبقاً من قبل شخص آخر";
+                                    
+                                    transaction.set(lockRef, {
+                                        timestamp: serverTimestamp(),
+                                        distributedBy: currentUser?.uid || 'auto-system',
+                                        lockedAt: new Date().toISOString()
+                                    });
+                                });
+                                
+                                console.log("⏳ جهازك هو البطل! جاري التصفير والتوزيع التلقائي بالخلفية...");
+                                
+                                // تشغيل التوزيع بصمت (false تعني بدون ما نطلع رسالة للمستخدم المكتشف)
+                                await executeDistributionProcess(false); 
+                                
+                            } catch (e) {
+                                console.log("تم إيقاف التوزيع المتكرر: ", e);
+                            }
+                        }
+                    }
+                } catch(e) { console.error("خطأ في فحص التوزيع:", e); }
             }
-        }
-    } catch(e) { console.error("خطأ في فحص التوزيع:", e); }
-}
 
             function updateTimer() {
                 const now = getIraqDate();
@@ -3091,6 +3239,12 @@ window.initGlobalLeaderboardListener = async function(forceRefresh = false) {
                     let updates = { points: 0, previousPoints: uData.points || 0 };
                     let myRank = index + 1;
                     let isWinner = myRank <= 10 && (uData.points || 0) >= 150;
+                    
+                    let extraMsg = "";
+                    if (myRank === 1) {
+                        updates.level = increment(1); // السطر السحري لرفع اللفل للمركز الأول
+                        extraMsg = "\n\n⭐ مبروك! لفل حسابك صعد درجة لأنك الأول! ⭐";
+                    }
 
                     if (isWinner) {
                         let prize = prizes[index]; // الأموال ثابتة بدون مضاعفات للمميزين نهائياً
@@ -3122,7 +3276,7 @@ window.initGlobalLeaderboardListener = async function(forceRefresh = false) {
                         const notifRef = doc(collection(db, "notifications"));
                         globalBatch.set(notifRef, {
                             userId: uData.id, type: 'weekly',
-                            message: `🏆 مبروك يا بطل! لقد فزت بالجائزة 🥇\n\nأنهيت الأسبوع بالمركز: #${myRank}\nنقاطك: ${uData.points}\nالجائزة: ${prize}$ دولار 💵${govMsg}\n\nتم تصفير النقاط وبدء أسبوع جديد!`,
+                            message: `🏆 مبروك يا بطل! لقد فزت بالجائزة 🥇\n\nأنهيت الأسبوع بالمركز: #${myRank}\nنقاطك: ${uData.points}\nالجائزة: ${prize}$ دولار 💵${extraMsg}${govMsg}\n\nتم تصفير النقاط وبدء أسبوع جديد!`,
                             read: false, createdAt: serverTimestamp()
                         });
                         operationCount++;
@@ -3806,12 +3960,79 @@ window.markNotificationsAsRead = () => window.markAllNotificationsAsRead(false);
 
         function setupProfileUI() {
             document.getElementById('profile-name-text').innerText = userData.name;
+const lvlContainer = document.getElementById('profile-name-container');
+const oldLvl = lvlContainer.querySelector('.user-level-tag');
+if(oldLvl) oldLvl.remove();
+lvlContainer.insertAdjacentHTML('beforeend', window.getLevelUI(userData.level));
             const idEl = document.getElementById('profile-id-text');
             idEl.innerText = "ID: " + userData.uniqueId;
             idEl.classList.add('cursor-pointer', 'hover:text-indigo-500', 'transition');
             idEl.onclick = () => window.copyIdText(userData.uniqueId);
             document.getElementById('profile-img').src = userData.photo;
-            
+
+            // --- كود عرض الخلفية المخصصة في حسابي (النسخة الأقوى والمضمونة 100%) ---
+            const privateCard = document.getElementById('private-profile-card');
+            const privateGradient = document.getElementById('private-profile-gradient');
+            const nameText = document.getElementById('profile-name-text');
+            const idText = document.getElementById('profile-id-text');
+            const bioTextEl = document.getElementById('profile-bio-text');
+
+            if (privateCard && privateGradient) {
+                let isBgValid = false;
+                
+                // فحص ذكي وقوي لصلاحية الصورة (يتعامل مع كل صيغ الوقت بالفايربيس)
+                if (userData.customBgImage && userData.customBgExpiry) {
+                    try {
+                        let expiryDate;
+                        if (typeof userData.customBgExpiry.toDate === 'function') {
+                            expiryDate = userData.customBgExpiry.toDate();
+                        } else if (userData.customBgExpiry.seconds) {
+                            expiryDate = new Date(userData.customBgExpiry.seconds * 1000);
+                        } else {
+                            expiryDate = new Date(userData.customBgExpiry);
+                        }
+                        if (expiryDate > new Date()) isBgValid = true;
+                    } catch (e) {
+                        isBgValid = true; // في حال فشل قراءة الوقت نعتبرها صالحة مؤقتاً
+                    }
+                }
+
+                if (isBgValid) {
+                    // إجبار الكارت على عرض الصورة وإزالة اللون الأبيض نهائياً
+                    privateCard.style.background = `url('${userData.customBgImage}') center top / cover no-repeat`;
+                    privateCard.className = "p-6 rounded-3xl shadow-xl text-center mb-6 mt-4 relative overflow-hidden border-2 border-indigo-400";
+                    
+                    // إضافة طبقة تعتيم سوداء شفافة لضمان وضوح النصوص
+                    privateGradient.className = "absolute inset-0 bg-black/50 z-0"; 
+                    
+                    // تلوين النصوص للأبيض حتى تبين بوضوح فوق الصورة
+                    if(nameText) { nameText.classList.remove('text-gray-800'); nameText.classList.add('text-white', 'relative', 'z-10'); }
+                    if(idText) { idText.classList.remove('text-gray-400'); idText.classList.add('text-gray-200', 'relative', 'z-10'); }
+                    if(bioTextEl) { bioTextEl.classList.remove('text-gray-600'); bioTextEl.classList.add('text-gray-200', 'relative', 'z-10'); }
+
+                } else if (isPremiumValid(userData) && userData.selectedBgTheme && userData.selectedBgTheme !== 'bg-rank-default') {
+                    // خلفية ملونة للمميزين
+                    privateCard.style.background = 'none';
+                    privateCard.className = `p-6 rounded-3xl shadow-md text-center mb-6 mt-4 relative overflow-hidden text-white ${userData.selectedBgTheme}`;
+                    privateGradient.className = "hidden";
+                    
+                    if(nameText) { nameText.classList.remove('text-gray-800'); nameText.classList.add('text-white', 'relative', 'z-10'); }
+                    if(idText) { idText.classList.remove('text-gray-400'); idText.classList.add('text-gray-200', 'relative', 'z-10'); }
+                    if(bioTextEl) { bioTextEl.classList.remove('text-gray-600'); bioTextEl.classList.add('text-gray-200', 'relative', 'z-10'); }
+
+                } else {
+                    // الوضع الافتراضي (أبيض)
+                    privateCard.style.background = 'none';
+                    privateCard.className = "bg-white p-6 rounded-3xl shadow-sm text-center mb-6 mt-4 relative overflow-hidden";
+                    privateGradient.className = "absolute top-0 left-0 w-full h-16 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-10 z-0";
+                    
+                    if(nameText) { nameText.classList.remove('text-white'); nameText.classList.add('text-gray-800'); }
+                    if(idText) { idText.classList.remove('text-gray-200'); idText.classList.add('text-gray-400'); }
+                    if(bioTextEl) { bioTextEl.classList.remove('text-gray-200'); bioTextEl.classList.add('text-gray-600'); }
+                }
+            }
+            // -------------------------------------------------------------------------
+
             let bioText = userData.bio || "لا يوجد سيرة ذاتية";
             if (bioText.length > 40) {
                 bioText = bioText.substring(0, 40) + "...";
@@ -3830,18 +4051,6 @@ window.markNotificationsAsRead = () => window.markAllNotificationsAsRead(false);
                 container.insertBefore(badgeSpan, document.getElementById('profile-name-text').nextSibling);
             }
             
-            // --- السطر الجديد لربط إحصائيات أبطال العراق بالملف الشخصي ---
-            const safeSetText = (id, text) => { const el = document.getElementById(id); if(el) el.innerText = text; };
-            safeSetText('my-stat-best-rank', userData.bestRank ? `#${userData.bestRank}` : '-');
-            safeSetText('my-stat-worst-rank', userData.worstRank ? `#${userData.worstRank}` : '-');
-            
-            // جلب المركز الحالي من المتغير العالمي الخاص بالتصنيف
-            let currentRankDisplay = "-";
-            if (typeof myCachedRank !== 'undefined' && myCachedRank !== "...") {
-                currentRankDisplay = myCachedRank.toString().includes('#') ? myCachedRank : `#${myCachedRank}`;
-            }
-            safeSetText('my-stat-current-rank', currentRankDisplay);
-            // -------------------------------------------------------------
 
             document.getElementById('wallet-balance').innerText = userData.balance || 0;
             if ((userData.balance || 0) >= 100) {
@@ -5850,20 +6059,28 @@ window.loadMoreLeaderboard = function() {
 // دالة الرسم النظيفة التي تعتمد على الرام
 function renderFromRAM(start, end) {
     const div = document.getElementById('leaderboard-list');
-    if (start === 0) div.innerHTML = ''; // تفريغ إذا كانت البداية
+    if (start === 0) div.innerHTML = ''; 
     
     const usersToShow = window.globalLeaderboardData.slice(start, end);
     let html = '';
     
     usersToShow.forEach((u, index) => {
-        const globalIndex = start + index;
-        let cardClass = "bg-white border-gray-100 shadow-sm";
+        const globalIndex = start + index; // هذا السطر اللي جان مفقود ووكف التطبيق
+        
         let backgroundClass = "bg-rank-default";
         let premiumOverlay = "";
+        let inlineStyle = ""; 
+        let cardClass = "bg-white border-gray-100 shadow-sm";
 
         if (globalIndex <= 9) cardClass = "bg-gradient-to-r from-indigo-50/50 to-blue-50/50 border-indigo-100 shadow-sm";
 
-        if (u.isPremium && u.premiumExpiry && u.premiumExpiry.toDate() > new Date() && u.selectedBgTheme && u.selectedBgTheme !== 'bg-rank-default') {
+if (u.customBgImage && u.customBgExpiry && u.customBgExpiry.toDate() > new Date()) {
+            // إزالة اللون الأسود المدمج مع الصورة لعرضها بألوانها الحقيقية والصافية
+            inlineStyle = `style="background-image: url('${u.customBgImage}'); background-size: cover; background-position: center;"`;
+            cardClass = "border-indigo-400 shadow-xl text-white drop-shadow-md bg-black/20 bg-blend-overlay"; // إضافة تظليل خفيف جداً خلف النص فقط للحفاظ على وضوح القراءة
+        }
+        // إذا ماعنده مشتراة، نفحص خلفية المميزين العادية
+        else if (u.isPremium && u.premiumExpiry && u.premiumExpiry.toDate() > new Date() && u.selectedBgTheme && u.selectedBgTheme !== 'bg-rank-default') {
             backgroundClass = u.selectedBgTheme;
             cardClass = "border-white/40 shadow-md text-white"; 
         }
@@ -5882,7 +6099,13 @@ function renderFromRAM(start, end) {
         else if (globalIndex <= 9) { frameClass = "border-2 border-indigo-300"; }
 
         let badgeHtml = getHeroBadge(u);
-        if (u.isPremium && u.premiumExpiry && u.premiumExpiry.toDate() > new Date() && u.selectedBadge) {
+        
+        // فحص الشعار المشترى من المتجر أولاً
+        if (u.customBadgeText && u.customBadgeExpiry && u.customBadgeExpiry.toDate() > new Date()) {
+            badgeHtml += `<span class="px-2 py-0.5 text-[9px] text-white rounded shadow-[0_0_8px_rgba(0,0,0,0.5)] mx-1 border border-white/50" style="background-color: ${u.customBadgeColor || '#e11d48'}">${u.customBadgeText}</span>`;
+        } 
+        // إذا ماعنده مشترى، نفحص شعار المميزين العادي
+        else if (u.isPremium && u.premiumExpiry && u.premiumExpiry.toDate() > new Date() && u.selectedBadge) {
             badgeHtml += `<span class="px-1.5 py-0.5 text-[9px] text-white rounded shadow-sm mx-1" style="background-color: ${u.selectedBadgeColor || '#f59e0b'}">${u.selectedBadge}</span>`;
         }
         
@@ -5901,7 +6124,7 @@ function renderFromRAM(start, end) {
 
         html += `
             <div class="relative mb-3 group animate-[slideUp_0.3s_ease-out] cursor-pointer" onclick="openPublicProfile('${u.id}')">
-                <div class="flex items-center p-2 rounded-xl border overflow-visible transition-all duration-300 ${cardClass} ${backgroundClass}">
+                <div class="flex items-center p-2 rounded-xl border overflow-visible transition-all duration-300 ${cardClass} ${backgroundClass}" ${inlineStyle}>
                     ${premiumOverlay}
                     ${rankVisual}
                     <div class="flex items-center gap-2.5 w-full z-10">
@@ -5911,7 +6134,10 @@ function renderFromRAM(start, end) {
                         </div>
                         <div class="flex-1 min-w-0 pr-1">
                             <div class="flex items-center flex-wrap gap-0.5 mb-0.5">
-                                <h3 class="font-bold text-gray-800 text-xs truncate max-w-[110px]">${u.name}</h3>
+                                <div class="flex items-center gap-1">
+                                    <h3 class="font-bold text-gray-800 text-xs truncate max-w-[100px]">${u.name}</h3>
+                                    ${window.getLevelUI ? window.getLevelUI(u.level) : ''}
+                                </div>
                                 ${premiumStar}
                                 ${badgeHtml}
                             </div>
@@ -6758,18 +6984,15 @@ window.addFileToAIQueue = async function() {
             readBar.style.width = Math.round((i / pdf.numPages) * 100) + '%';
         }
 
-        // تقطيع النص إلى أجزاء (Chunks) فعلية حتى يتحرك العداد بشكل حقيقي!
-        const chunkSize = 2500; // كل 2500 حرف تعتبر قسم
-        const chunksArray = [];
+        // إرسال النص كدفعة واحدة (بدون تقطيع) لتسريع العملية
         let cleanFullText = fullText.trim();
         
         if(cleanFullText.length === 0) {
             throw new Error("لم نتمكن من قراءة أي نص من الملف.");
         }
 
-        for (let i = 0; i < cleanFullText.length; i += chunkSize) {
-            chunksArray.push(cleanFullText.substring(i, i + chunkSize));
-        }
+        // نضع النص بالكامل كعنصر واحد في المصفوفة
+        const chunksArray = [cleanFullText];
 
         const queue = getAIQueue();
         
@@ -6779,17 +7002,17 @@ window.addFileToAIQueue = async function() {
             subject: subject,
             chapter: chapter,
             type: selectedBulkType,
-            chunks: chunksArray, // أصبح مصفوفة أجزاء حقيقية
+            chunks: chunksArray, // قطعة واحدة بالكامل
             totalChunks: chunksArray.length,
             processedChunks: 0,
             status: 'waiting', 
             questions: [],
-            progressLog: 'تم استلام الملف وتقسيمه.. ⏳', 
+            progressLog: 'تم استلام الملف بالكامل، بانتظار المعالجة.. ⏳', 
             createdAt: Date.now()
         });
 
         saveAIQueue(queue);
-        showBeautifulAlert('success', 'تم الإضافة', `تم قراءة الملف وتجزئته إلى ${chunksArray.length} أقسام وإضافته للطابور.`);
+        showBeautifulAlert('success', 'تم الإضافة', `تم قراءة الملف بنجاح وإضافته للطابور كدفعة واحدة لتسريع الاستخراج.`);
         
         fileInput.value = '';
         readProgress.classList.add('hidden');
@@ -7000,63 +7223,31 @@ async function processNextInQueue() {
             subjectInstructions = "استخرج أسئلة شرحيات وحفظيات متنوعة تغطي التعاليل، التعاريف، والفراغات.";
         }
 
-        const promptMCQ = `أنت أستاذ وخبير تربوي عراقي محترف جداً. 
-المطلوب: استخراج أسئلة اختيار من متعدد (MCQ) تتراوح بين (150 إلى 550 سؤال) من النص المرفق للمادة: ${task.subject}.
-التعليمات: ${subjectInstructions}
-- (الذكاء والابتعاد عن العبثية): استخرج الأسئلة من صلب المادة العلمية والحقائق فقط! يُمنع منعاً باتاً استخراج أسئلة تعتمد على أرقام الصفحات، العناوين الجانبية، أو أسئلة مثل "ماذا بعد التمرين كذا؟" أو "النشاط رقم 5". ركز على المفاهيم، التعاليل، والمسائل.
-- (الخيارات الثلاثة): يجب أن يحتوي كل سؤال على 3 خيارات فقط لا غير (1 صحيح و 2 خاطئة لكن مموهة بذكاء).
-- (الشمولية): امسح النص بالكامل ولا تتجاهل نهايته.
-- (السرعة): اطبع مصفوفة الـ JSON مباشرة.
+        const promptMCQ = `أنت أستاذ وخبير في مناهج وزارة التربية العراقية (السادس الإعدادي والثالث متوسط).
+المطلوب: استخراج أسئلة اختيار من متعدد (MCQ) من النص المرفق لمادة: ${task.subject}.
+التعليمات الصارمة جداً: ${subjectInstructions}
+1. (فلترة المحتوى): استخرج الأسئلة حصراً من صلب المنهج العلمي والوزاري.
+2. (التجاهل التام): يُمنع منعاً باتاً استخراج أسئلة من: حقوق الطبع، أسماء المدرسين، أرقام الهواتف، العناوين، الفهارس، التمنيات بالنجاح، أو أي نص لا يمثل معلومة علمية منهجية.
+3. (الخيارات الثلاثة): يجب أن يحتوي كل سؤال على 3 خيارات فقط: إجابة صحيحة واحدة، وإجابتين خاطئة مموهة بذكاء ومنطقية علمياً.
+4. (الدقة): إذا كان النص المرفق عبارة عن حقوق ملزمة أو نص غير تعليمي، لا تستخرج أي سؤال وأرجع مصفوفة فارغة.
 النص:
 ${currentChunkText}`;
 
-        const promptTF = `أنت أستاذ وخبير تربوي عراقي محترف جداً. 
-المطلوب: استخراج أسئلة صح وخطأ تتراوح بين (150 إلى 550 سؤال) من النص المرفق للمادة: ${task.subject}.
-التعليمات: ${subjectInstructions}
-- (الذكاء والابتعاد عن العبثية): يُمنع منعاً باتاً استخراج أسئلة تخص أرقام التمارين والصفحات والمحتوى غير العلمي. ركز فقط على الحقائق والمعلومات المنهجية.
-- (الشمولية): اجعل نصف الأسئلة (صح) ونصفها (خطأ) بناءً على تغيير بعض الكلمات بذكاء للإيقاع بالطالب.
-- (السرعة): اطبع مصفوفة الـ JSON مباشرة.
+        const promptTF = `أنت أستاذ وخبير في مناهج وزارة التربية العراقية (السادس الإعدادي والثالث متوسط).
+المطلوب: استخراج أسئلة صح وخطأ (True/False) من النص المرفق لمادة: ${task.subject}.
+التعليمات الصارمة جداً: ${subjectInstructions}
+1. (فلترة المحتوى): استخرج الأسئلة حصراً من صلب المنهج العلمي والوزاري والحقائق العلمية الثابتة.
+2. (التجاهل التام): يُمنع منعاً باتاً استخراج أسئلة من: حقوق الطبع، أسماء المدرسين، أرقام الهواتف، الإعلانات، أو أي نص خارج المنهج.
+3. (التوازن): اجعل الأسئلة المستخرجة متوازنة (بعضها عبارات صحيحة وبعضها خاطئة تم التلاعب بها بذكاء لاختبار فهم الطالب).
+4. (الدقة): إذا كان النص المرفق لا يحتوي على مادة علمية مفيدة، لا تستخرج أي سؤال وأرجع مصفوفة فارغة.
 النص:
 ${currentChunkText}`;
 
-const schemaMCQ = { 
-    type: "OBJECT", 
-    properties: { 
-        data: { 
-            type: "ARRAY", 
-            items: { 
-                type: "OBJECT", 
-                properties: { 
-                    question: { type: "STRING" }, 
-                    answers: { type: "ARRAY", items: { type: "STRING" }, description: "يجب استخراج 3 خيارات فقط لا غير لكل سؤال" }, 
-                    correct: { type: "INTEGER", description: "رقم الإجابة الصحيحة: 0 أو 1 أو 2" } 
-                }, 
-                required: ["question", "answers", "correct"] 
-            } 
-        } 
-    }, 
-    required: ["data"] 
-};
-
-const schemaTF = { 
-    type: "OBJECT", 
-    properties: { 
-        data: { 
-            type: "ARRAY", 
-            items: { 
-                type: "OBJECT", 
-                properties: { 
-                    question: { type: "STRING" }, 
-                    correct: { type: "BOOLEAN" } 
-                }, 
-                required: ["question", "correct"] 
-            } 
-        } 
-    }, 
-    required: ["data"] 
-};
+        const schemaMCQ = { type: "OBJECT", properties: { data: { type: "ARRAY", items: { type: "OBJECT", properties: { question: { type: "STRING" }, answers: { type: "ARRAY", items: { type: "STRING" } }, correct: { type: "INTEGER" } }, required: ["question", "answers", "correct"] } } }, required: ["data"] };
+        const schemaTF = { type: "OBJECT", properties: { data: { type: "ARRAY", items: { type: "OBJECT", properties: { question: { type: "STRING" }, correct: { type: "BOOLEAN" } }, required: ["question", "correct"] } } }, required: ["data"] };
 
         const currentSchema = task.type === 'mcq' ? schemaMCQ : schemaTF;
+        const finalPrompt = task.type === 'mcq' ? promptMCQ : promptTF; // تم إضافة هذا السطر السحري لحل المشكلة جذرياً
 
         let extractedQuestions = [];
         let isSuccess = false;
@@ -7148,8 +7339,9 @@ const schemaTF = {
                     updateAILog(task.id, `المفتاح ${k + 1} مستهلك، جاري الانتقال... 🔄`);
                 }
             } catch (e) {
-                lastErrorMessage = "مشكلة في الشبكة";
-                updateAILog(task.id, `خطأ شبكة بالمفتاح ${k + 1}، جاري الانتقال للتالي... 📡`);
+                console.error("AI Fetch Error:", e); // إضافة مهمة لطباعة الخطأ الحقيقي في الكونسول لسهولة الصيانة
+                lastErrorMessage = "مشكلة في الشبكة أو خطأ داخلي";
+                updateAILog(task.id, `خطأ بالمفتاح ${k + 1}، جاري الانتقال للتالي... 📡`);
             }
             
             await new Promise(r => setTimeout(r, 1000));
@@ -7162,27 +7354,30 @@ const schemaTF = {
         return { success: isSuccess, questions: extractedQuestions, error: lastErrorMessage, originalIndex: chunkObj.originalIndex };
     };
 
-    // 3. التنفيذ
-    const chunkPromises = remainingChunks.map(async (chunkObj) => {
-        return processChunkConcurrently(chunkObj).then(res => {
-            const currentQueue = getAIQueue();
-            const taskToUpdate = currentQueue.find(t => t.id === task.id);
-            if (taskToUpdate && res.success) {
-                taskToUpdate.questions = taskToUpdate.questions.concat(res.questions);
-                taskToUpdate.processedChunks++;
-                taskToUpdate.chunks[res.originalIndex] = null; // تم التصحيح هنا
-                taskToUpdate.errorReason = null;
-                saveAIQueue(currentQueue);
-            } else if (taskToUpdate && !res.success) {
-                taskToUpdate.errorReason = res.error;
-                saveAIQueue(currentQueue);
-            }
-            return res;
-        });
-    });
-
-    // 4. الانتظار حتى تنتهي المهمة
-    await Promise.allSettled(chunkPromises);
+    // 3. التنفيذ (المعدل: بالتسلسل لتجنب ضغط السيرفرات وخطأ High Demand)
+    for (let i = 0; i < remainingChunks.length; i++) {
+        const chunkObj = remainingChunks[i];
+        
+        // معالجة الجزء الحالي
+        const res = await processChunkConcurrently(chunkObj);
+        
+        const currentQueue = getAIQueue();
+        const taskToUpdate = currentQueue.find(t => t.id === task.id);
+        
+        if (taskToUpdate && res.success) {
+            taskToUpdate.questions = taskToUpdate.questions.concat(res.questions);
+            taskToUpdate.processedChunks++;
+            taskToUpdate.chunks[res.originalIndex] = null;
+            taskToUpdate.errorReason = null;
+            saveAIQueue(currentQueue);
+        } else if (taskToUpdate && !res.success) {
+            taskToUpdate.errorReason = res.error;
+            saveAIQueue(currentQueue);
+        }
+        
+        // استراحة 2 ثانية بين كل جزء وجزء حتى لا تستنزف طاقة المفاتيح
+        await new Promise(r => setTimeout(r, 2000)); 
+    }
 
     // 5. اتخاذ القرار النهائي للملف
     const finalQueue = getAIQueue();
@@ -8224,8 +8419,10 @@ window.openPublicProfile = async function(uid) {
         const copyBtn = document.getElementById('pub-btn-copy-id');
         if (copyBtn && u.uniqueId) copyBtn.onclick = () => window.copyIdText(u.uniqueId);
 
-        let nameHtml = `<h2 id="pub-profile-name" class="text-xl font-black text-gray-800 drop-shadow-sm">${u.name || 'مستخدم مجهول'}</h2>`;
-        if (isPremiumValid(u) && u.selectedBadge) {
+        let nameHtml = `<h2 id="pub-profile-name" class="text-xl font-black text-gray-800 drop-shadow-sm">${u.name || 'مستخدم مجهول'}</h2>${window.getLevelUI(u.level)}`;
+        if (u.customBadgeText && u.customBadgeExpiry && u.customBadgeExpiry.toDate() > new Date()) {
+            nameHtml += `<span class="px-2.5 py-0.5 text-[10px] text-white rounded-md shadow-[0_0_10px_rgba(0,0,0,0.5)] font-bold ml-1.5 border border-white/80 animate-pulse" style="background-color: ${u.customBadgeColor || '#e11d48'}">${u.customBadgeText}</span>`;
+        } else if (isPremiumValid(u) && u.selectedBadge) {
             nameHtml += `<span class="px-2.5 py-0.5 text-[10px] text-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.3)] font-bold ml-1.5 border border-white/60" style="background-color: ${u.selectedBadgeColor || '#f59e0b'}">${u.selectedBadge}</span>`;
         }
         safeSetHTML('pub-profile-name-container', nameHtml);
@@ -8240,8 +8437,16 @@ window.openPublicProfile = async function(uid) {
         safeSetText('pub-profile-bio', u.bio || 'لا توجد سيرة ذاتية');
         safeSetText('pub-profile-points', u.points || 0);
         safeSetText('pub-profile-money', `$${u.balance || 0}`);
-        safeSetText('pub-stat-best-rank', u.bestRank ? `#${u.bestRank}` : '-');
-        safeSetText('pub-stat-worst-rank', u.worstRank ? `#${u.worstRank}` : '-');
+// استخراج المركز المباشر للاعب من قائمة التصنيف المحملة بالرام
+        const globalUserIndex = window.globalLeaderboardData ? window.globalLeaderboardData.findIndex(x => x.id === uid) : -1;
+        const liveRank = globalUserIndex !== -1 ? globalUserIndex + 1 : null;
+        
+        // إذا لم يكن يملك مركز محفوظ سابقاً، استخدم مركزه المباشر كبديل
+        const finalBestRank = u.bestRank || liveRank;
+        const finalWorstRank = u.worstRank || liveRank;
+
+        safeSetText('pub-stat-best-rank', finalBestRank ? `#${finalBestRank}` : '-');
+        safeSetText('pub-stat-worst-rank', finalWorstRank ? `#${finalWorstRank}` : '-');
         safeSetText('pub-stat-winstreak', u.bestWinStreak || u.winStreak || 0);
         safeSetText('pub-stat-correct', u.bestCorrectStreak || 0);
         safeSetText('pub-stat-worst', u.worstMatchScore !== undefined ? u.worstMatchScore : '-');
@@ -8286,10 +8491,39 @@ window.openPublicProfile = async function(uid) {
             onlineStatus.className = `absolute bottom-1 right-1 w-4 h-4 border-2 border-white rounded-full shadow-sm ${isOnline ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`;
         }
 
-        if (isPremiumValid(u) && u.selectedBgTheme && u.selectedBgTheme !== 'bg-rank-default') {
-            if (headerBg) headerBg.className = `w-full h-28 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-transparent`;
+if (u.customBgImage && u.customBgExpiry && u.customBgExpiry.toDate() > new Date()) {
+            if (headerBg) {
+                // الحواف الجديدة مع ارتفاع مناسب لعرض تفاصيل الصورة بدون زوم مزعج
+                headerBg.className = `-mx-4 w-[calc(100%+2rem)] h-48 relative rounded-b-[2.5rem] shadow-xl z-10 transition-all duration-500 bg-transparent`;
+                // إزالة الألوان الغامقة لعرض الصورة بألوانها الحقيقية
+                headerBg.style.backgroundImage = `url('${u.customBgImage}')`;
+                headerBg.style.backgroundSize = 'cover';
+                headerBg.style.backgroundPosition = 'center top'; 
+                headerBg.style.backgroundRepeat = 'no-repeat';
+            }
+            if (fullBg) {
+                fullBg.className = `absolute inset-0 z-0 transition-all duration-500`;
+                fullBg.style.backgroundImage = `url('${u.customBgImage}')`;
+                fullBg.style.backgroundSize = 'cover';
+                fullBg.style.backgroundPosition = 'center top';
+                fullBg.style.backgroundAttachment = 'fixed'; 
+                fullBg.style.opacity = '0.6'; // رفعنا الشفافية حتى تبين جمالية الصورة بالخلفية
+                fullBg.style.filter = 'none'; 
+            }
+            
+            // إزالة الإيموجيات الطافية لأن الخلفية صورة
+            const oldContainer = document.querySelector('#screen-public-profile .floating-emojis-container');
+            if (oldContainer) oldContainer.remove();
+
+        } else if (isPremiumValid(u) && u.selectedBgTheme && u.selectedBgTheme !== 'bg-rank-default') {
+            // كود الإيموجيات القديم ينزل هنا طبيعي
+            if (headerBg) {
+                headerBg.className = `w-full h-28 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-transparent`;
+                headerBg.style.backgroundImage = ''; // مسح أي صورة سابقة
+            }
             if (fullBg) {
                 fullBg.className = `absolute inset-0 z-0 transition-all duration-500 ${u.selectedBgTheme}`;
+                fullBg.style.backgroundImage = ''; // مسح الصورة
                 fullBg.style.opacity = '0.95';
             }
 
@@ -8461,6 +8695,219 @@ window.testAPIKeys = async function() {
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-stethoscope text-lg"></i><span>إعادة الفحص الدقيق 🔄</span>';
 };
+
+window.changeUserPassword = async function() {
+    const oldPass = document.getElementById('old-pass-input').value;
+    const newPass = document.getElementById('new-pass-input').value;
+    const confirmPass = document.getElementById('confirm-new-pass-input').value;
+
+    if (!oldPass || !newPass || !confirmPass) {
+        showBeautifulAlert('warning', 'تنبيه', 'يرجى ملء جميع الحقول');
+        return;
+    }
+
+    if (newPass.length < 6) {
+        showBeautifulAlert('warning', 'تنبيه', 'كلمة المرور الجديدة يجب أن تكون 6 أحرف على الأقل');
+        return;
+    }
+
+    if (newPass !== confirmPass) {
+        showBeautifulAlert('error', 'عدم تطابق', 'كلمة المرور الجديدة وتأكيدها غير متطابقين');
+        return;
+    }
+
+    try {
+        showAuthLoading('جاري التحقق وتغيير الرمز...');
+        const user = auth.currentUser;
+        
+        // إعادة المصادقة باستخدام الرمز القديم للحماية
+        const credential = EmailAuthProvider.credential(user.email, oldPass);
+        await reauthenticateWithCredential(user, credential);
+        
+        // تحديث الرمز
+        await updatePassword(user, newPass);
+        
+        hideAuthLoading();
+        document.getElementById('change-password-modal').classList.add('hidden');
+        document.getElementById('old-pass-input').value = '';
+        document.getElementById('new-pass-input').value = '';
+        document.getElementById('confirm-new-pass-input').value = '';
+        
+        showBeautifulAlert('success', 'نجاح', '✅ تم تغيير كلمة المرور بنجاح');
+    } catch (error) {
+        hideAuthLoading();
+        showBeautifulAlert('error', 'فشل التغيير', getArabicError(error.code));
+    }
+};
+
+window.changeUserEmail = async function() {
+    const oldPass = document.getElementById('email-auth-pass-input').value;
+    const newEmail = document.getElementById('new-email-input').value.trim();
+
+    if (!oldPass || !newEmail) {
+        showBeautifulAlert('warning', 'تنبيه', 'يرجى إدخال كلمة المرور والبريد الجديد');
+        return;
+    }
+
+    if (!newEmail.includes('@gmail.com')) {
+        showBeautifulAlert('warning', 'تنبيه', 'يجب استخدام بريد Gmail صالح');
+        return;
+    }
+
+    try {
+        showAuthLoading('جاري التحقق وتغيير البريد...');
+        const user = auth.currentUser;
+        
+        // إعادة المصادقة
+        const credential = EmailAuthProvider.credential(user.email, oldPass);
+        await reauthenticateWithCredential(user, credential);
+        
+        // تحديث البريد في Auth
+        await updateEmail(user, newEmail);
+        
+        // تحديث البريد في Firestore
+        await updateDoc(doc(db, "users", user.uid), {
+            email: newEmail
+        });
+        
+        userData.email = newEmail; // تحديث بالذاكرة
+        
+        hideAuthLoading();
+        document.getElementById('change-email-modal').classList.add('hidden');
+        document.getElementById('email-auth-pass-input').value = '';
+        document.getElementById('new-email-input').value = '';
+        
+        showBeautifulAlert('success', 'نجاح', '✅ تم تغيير البريد الإلكتروني بنجاح');
+    } catch (error) {
+        hideAuthLoading();
+        showBeautifulAlert('error', 'فشل التغيير', getArabicError(error.code));
+    }
+};
+
+window.getLevelUI = function(level) {
+    let lvl = level || 1; // إذا ماعنده لفل يعتبره لفل 1
+    let tierClass = 'level-tier-low';
+    if (lvl > 5) tierClass = 'level-tier-mid';
+    if (lvl > 10) tierClass = 'level-tier-high';
+    if (lvl > 20) tierClass = 'level-tier-pro';
+    if (lvl > 50) tierClass = 'level-tier-god';
+    
+    return `<span class="user-level-tag ${tierClass}">LVL ${lvl}</span>`;
+};
+
+// متغير عالمي لحفظ الصورة المرفوعة بالمتجر
+        let tempStoreBgImage = null;
+
+        window.previewStoreBg = async (input) => {
+            if (input.files[0]) {
+                const statusSpan = document.getElementById('store-bg-status');
+                statusSpan.innerText = "جاري الضغط...";
+                statusSpan.className = "text-[10px] text-blue-500 font-bold";
+                try {
+                    tempStoreBgImage = await compressImage(input.files[0]);
+                    statusSpan.innerText = "صورة جاهزة ✅";
+                    statusSpan.className = "text-[10px] text-green-500 font-bold";
+                } catch (e) {
+                    statusSpan.innerText = "خطأ بالصورة ❌";
+                    statusSpan.className = "text-[10px] text-red-500 font-bold";
+                }
+            }
+        };
+
+        window.buyStoreItem = async (type, price) => {
+            if (!userData || (userData.balance || 0) < price) {
+                showBeautifulAlert('error', 'رصيد غير كافي', `تحتاج إلى ${price}$ لإتمام عملية الشراء. رصيدك الحالي هو ${userData.balance || 0}$.`);
+                return;
+            }
+
+            if (!confirm(`هل أنت متأكد من شراء هذا العنصر مقابل ${price}$؟`)) return;
+
+            showAuthLoading('جاري معالجة الطلب وخصم الرصيد...');
+
+            try {
+                let updates = { balance: increment(-price) };
+                let successMsg = "";
+                let notifMsg = "";
+
+                // تحديد تاريخ انتهاء الصلاحية (بعد 30 يوم من الآن)
+                const expiryDate = new Date();
+                expiryDate.setDate(expiryDate.getDate() + 30);
+                const expiryTimestamp = Timestamp.fromDate(expiryDate);
+
+                if (type === 'sub') {
+                    // الاشتراك يتطلب تواصل يدوي
+                    notifMsg = `🎉 تم تأكيد طلبك لشراء (اشتراك مميز - شهر) مقابل ${price}$.\nيرجى مراسلة المالك لتسليمك كود التفعيل.`;
+                    successMsg = "تم خصم الرصيد! اضغط على زر التليجرام الجديد للتواصل مع المالك واستلام الكود.";
+                    
+                } else if (type === 'bg') {
+                    if (!tempStoreBgImage) { hideAuthLoading(); showBeautifulAlert('warning', 'تنبيه', 'يرجى اختيار صورة أولاً'); return; }
+                    updates.customBgImage = tempStoreBgImage;
+                    updates.customBgExpiry = expiryTimestamp;
+                    notifMsg = `🖼️ مبروك! تم تفعيل خلفيتك المخصصة بنجاح لمدة 30 يوم مقابل ${price}$.`;
+                    successMsg = "تم تفعيل الخلفية المخصصة بحسابك بنجاح!";
+                    userData.customBgImage = tempStoreBgImage;
+                    userData.customBgExpiry = expiryTimestamp;
+
+                } else if (type === 'badge') {
+                    const txt = document.getElementById('store-badge-text').value.trim();
+                    if (!txt) { hideAuthLoading(); showBeautifulAlert('warning', 'تنبيه', 'يرجى كتابة الشعار أولاً'); return; }
+                    updates.customBadgeText = txt;
+                    updates.customBadgeExpiry = expiryTimestamp;
+                    // لون عشوائي فخم للشعار
+                    const colors = ['#f43f5e', '#8b5cf6', '#0ea5e9', '#10b981', '#f59e0b'];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    updates.customBadgeColor = randomColor;
+                    
+                    notifMsg = `🏷️ مبروك! تم تفعيل الشعار المخصص (${txt}) بنجاح لمدة 30 يوم مقابل ${price}$.`;
+                    successMsg = "تم تركيب الشعار بجانب اسمك بنجاح!";
+                    userData.customBadgeText = txt;
+                    userData.customBadgeExpiry = expiryTimestamp;
+                    userData.customBadgeColor = randomColor;
+                }
+
+                // تنفيذ الخصم وتحديث البيانات
+                await updateDoc(doc(db, "users", currentUser.uid), updates);
+                
+                // إرسال الإشعار
+                await addDoc(collection(db, "notifications"), {
+                    userId: currentUser.uid,
+                    type: 'reward',
+                    message: notifMsg,
+                    read: false,
+                    createdAt: serverTimestamp()
+                });
+
+                userData.balance -= price;
+                document.getElementById('store-user-balance').innerText = `$${userData.balance}`;
+                setupProfileUI(); // تحديث واجهة حسابي الأساسية
+                
+                // إذا كان اشتراك، نغير الزر إلى رابط تليجرام
+                if (type === 'sub') {
+                    const btn = document.getElementById('btn-buy-sub');
+                    btn.innerText = 'استلام الكود (تليجرام)';
+                    btn.className = 'bg-blue-500 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-blue-600 transition flex items-center gap-2';
+                    btn.onclick = () => window.open('https://t.me/mslmr19', '_blank');
+                }
+
+                hideAuthLoading();
+                showBeautifulAlert('success', 'عملية ناجحة', successMsg);
+                checkNotifications(); // تحديث نقطة الإشعارات الحمراء
+
+            } catch (error) {
+                hideAuthLoading();
+                console.error("Store Error:", error);
+                showBeautifulAlert('error', 'خطأ', 'فشلت عملية الشراء: ' + error.message);
+            }
+        };
+
+        // دالة مساعدة لتحديث رصيد المتجر عند فتحه
+        const originalOpenPage = window.openPage;
+        window.openPage = async (screenId, skipHistory = false) => {
+            if (screenId === 'screen-hacker-store') {
+                document.getElementById('store-user-balance').innerText = `$${userData.balance || 0}`;
+            }
+            originalOpenPage(screenId, skipHistory);
+        };
 
     </script>
 </body>
