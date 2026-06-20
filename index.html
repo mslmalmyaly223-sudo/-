@@ -1381,61 +1381,6 @@
             </div>
         </div>
 
-        <div id="tab-achievement" class="screen pt-20">
-    <div class="absolute top-0 w-full h-20 bg-white/95 backdrop-blur-sm shadow-sm z-30 flex items-center justify-center px-5">
-        <h1 class="font-black text-xl text-indigo-900">طريق النجاح 🎓</h1>
-    </div>
-            
-            <div class="h-full w-full relative bg-slate-50 overflow-hidden flex flex-col items-center">
-                
-                <div id="achievement-cloud" class="absolute top-4 z-20 bg-white/95 backdrop-blur-md px-3 py-2 rounded-xl shadow-[0_5px_15px_rgba(0,0,0,0.5)] border border-indigo-100 text-center animate-[float_3s_infinite] hidden max-w-[180px]">
-    <p id="cloud-text" class="font-semibold text-indigo-900 text-xs leading-tight"></p>
-    <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-t-[8px] border-t-white border-r-[6px] border-r-transparent"></div>
-</div>
-
-                <div id="achievement-setup" class="absolute inset-0 z-40 bg-white/95 backdrop-blur-md flex flex-col items-center justify-center p-6 hidden">
-                    <div class="bg-white p-8 rounded-[2rem] shadow-2xl border border-gray-100 w-full max-w-sm text-center animate-[zoomInBounce_0.5s]">
-                        <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-star text-3xl text-indigo-500 animate-pulse"></i>
-                        </div>
-                        <h2 class="text-2xl font-black text-gray-800 mb-2">ارسم مستقبلك</h2>
-                        <p class="text-gray-500 text-xs font-bold mb-8">حدد هدفك الوزاري واصنع شخصيتك</p>
-                        
-                        <label class="block text-right text-[10px] font-black text-gray-400 mb-2 mr-2 uppercase">المعدل المحلوم به (%)</label>
-                        <input type="number" id="target-gpa" placeholder="99" class="input-box mb-6 text-center text-2xl font-black text-indigo-600 border-2">
-                        
-                        <label class="block text-right text-[10px] font-black text-gray-400 mb-2 mr-2 uppercase">اختر جنس الشخصية</label>
-                        <div class="grid grid-cols-2 gap-4 mb-8">
-                            <button onclick="selectGender('boy')" id="btn-gender-boy" class="py-4 rounded-2xl border-2 border-gray-100 text-gray-500 font-black transition-all hover:scale-105">👨 طالب</button>
-                            <button onclick="selectGender('girl')" id="btn-gender-girl" class="py-4 rounded-2xl border-2 border-gray-100 text-gray-500 font-black transition-all hover:scale-105">👩 طالبة</button>
-                        </div>
-                        <button onclick="saveAchievementSetup()" class="btn-main py-4 text-lg">انطلاق الرحلة 🚀</button>
-                    </div>
-                </div>
-
-                <div id="achieve-bg-container" class="w-full flex-1 relative flex flex-col items-center justify-center transition-colors duration-700 overflow-hidden bg-gradient-to-b from-blue-950 via-indigo-950 to-black pb-20">
-
-    <div class="relative w-full h-[60vh] min-h-[380px] max-h-[480px] flex items-end justify-center z-10 mt-4">
-
-        <button onclick="playSound('click'); window.showAchievementsList()" class="absolute top-[40%] right-4 transform -translate-y-1/2 z-[1000] bg-gradient-to-br from-indigo-600 to-purple-600 text-white font-black px-3 py-4 rounded-2xl shadow-[0_10px_25px_rgba(79,70,229,0.5)] border-2 border-white/50 flex flex-col items-center gap-2 hover:scale-110 active:scale-95 transition-all">
-            <i class="fas fa-list-ul text-2xl animate-pulse"></i>
-            <span class="text-[10px] tracking-wider">إنجازاتي</span>
-        </button>
-
-    <div onclick="playSound('click'); window.openAchievementModal()" class="absolute top-[0%] -mt-4 left-1/2 transform -translate-x-1/2 w-28 h-28 z-[1000] cursor-pointer rounded-full flex items-center justify-center">
-            
-            <div class="absolute top-1/2 -translate-y-1/2 right-full mr-3 pointer-events-none animate-[cloudFloat_2.5s_ease-in-out_infinite] w-max">
-                
-                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-[11px] leading-relaxed font-black px-4 py-2.5 rounded-2xl shadow-[0_10px_20px_rgba(79,70,229,0.3)] border border-purple-300/30 relative flex flex-col items-center justify-center text-center">
-                    <span>اضغط على رأسي</span>
-                    <span class="text-yellow-300 mt-0.5">لإضافة إنجاز 🌟</span>
-                    
-                    <div class="absolute top-1/2 -translate-y-1/2 -right-1.5 w-3 h-3 bg-purple-600 rotate-45 z-[-1]"></div>       
-                </div>
-                
-            </div>
-        </div>
-
         <div class="absolute bottom-0 translate-y-[35%] flex flex-col items-center z-0 w-64 md:w-72">
             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-32 bg-indigo-500/40 blur-[30px] rounded-full pointer-events-none"></div>
 
@@ -1795,12 +1740,13 @@
             <span class="font-bold text-sm text-gray-700">التوثيقات</span>
         </button>
         
-                    <button onclick="openPage('screen-admin-ai-pdf')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-all active:scale-95">
-                        <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-orange-600 rounded-full flex items-center justify-center text-white shadow-md">
-                            <i class="fas fa-file-invoice text-xl"></i>
-                        </div>
-                        <span class="font-bold text-sm text-gray-700">رفع أسئلة (AI)</span>
-                    </button>
+        <button onclick="openPage('screen-admin-ai-extract')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2 hover:bg-gray-50">
+    <div class="w-12 h-12 bg-fuchsia-100 rounded-full flex items-center justify-center text-fuchsia-600">
+        <i class="fas fa-robot text-xl"></i>
+    </div>
+    <span class="font-bold text-sm text-gray-700">استخراج AI</span>
+</button>
+                    
                 </div>
             </div>
         </div>
@@ -1922,13 +1868,8 @@
         <h1 class="font-bold text-lg text-gray-800">إعدادات النظام</h1>
     </div>
     <div class="scroll-container px-5 py-6">
+    
         
-        <!-- زر توزيع الجوائز القديم -->
-        <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 shadow-sm mb-4">
-            <h3 class="font-bold text-yellow-800 mb-2">🎁 توزيع الجوائز الأسبوعية</h3>
-            <button onclick="manualWeeklyDistribution()" class="w-full bg-yellow-500 text-white font-bold py-3 rounded-xl shadow-md hover:bg-yellow-600">توزيع وتصفير الآن</button>
-        </div>
-
         <!-- الزر الجديد السحري لرفع الأسئلة -->
         <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 shadow-sm">
             <h3 class="font-bold text-indigo-800 mb-2">📦 تحديث حزمة الأسئلة للطلاب</h3>
@@ -1939,6 +1880,83 @@
             <p id="bundle-progress-text" class="text-xs text-center text-indigo-500 font-bold mt-3 hidden">جاري العمل...</p>
         </div>
 
+    </div>
+</div>
+
+<div id="screen-admin-ai-extract" class="screen pt-20">
+    <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
+        <button onclick="openPage('screen-admin-panel')" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
+        <h1 class="font-bold text-lg text-gray-800">مصنع الذكاء الاصطناعي 🤖</h1>
+    </div>
+    
+    <div class="scroll-container px-4 py-6">
+        <div class="flex bg-indigo-50 p-1 rounded-2xl mb-6 border border-indigo-100">
+            <button id="tab-btn-ai-upload" onclick="switchAITab('upload')" class="flex-1 py-3 rounded-xl font-black text-sm bg-white text-indigo-600 shadow-sm transition-all">رفع ملف PDF</button>
+            <button id="tab-btn-ai-results" onclick="switchAITab('results')" class="flex-1 py-3 rounded-xl font-black text-sm text-indigo-400 transition-all relative">
+                النتائج والطابور
+                <span id="ai-queue-badge" class="absolute top-1 left-2 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+            </button>
+        </div>
+
+        <div id="ai-upload-section" class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 animate-[slideUp_0.3s_ease-out]">
+            <div class="text-center mb-6">
+                <i class="fas fa-file-pdf text-5xl text-red-500 mb-3 drop-shadow-md"></i>
+                <h3 class="font-bold text-gray-800">استخراج الأسئلة من ملزمة/كتاب</h3>
+                <p class="text-xs text-gray-500 mt-1">يجب اختيار الصف والمادة والفصل قبل الرفع</p>
+            </div>
+
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1">المرحلة الدراسية</label>
+                    <select id="ai-grade" class="input-box" onchange="populateSubjects(this.value, 'ai-subject', 'ai-chapter')">
+                        <option value="">اختر المرحلة...</option>
+                        <option value="6sci">السادس العلمي</option>
+                        <option value="6lit">السادس الأدبي</option>
+                        <option value="3med">الثالث متوسط</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1">المادة</label>
+                    <select id="ai-subject" class="input-box"><option value="">اختر المرحلة أولاً</option></select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1">الفصل المستهدف</label>
+                    <select id="ai-chapter" class="input-box"><option value="">اختر المادة أولاً</option></select>
+                </div>
+                
+                <div class="border-2 border-dashed border-indigo-200 rounded-2xl p-6 text-center cursor-pointer hover:bg-indigo-50 transition" onclick="document.getElementById('ai-pdf-input').click()">
+                    <i class="fas fa-cloud-upload-alt text-3xl text-indigo-400 mb-2"></i>
+                    <p id="ai-file-name-display" class="font-bold text-indigo-700 text-sm">اضغط لاختيار ملف PDF</p>
+                    <input type="file" id="ai-pdf-input" accept="application/pdf" class="hidden" onchange="handleAIPdfSelect(this)">
+                </div>
+            </div>
+
+            <button onclick="startAIExtractionProcess()" class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-black py-4 rounded-xl shadow-md hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-magic"></i> بدء الاستخراج السحري
+            </button>
+        </div>
+
+        <div id="ai-results-section" class="hidden space-y-4 pb-20">
+            </div>
+    </div>
+</div>
+
+<div id="ai-preview-modal" class="modal-overlay hidden" style="z-index: 100000;">
+    <div class="modal-content relative bg-gray-50 p-0 rounded-3xl w-11/12 max-w-md h-[80vh] flex flex-col overflow-hidden shadow-2xl">
+        <div class="bg-indigo-600 p-4 text-white flex justify-between items-center z-10 shadow-md">
+            <div>
+                <h3 class="font-black text-lg">معاينة الأسئلة المستخرجة</h3>
+                <p id="ai-preview-count" class="text-xs text-indigo-200 font-bold">0 سؤال</p>
+            </div>
+            <button onclick="document.getElementById('ai-preview-modal').classList.add('hidden')" class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/40"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="ai-preview-list" class="flex-1 overflow-y-auto p-4 space-y-3">
+            </div>
+        <div class="p-4 bg-white border-t border-gray-200">
+            <button id="btn-send-to-review" onclick="sendExtractedToReview()" class="w-full bg-green-500 text-white font-black py-3 rounded-xl shadow hover:bg-green-600 transition flex items-center justify-center gap-2">
+                <i class="fas fa-paper-plane"></i> إرسال للمراجعة
+            </button>
+        </div>
     </div>
 </div>
 
@@ -2027,9 +2045,6 @@
     </div>
     <div onclick="switchTab('leaderboard')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400">
         <i class="fas fa-trophy text-xl mb-1"></i><span class="text-[10px] font-bold">التصنيف</span>
-    </div>
-    <div onclick="switchTab('achievement')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400">
-        <i class="fas fa-walking text-xl mb-1"></i><span class="text-[10px] font-bold">رحلتي</span>
     </div>
     <div onclick="switchTab('premium')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400">
     <i class="fas fa-crown text-xl mb-1"></i><span class="text-[10px] font-bold">للمميزين</span>
@@ -2262,140 +2277,7 @@
         <p id="beautiful-alert-message" class="beautiful-alert-message">...</p>
         <button id="beautiful-alert-ok-btn" class="beautiful-alert-btn">حسناً</button>
     </div>
-    
 
-<div id="screen-admin-ai-pdf" class="screen pt-20">
-    <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
-        <button onclick="openPage('screen-admin-hub')" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
-        <h1 class="font-bold text-lg text-gray-800">المستخرج الذكي 🤖</h1>
-    </div>
-
-    <!-- التبويبات العلوية -->
-    <div class="auth-tabs mx-5 mt-4">
-        <div id="tab-ai-upload-btn" onclick="switchAITab('upload')" class="auth-tab active">الرفع التراكمي</div>
-        <div id="tab-ai-results-btn" onclick="switchAITab('results')" class="auth-tab">قسم النتائج</div>
-    </div>
-
-    <div class="scroll-container px-5 py-4 pb-40 mb-20">
-        
-        <!-- 1. قسم الرفع التراكمي -->
-        <div id="ai-upload-section" class="bg-white p-6 rounded-3xl shadow-xl border border-indigo-50 relative overflow-hidden animate-[fadeIn_0.3s_ease-out]">
-            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
-            
-            <div class="text-center mb-6 mt-2">
-                <h3 class="font-black text-gray-800 text-lg">إضافة مهام جديدة للطابور</h3>
-                <p class="text-xs text-gray-400 mt-1">ارفع الملفات المتعددة وسيتكفل الذكاء الاصطناعي بالباقي</p>
-            </div>
-
-            <div class="space-y-4 text-right">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-2">1. اختر ملف الملزمة (PDF)</label>
-                    <input type="file" id="bulk-ai-pdf" accept=".pdf,application/pdf" class="input-box p-2 text-sm border-dashed border-2">
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-2">2. المرحلة</label>
-                        <select id="bulk-ai-grade" class="input-box text-sm" onchange="window.populateSubjects(this.value, 'bulk-ai-subject', 'bulk-ai-chapter')">
-                            <option value="">اختر</option>
-                            <option value="6sci">6 علمي</option>
-                            <option value="6lit">6 أدبي</option>
-                            <option value="3med">3 متوسط</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 mb-2">3. المادة</label>
-                        <select id="bulk-ai-subject" class="input-box text-sm">
-                            <option value="">اختر المرحلة أولاً</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mt-3">
-                    <label class="block text-xs font-bold text-gray-500 mb-2">الفصل / الموضوع</label>
-                    <select id="bulk-ai-chapter" class="input-box text-sm">
-                        <option value="">اختر المادة أولاً</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-2">4. نوع الأسئلة المطلوب</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="setBulkType('mcq')" id="bulk-btn-mcq" class="py-3 rounded-xl border-2 border-indigo-600 bg-indigo-50 text-indigo-600 font-bold transition-all">اختيارات</button>
-                        <button onclick="setBulkType('tf')" id="bulk-btn-tf" class="py-3 rounded-xl border-2 border-gray-100 text-gray-400 font-bold transition-all">صح وخطأ</button>
-                    </div>
-                </div>
-
-                <button onclick="addFileToAIQueue()" id="bulk-add-queue-btn" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black py-4 rounded-2xl shadow-lg hover:shadow-indigo-500/30 active:scale-95 transition-all flex items-center justify-center gap-3 mt-6">
-                    <i class="fas fa-layer-group text-lg"></i>
-                    <span>إضافة للطابور التلقائي ⏳</span>
-                </button>
-                
-                <button onclick="testAPIKeys()" id="test-keys-btn" class="w-full bg-gradient-to-r from-slate-600 to-slate-800 text-white font-black py-3 rounded-2xl shadow-lg hover:shadow-slate-500/30 active:scale-95 transition-all flex items-center justify-center gap-3 mt-3">
-                    <i class="fas fa-stethoscope text-lg"></i>
-                    <span>فحص المفاتيح الـ 8 🔍</span>
-                </button>
-
-                <div id="keys-test-results" class="hidden bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3 space-y-2 text-xs font-bold text-slate-700 max-h-56 overflow-y-auto shadow-inner">
-                </div>
-                
-                <!-- شريط تقدم قراءة الملف المبدئية -->
-                <div id="ai-read-progress" class="hidden mt-4">
-                    <p class="text-xs text-center text-indigo-500 font-bold mb-1" id="ai-read-text">جاري قراءة الملف وتحويله للنظام...</p>
-                    <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div id="ai-read-bar" class="h-full bg-indigo-500 transition-all duration-300" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. قسم النتائج (الطابور) -->
-        <div id="ai-results-section" class="hidden animate-[fadeIn_0.3s_ease-out]">
-            <div id="ai-cooldown-banner" class="hidden bg-yellow-50 border border-yellow-200 p-4 rounded-2xl mb-4 text-center">
-                <i class="fas fa-hourglass-half text-yellow-500 text-2xl mb-2 animate-spin-slow"></i>
-                <p class="text-yellow-700 font-bold text-sm">النظام في وضع الاستراحة الاقتصادية</p>
-                <p class="text-yellow-600 text-xs mt-1">الذكاء الاصطناعي استنفذ طاقته، سيعود للعمل تلقائياً بعد: <span id="ai-cooldown-timer" class="font-black text-lg ml-1">00:00</span></p>
-            </div>
-            
-            <div class="flex justify-between items-center mb-3">
-                <h3 class="font-bold text-gray-700 text-sm">المهام الحالية (<span id="ai-queue-count">0</span>)</h3>
-                <button onclick="clearCompletedAITasks()" class="text-xs text-red-500 font-bold hover:underline">مسح المكتمل</button>
-            </div>
-            
-            <div id="ai-queue-list" class="space-y-3">
-                <!-- ستظهر النتائج هنا -->
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- نافذة عرض نتائج الاستخراج (للمراجعة أو الرفض) -->
-<div id="ai-review-modal" class="modal-overlay hidden" style="z-index: 99999;">
-    <div class="modal-content relative bg-white w-11/12 max-w-md h-[80vh] flex flex-col p-0 overflow-hidden rounded-3xl">
-        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 p-4 text-white flex justify-between items-center shrink-0">
-            <h3 class="font-bold text-lg">مراجعة الأسئلة المستخرجة</h3>
-            <button onclick="closeAIReviewModal()" class="text-white/80 hover:text-white"><i class="fas fa-times text-xl"></i></button>
-        </div>
-        
-        <div class="p-4 bg-gray-50 border-b border-gray-200 shrink-0">
-            <p class="text-sm font-bold text-gray-700" id="ai-review-title">السادس العلمي - رياضيات - الفصل الأول</p>
-            <p class="text-xs text-indigo-600 mt-1 font-bold">تم استخراج: <span id="ai-review-count">0</span> سؤال</p>
-        </div>
-        
-        <div class="flex-1 overflow-y-auto p-4 space-y-3" id="ai-review-questions-list">
-            <!-- الأسئلة المستخرجة تظهر هنا كمعاينة -->
-        </div>
-        
-        <div class="p-4 bg-white border-t border-gray-100 flex gap-3 shrink-0">
-            <button id="btn-reject-ai" class="flex-1 bg-red-50 text-red-600 py-3 rounded-xl font-bold border border-red-100 hover:bg-red-100 transition">
-                رفض وحذف ❌
-            </button>
-            <button id="btn-approve-ai" class="flex-1 bg-green-500 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-green-600 transition shadow-green-500/30">
-                إرسال للمراجعة ✅
-            </button>
-        </div>
-    </div>
-</div>
 
 <div id="interruption-modal" class="modal-overlay hidden" style="z-index: 30000 !important;">
     <div class="modal-content text-center border-4 border-rose-500 shadow-2xl">
@@ -2431,41 +2313,6 @@
     </div>
 </div>
 
-<div id="add-achievement-modal" class="modal-overlay hidden" style="z-index: 99999;">
-            <div class="modal-content relative bg-white p-6 rounded-[2rem] max-w-sm w-full mx-4 shadow-2xl border border-gray-100 animate-[zoomInBounce_0.3s_ease-out]">
-                
-                <button onclick="document.getElementById('add-achievement-modal').classList.add('hidden')" class="absolute top-5 right-5 text-gray-400 hover:text-red-500 bg-gray-50 w-8 h-8 rounded-full flex items-center justify-center transition-all">
-                    <i class="fas fa-times"></i>
-                </button>
-                
-                <div class="text-center mb-6 mt-2">
-                    <div class="w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
-                        <i class="fas fa-trophy text-3xl"></i>
-                    </div>
-                    <h3 class="font-black text-xl text-gray-800">إضافة إنجاز جديد</h3>
-                    <p class="text-xs text-gray-500 font-bold mt-2">اختر المادة والفصل لتقديم اختبار الإنجاز</p>
-                </div>
-
-                <div class="space-y-4 text-right">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 mb-2 mr-1">المادة</label>
-                        <select id="achieve-subject" class="input-box bg-gray-50 text-sm font-bold border-2 focus:border-indigo-500">
-                            <option value="">اختر المادة</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 mb-2 mr-1">الفصل / الموضوع</label>
-                        <select id="achieve-chapter" class="input-box bg-gray-50 text-sm font-bold border-2 focus:border-indigo-500">
-                            <option value="">اختر المادة أولاً</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button onclick="confirmAchievement()" class="w-full mt-6 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black text-sm rounded-xl shadow-lg hover:shadow-indigo-500/40 active:scale-95 transition-all flex items-center justify-center gap-2">
-                    بدء الاختبار (30 سؤال) <i class="fas fa-rocket"></i>
-                </button>
-            </div>
-        </div>
         
         <div id="force-gov-modal" class="modal-overlay hidden" style="z-index: 99999; background: rgba(15, 23, 42, 0.95);">
         <div class="modal-content relative bg-white p-8 rounded-3xl max-w-sm w-full mx-4 shadow-2xl text-center">
@@ -2516,15 +2363,6 @@
     </div>
 </div>
 
-<div id="achievements-list-modal" class="modal-overlay hidden" style="z-index: 99999;">
-    <div class="modal-content relative bg-white p-6 rounded-3xl max-w-sm w-full mx-4 shadow-2xl h-[70vh] flex flex-col">
-        <button onclick="document.getElementById('achievements-list-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i class="fas fa-times text-xl"></i></button>
-        <h3 class="font-black text-xl text-indigo-700 mb-4 text-center border-b pb-3">تفاصيل الإنجاز 📊</h3>
-        <div id="achievements-details-container" class="overflow-y-auto flex-1 space-y-3 pr-2">
-            <!-- سيتم توليد المحتوى هنا عبر الجافاسكربت -->
-        </div>
-    </div>
-</div>
 
 <div id="screen-settings" class="screen pt-20">
     <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
@@ -2622,7 +2460,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 37;
+        const CURRENT_APP_VERSION = 38;
 
 async function checkForUpdates() {
     try {
@@ -2701,26 +2539,54 @@ let BADGES_LIST = [...DEFAULT_BADGES];
     { id: 'bg-crystal', name: 'كرستال (زجاجي)', class: 'bg-crystal' }
 ];
 
-// تم تغيير جميع الأصوات بأصوات جديدة مريحة، ملحمية، وغير مزعجة مع إضافة صوت للتعادل
-const sfx = {
-    click: new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'),
-    correct: new Audio('https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3'), // صوت صحيح ناعم ولطيف
-    wrong: new Audio('https://assets.mixkit.co/active_storage/sfx/2954/2954-preview.mp3'), // صوت خطأ خفيف ومو مزعج
-    win: new Audio('https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3'), // صوت فوز إيجابي
-    lose: new Audio('https://assets.mixkit.co/active_storage/sfx/2956/2956-preview.mp3'), // صوت خسارة مناسب
-    draw: new Audio('https://assets.mixkit.co/active_storage/sfx/1047/1047-preview.mp3'), // صوت تعادل جديد
-    vs: new Audio('https://assets.mixkit.co/active_storage/sfx/2043/2043-preview.mp3'), // صوت دخول ملحمي رهيب للمباراة
-    achievement: new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3')
+// إنشاء بيئة صوتية ذكية لا تؤثر على موسيقى الخلفية في الجهاز
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const sfxBuffers = {};
+const sfxUrls = {
+    click: 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3',
+    correct: 'https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3',
+    wrong: 'https://assets.mixkit.co/active_storage/sfx/2954/2954-preview.mp3',
+    win: 'https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3',
+    lose: 'https://assets.mixkit.co/active_storage/sfx/2956/2956-preview.mp3',
+    draw: 'https://assets.mixkit.co/active_storage/sfx/1047/1047-preview.mp3',
+    vs: 'https://assets.mixkit.co/active_storage/sfx/2043/2043-preview.mp3',
+    achievement: 'https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3'
 };
 
-// خفض مستوى الصوت حتى لا يكون مزعج
-Object.values(sfx).forEach(audio => audio.volume = 0.4);
+// تحميل وتشفير الأصوات في الذاكرة لتكون جاهزة للتشغيل الفوري
+async function loadGameSounds() {
+    for (const [key, url] of Object.entries(sfxUrls)) {
+        try {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            sfxBuffers[key] = audioBuffer;
+        } catch (e) {
+            console.log(`فشل في تحميل الصوت: ${key}`, e);
+        }
+    }
+}
+loadGameSounds();
 
-// دالة تشغيل الصوت
+// دالة تشغيل الصوت بنظام Web Audio API (بدون التأثير على تطبيقات الخلفية)
 window.playSound = function(type) {
-    if(sfx[type]) {
-        sfx[type].currentTime = 0; // تصفير الصوت حتى يشتغل فوراً إذا انضغط مرتين
-        sfx[type].play().catch(e => console.log("المتصفح منع الصوت التلقائي", e));
+    if (sfxBuffers[type]) {
+        // المتصفحات الحديثة توقف الصوت لحد ما المستخدم يضغط على الشاشة، هذا السطر يفعله
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        
+        const source = audioCtx.createBufferSource();
+        source.buffer = sfxBuffers[type];
+        
+        // التحكم بمستوى الصوت (0.4 يمثل 40%)
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0.4; 
+        
+        // ربط العُقد وتشغيل الصوت
+        source.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        source.start(0);
     }
 };
 
@@ -2827,13 +2693,14 @@ await updateDoc(doc(db, "users", user.uid), {
                             lastLogin: new Date().toISOString()
                         });
                         
+                        // هنا يتم تشغيل نظام التصفير الفردي
+                        await checkAndApplyIndividualReset(user.uid, userData);
+                        
                         setupProfileUI();
                         setupHeaderUI();
                         setupAdminUI();
                         await fetchGlobalBadges(); // 👈 هذا السطر السحري اللي راح يحفظ التوثيقات الجديدة
                         if (userData.avatarGender) {
-    // تحميل المجسم فورياً من الذاكرة
-preloadAndSetAvatar(userData.avatarGender);
 
 const achieveBg = document.getElementById('achieve-bg-container');
 if (achieveBg) {
@@ -2994,58 +2861,15 @@ if (userData.grade) {
             });
         }
 
-        function startWeeklyCountdown() {
+            function startWeeklyCountdown() {
             if(countdownInterval) clearInterval(countdownInterval);
             const timerEl = document.getElementById('weekly-timer');
-
-            async function checkAutoDistribute() {
-                try {
-                    const now = getIraqDate();
-                    // التوزيع يشتغل إذا چان اليوم سبت (6) أو أحد (0) في حال محد فتح التطبيق السبت
-                    if (now.getDay() === 6 || now.getDay() === 0) {
-                        
-                        // نولد قفل (Lock) خاص بهذا الأسبوع حتى مستحيل يتكرر التوزيع
-                        let thisSaturday = new Date(now);
-                        if (now.getDay() === 0) thisSaturday.setDate(now.getDate() - 1); 
-                        
-                        const weekLockId = `week_lock_${thisSaturday.getFullYear()}_${thisSaturday.getMonth()}_${thisSaturday.getDate()}`;
-                        const lockRef = doc(db, "system_settings", weekLockId);
-                        const lockSnap = await getDoc(lockRef);
-                        
-                        // إذا القفل ماموجود، يعني التوزيع مال هذا الأسبوع بعده ما صاير
-                        if (!lockSnap.exists()) {
-                            try {
-                                // نستخدم (Transaction) حتى إذا 100 طالب فتحوا التطبيق بنفس الثانية، بس أول واحد يقفلها البقية ينرفضون!
-                                await runTransaction(db, async (transaction) => {
-                                    const tDoc = await transaction.get(lockRef);
-                                    if (tDoc.exists()) throw "تم التوزيع مسبقاً من قبل شخص آخر";
-                                    
-                                    transaction.set(lockRef, {
-                                        timestamp: serverTimestamp(),
-                                        distributedBy: currentUser?.uid || 'auto-system',
-                                        lockedAt: new Date().toISOString()
-                                    });
-                                });
-                                
-                                console.log("⏳ جهازك هو البطل! جاري التصفير والتوزيع التلقائي بالخلفية...");
-                                
-                                // تشغيل التوزيع بصمت (false تعني بدون ما نطلع رسالة للمستخدم المكتشف)
-                                await executeDistributionProcess(false); 
-                                
-                            } catch (e) {
-                                console.log("تم إيقاف التوزيع المتكرر: ", e);
-                            }
-                        }
-                    }
-                } catch(e) { console.error("خطأ في فحص التوزيع:", e); }
-            }
 
             function updateTimer() {
                 const now = getIraqDate();
                 let nextFriday = new Date(now);
                 let daysUntilFriday = (5 - now.getDay() + 7) % 7;
 
-                // إذا كنا في يوم الجمعة ولكن بعد منتصف الليل، استهدف الجمعة القادمة
                 if (daysUntilFriday === 0 && (now.getHours() > 0 || now.getMinutes() > 0 || now.getSeconds() > 0)) {
                     daysUntilFriday = 7;
                 }
@@ -3055,267 +2879,288 @@ if (userData.grade) {
 
                 const diff = nextFriday - now;
 
-                if (diff <= 1000 && diff > -59000) { // دقيقة واحدة لتأكيد التصفير
-                    timerEl.innerText = "00:00:00:00";
-                    checkAutoDistribute();
-                } else {
-                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const s = Math.floor((diff % (1000 * 60)) / 1000);
-                    timerEl.innerText = `${d}:${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
-                }
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                if(timerEl) timerEl.innerText = `${d}:${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
             }
             
-            checkAutoDistribute();
             updateTimer();
             countdownInterval = setInterval(updateTimer, 1000);
         }
 
-        async function autoDistributeWeeklyPrizes() {
-            await executeDistributionProcess(false);
-        }
-        
-        // متغيرات عالمية لحفظ بيانات التصنيف بالرام
-window.globalLeaderboardData = [];
-window.isLeaderboardListenerActive = false;
-let globalLeaderboardUnsubscribe = null;
-let myCachedRank = "..."; // لحفظ الترتيب محلياً
-
-window.lastLeaderboardFetchTime = 0;
-const LEADERBOARD_CACHE_TIME = 5 * 60 * 1000; // 5 دقائق
-
-window.initGlobalLeaderboardListener = async function(forceRefresh = false) {
-    const now = Date.now();
-    
-    // نظام الكاش
-    if (!forceRefresh && (now - window.lastLeaderboardFetchTime < LEADERBOARD_CACHE_TIME) && window.globalLeaderboardData.length > 0) {
-        if (document.getElementById('tab-leaderboard').classList.contains('active')) {
-            window.renderGlobalLeaderboard();
-        }
-        return;
-    }
-
-    console.log("جاري سحب التصنيف العالمي بذكاء (بدون استنزاف)...");
-    const q = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
-
-    try {
-        const snapshot = await getDocs(q); 
-        window.lastLeaderboardFetchTime = Date.now(); 
-        
-        let tempList = [];
-        snapshot.forEach(doc => {
-            const d = doc.data();
-            tempList.push({
-                id: doc.id, name: d.name, photo: d.photo, points: d.points || 0,
-                uniqueId: d.uniqueId, isPremium: d.isPremium, premiumExpiry: d.premiumExpiry,
-                selectedBadge: d.selectedBadge, selectedBadgeColor: d.selectedBadgeColor,
-                selectedBgTheme: d.selectedBgTheme, bio: d.bio, governorate: d.governorate,
-                avatarGender: d.avatarGender
-            });
-        });
-
-        window.globalLeaderboardData = tempList;
-
-        if (currentUser && userData) {
-            const myIndex = window.globalLeaderboardData.findIndex(u => u.id === currentUser.uid);
-            myCachedRank = myIndex !== -1 ? myIndex + 1 : "+50";
-            
-            const rankEl = document.getElementById('my-rank-text');
-            if (rankEl) rankEl.innerText = "#" + myCachedRank;
-            
-            // --- التعديل السحري: تسجيل أفضل وأسوء مركز ديناميكياً ولحظياً ---
-            if (myIndex !== -1 && userData.points > 0) {
-                let liveRank = myIndex + 1;
-                let needsUpdate = false;
-                
-                // إذا ماعنده أفضل مركز أو مركزه الحالي أفضل من السابق (رقم أقل يعني أحسن)
-                if (!userData.bestRank || liveRank < userData.bestRank) {
-                    userData.bestRank = liveRank;
-                    needsUpdate = true;
-                }
-                
-                // إذا ماعنده أسوء مركز أو مركزه الحالي أسوء من السابق (رقم أكبر يعني أسوء)
-                if (!userData.worstRank || liveRank > userData.worstRank) {
-                    userData.worstRank = liveRank;
-                    needsUpdate = true;
-                }
-                
-                if (needsUpdate) {
-                    // التحديث بالفايربيس حتى يظل محفوظ بحسابه للأبد
-                    updateDoc(doc(db, "users", currentUser.uid), { 
-                        bestRank: userData.bestRank, 
-                        worstRank: userData.worstRank 
-                    }).catch(e => console.log("Rank Update Error:", e));
-                }
-            }
-            
-            // تحديث الأرقام ببطاقة الحساب مباشرة وبدون رفرش
-            const bestEl = document.getElementById('my-stat-best-rank');
-            const worstEl = document.getElementById('my-stat-worst-rank');
-            const currentEl = document.getElementById('my-stat-current-rank');
-            
-            if (bestEl) bestEl.innerText = userData.bestRank ? "#" + userData.bestRank : '-';
-            if (worstEl) worstEl.innerText = userData.worstRank ? "#" + userData.worstRank : '-';
-            if (currentEl) currentEl.innerText = myCachedRank.toString().includes('#') ? myCachedRank : "#" + myCachedRank;
-            // -----------------------------------------------------------------
-        }
-
-        const leaderboardTab = document.getElementById('tab-leaderboard');
-        const playersView = document.getElementById('players-view-container');
-        if (leaderboardTab && leaderboardTab.classList.contains('active') && playersView && !playersView.classList.contains('hidden')) {
-            window.renderGlobalLeaderboard();
-        }
-    } catch (error) {
-        console.error("خطأ في جلب التصنيف:", error);
-    }
-};
-
+        // دالة الزر الإداري للتوزيع أصبحت تحولنا لأسبوع جديد إجبارياً للضرورة
         window.manualWeeklyDistribution = async () => {
-            if(!confirm("⚠️ تحذير: هذا الإجراء سيقوم بتوزيع الجوائز وتصفير نقاط جميع المستخدمين والمحافظات وإرسال الإشعارات. هل أنت متأكد؟")) return;
-            showBeautifulAlert('info', 'جاري التوزيع...', 'يرجى الانتظار، يتم الآن حساب المراكز وتوزيع الجوائز وإرسال الإشعارات.');
-            await executeDistributionProcess(true);
+             showBeautifulAlert('info', 'ملاحظة', 'التوزيع أصبح تلقائي وفردي بالكامل من خلال النظام الجديد.');
         };
 
-// دالة متزامنة لتصفير المحافظات واللاعبين وتوزيع الجوائز بضربة واحدة
-        async function executeDistributionProcess(isManual) {
-            try {
-                console.log("بدء التصفير والتوزيع المتزامن...");
-                
-                // 1. تحديد المحافظة الفائزة وتصفير جميع المحافظات
-                const govsSnap = await getDocs(collection(db, "governorates"));
-                let govsList = [];
-                govsSnap.forEach(doc => govsList.push({ id: doc.id, ...doc.data() }));
-                govsList.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
+        
+        
+window.globalLeaderboardData = [];
+        let globalLeaderboardUnsubscribe = null;
+        let myCachedRank = "..."; 
 
-                let winningGov = null;
-                if (govsList.length > 0 && govsList[0].totalPoints > 0) {
-                    winningGov = govsList[0].id;
+        // إزالة نظام الكاش بالكامل وتحويله إلى اتصال فوري (Real-Time)
+        window.initGlobalLeaderboardListener = function() {
+            if (globalLeaderboardUnsubscribe) return; // شغال مسبقاً
+            
+            console.log("بدء الاستماع المباشر (الفوري) للتصنيف العالمي...");
+            const q = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
+
+            globalLeaderboardUnsubscribe = onSnapshot(q, (snapshot) => {
+                let tempList = [];
+                const currentSystemWeekId = getCurrentWeekId(); 
+
+                snapshot.forEach(doc => {
+                    const d = doc.data();
+                    const actualPoints = (d.lastWeekId === currentSystemWeekId) ? (d.points || 0) : 0;
+                    
+                    tempList.push({
+                        id: doc.id, name: d.name, photo: d.photo, points: actualPoints,
+                        uniqueId: d.uniqueId, isPremium: d.isPremium, premiumExpiry: d.premiumExpiry,
+                        selectedBadge: d.selectedBadge, selectedBadgeColor: d.selectedBadgeColor,
+                        selectedBgTheme: d.selectedBgTheme, bio: d.bio, governorate: d.governorate,
+                        avatarGender: d.avatarGender, level: d.level
+                    });
+                });
+
+                tempList.sort((a, b) => b.points - a.points);
+                window.globalLeaderboardData = tempList;
+
+                if (currentUser && userData) {
+                    const myIndex = window.globalLeaderboardData.findIndex(u => u.id === currentUser.uid);
+                    myCachedRank = myIndex !== -1 ? myIndex + 1 : "+50";
+                    
+                    const rankEl = document.getElementById('my-rank-text');
+                    if (rankEl) rankEl.innerText = "#" + myCachedRank;
+                    
+                    if (myIndex !== -1 && userData.points > 0) {
+                        let liveRank = myIndex + 1;
+                        let needsUpdate = false;
+                        
+                        if (!userData.bestRank || liveRank < userData.bestRank) {
+                            userData.bestRank = liveRank; needsUpdate = true;
+                        }
+                        if (!userData.worstRank || liveRank > userData.worstRank) {
+                            userData.worstRank = liveRank; needsUpdate = true;
+                        }
+                        
+                        if (needsUpdate) {
+                            updateDoc(doc(db, "users", currentUser.uid), { 
+                                bestRank: userData.bestRank, 
+                                worstRank: userData.worstRank 
+                            }).catch(e => console.log(e));
+                        }
+                    }
+                    
+                    const bestEl = document.getElementById('my-stat-best-rank');
+                    const worstEl = document.getElementById('my-stat-worst-rank');
+                    const currentEl = document.getElementById('my-stat-current-rank');
+                    
+                    if (bestEl) bestEl.innerText = userData.bestRank ? "#" + userData.bestRank : '-';
+                    if (worstEl) worstEl.innerText = userData.worstRank ? "#" + userData.worstRank : '-';
+                    if (currentEl) currentEl.innerText = myCachedRank.toString().includes('#') ? myCachedRank : "#" + myCachedRank;
+                }
+
+                // تحديث الشاشة فوراً عند أي صعود أو نزول بالنقاط
+                const leaderboardTab = document.getElementById('tab-leaderboard');
+                const playersView = document.getElementById('players-view-container');
+                if (leaderboardTab && leaderboardTab.classList.contains('active') && playersView && !playersView.classList.contains('hidden')) {
+                    window.renderGlobalLeaderboard();
+                }
+            }, (error) => {
+                console.error("خطأ في جلب التصنيف المباشر:", error);
+            });
+        };
+
+// الدالة السحرية للتصفير الفردي
+        async function checkAndApplyIndividualReset(uid, uData) {
+            const currentWeek = getCurrentWeekId();
+            if (uData.lastWeekId === currentWeek) return;
+
+            const previousWeek = uData.lastWeekId || getPreviousWeekId();
+            const snapshotRef = doc(db, "weekly_snapshots", previousWeek);
+
+            let createdNow = false;
+            let snapshotData = null;
+            let govsSnapshotData = null;
+            let winningGovName = null;
+
+            try {
+                // 1. أخذ لقطة للمستخدمين والمحافظات
+                await runTransaction(db, async (transaction) => {
+                    const snapDoc = await transaction.get(snapshotRef);
+                    
+                    if (!snapDoc.exists()) {
+                        console.log("يتم الآن إنشاء لقطة الأسبوع الماضي (Snapshot)...");
+                        
+                        // جلب أفضل 50 لاعب
+                        const qUsers = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
+                        const topUsersSnap = await getDocs(qUsers);
+                        let topUsersData = {};
+                        topUsersSnap.docs.forEach((d, index) => {
+                            topUsersData[d.id] = { rank: index + 1, points: d.data().points || 0 };
+                        });
+
+                        // جلب المحافظات وترتيبها
+                        const govsSnap = await getDocs(collection(db, "governorates"));
+                        let govsList = [];
+                        govsSnap.forEach(d => govsList.push({ name: d.id, points: d.data().totalPoints || 0 }));
+                        govsList.sort((a, b) => b.points - a.points);
+                        
+                        let winner = null;
+                        if (govsList.length > 0 && govsList[0].points > 0) {
+                            winner = govsList[0].name;
+                        }
+
+                        const snapPayload = {
+                            createdAt: serverTimestamp(),
+                            leaderboard: topUsersData,
+                            governorates: govsList,
+                            winningGov: winner,
+                            createdBy: uid
+                        };
+
+                        transaction.set(snapshotRef, snapPayload);
+                        
+                        snapshotData = topUsersData;
+                        govsSnapshotData = govsList;
+                        winningGovName = winner;
+                        createdNow = true;
+                    } else {
+                        const data = snapDoc.data();
+                        snapshotData = data.leaderboard || {};
+                        govsSnapshotData = data.governorates || [];
+                        winningGovName = data.winningGov || null;
+                    }
+                });
+
+                // 2. إذا هذا المستخدم هو البطل اللي صنع اللقطة، نصفر المحافظات بالداتا بيس ونسجل الفائز
+                if (createdNow) {
+                    const globalBatch = writeBatch(db);
                     const expiryDate = Date.now() + (7 * 24 * 60 * 60 * 1000);
                     
-                    // توليد معرف أسبوع فريد بناءً على التاريخ الحالي لمنع التداخل
-                    const iraqTime = getIraqDate();
-                    const currentWeekId = `week_${iraqTime.getFullYear()}_${iraqTime.getMonth() + 1}_${iraqTime.getDate()}`;
-
-                    await setDoc(doc(db, "system_settings", "winning_gov"), {
-                        name: winningGov,
-                        expiry: expiryDate,
-                        weekId: currentWeekId // حفظ معرف الأسبوع الجديد بسيرفر فايربيس
-                    });
+                    if (winningGovName) {
+                        globalBatch.set(doc(db, "system_settings", "winning_gov"), {
+                            name: winningGovName,
+                            expiry: expiryDate,
+                            weekId: currentWeek
+                        });
+                    }
                     
-                    localStorage.setItem('last_winning_gov', JSON.stringify({
-                        name: winningGov, 
-                        expiry: expiryDate,
-                        weekId: currentWeekId
-                    }));
+                    if (govsSnapshotData) {
+                        govsSnapshotData.forEach(g => {
+                            globalBatch.set(doc(db, "governorates", g.name), { totalPoints: 0 }, { merge: true });
+                        });
+                    }
+                    await globalBatch.commit();
                 }
 
-                let globalBatch = writeBatch(db);
-                const allGovernorates = [
-                    "بغداد", "البصرة", "نينوى", "بابل", "النجف", "كربلاء", 
-                    "ذي قار", "القادسية", "المثنى", "ميسان", "واسط", "ديالى", 
-                    "الأنبار", "صلاح الدين", "كركوك", "أربيل", "السليمانية", "دهوك"
-                ];
-                allGovernorates.forEach(govName => {
-                    globalBatch.set(doc(db, "governorates", govName), { totalPoints: 0 }, { merge: true });
-                });
+                // 3. تجهيز بيانات اللاعب وبناء الرسالة
+                let myRankInfo = snapshotData[uid];
+                let rewardMsg = "";
+                let updates = {
+                    points: 0, 
+                    lastWeekId: currentWeek 
+                };
 
-                // 2. جلب جميع المستخدمين لغرض تصفيرهم وتوزيع الجوائز
-                const qAll = query(collection(db, "users"), where("points", ">", 0));
-                const snapAll = await getDocs(qAll);
-                
-                let allSortedUsers = [];
-                snapAll.docs.forEach(d => {
-                    allSortedUsers.push({ id: d.id, ...d.data(), points: d.data().points || 0 });
-                });
-                allSortedUsers.sort((a, b) => b.points - a.points);
-                
-                const prizes = [10, 7, 5, 3, 2, 1, 1, 1, 1, 1];
-                let batchesArray = [];
-                let operationCount = allGovernorates.length; // حساب العمليات السابقة
+                // البحث عن مركز المحافظة الخاصة باللاعب
+                let myGovRank = 0;
+                let myGovPoints = 0;
+                let isMyGovWinner = false;
 
-                // 3. تصفير اللاعبين، إضافة الفلوس، وإنشاء الإشعارات
-                allSortedUsers.forEach((uData, index) => {
-                    let updates = { points: 0, previousPoints: uData.points || 0 };
-                    let myRank = index + 1;
-                    let isWinner = myRank <= 10 && (uData.points || 0) >= 150;
-                    
-                    let extraMsg = "";
-                    if (myRank === 1) {
-                        updates.level = increment(1); // السطر السحري لرفع اللفل للمركز الأول
-                        extraMsg = "\n\n⭐ مبروك! لفل حسابك صعد درجة لأنك الأول! ⭐";
+                if (uData.governorate && govsSnapshotData && govsSnapshotData.length > 0) {
+                    const gIndex = govsSnapshotData.findIndex(g => g.name === uData.governorate);
+                    if (gIndex !== -1) {
+                        myGovRank = gIndex + 1;
+                        myGovPoints = govsSnapshotData[gIndex].points;
+                        if (myGovRank === 1 && winningGovName === uData.governorate) {
+                            isMyGovWinner = true;
+                        }
                     }
+                }
 
-                    if (isWinner) {
-                        let prize = prizes[index]; // الأموال ثابتة بدون مضاعفات للمميزين نهائياً
+                let govMsgText = "";
+                if (!uData.governorate) {
+                    govMsgText = "🚩 لم تقم باختيار محافظة لتمثيلها.";
+                } else if (isMyGovWinner) {
+                    govMsgText = `🏆 مبروك! محافظتك (${uData.governorate}) اكتسحت المركز الأول برصيد ${myGovPoints} نقطة، وحصلت على شعار البطل الملكي لمدة أسبوع كامل! 👑`;
+                } else if (myGovRank > 0) {
+                    govMsgText = `🚩 محافظتك (${uData.governorate}) أنهت الأسبوع بالمركز #${myGovRank} برصيد ${myGovPoints} نقطة.`;
+                }
+
+                // 4. فحص الفوز والجوائز
+                if (myRankInfo && myRankInfo.points >= 150 && myRankInfo.rank <= 10) {
+                    const rank = myRankInfo.rank;
+                    let prizeMoney = 0;
+
+                    if (rank === 1) { prizeMoney = 10; updates.level = increment(1); }
+                    else if (rank === 2) prizeMoney = 7;
+                    else if (rank === 3) prizeMoney = 5;
+                    else if (rank === 4) prizeMoney = 3;
+                    else if (rank === 5) prizeMoney = 2;
+                    else if (rank <= 10) prizeMoney = 1;
+
+                    if (prizeMoney > 0) {
+                        updates.balance = increment(prizeMoney);
                         
-                        updates.balance = (uData.balance || 0) + prize;
-                        updates.lastWeeklyPrize = prize;
-                        updates.lastWeeklyRank = myRank;
+                        let levelUpMsg = rank === 1 ? "\n\n⭐ ارتفع مستوى حسابك درجة إضافية لأنك البطل الأول! ⭐" : "";
+
+                        rewardMsg = `مرحباً يا بطل! 🌟\nانتهى التحدي وحان وقت الحصاد...\n\n🥇 المركز العالمي: #${rank}\n💎 النقاط المجموعة: ${myRankInfo.points} نقطة\n💵 الجائزة: ${prizeMoney}$ دولار (تمت إضافتها لمحفظتك)${levelUpMsg}\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nتم تصفير نقاطك لتبدأ بداية جديدة وقوية. استعد للأسبوع الجديد! 🚀`;
                         
-                        // حفظ أفضل وأسوء مركز حققه اللاعب في حياته
-                        if (!uData.bestRank || myRank < uData.bestRank) {
-                            updates.bestRank = myRank; // كلما قل الرقم يعني المركز أفضل
-                        }
-                        if (!uData.worstRank || myRank > uData.worstRank) {
-                            updates.worstRank = myRank;
-                        }
-
-                        // بناء الإشعار
-                        let govRank = 0;
-                        let govMsg = "\n\n🚩 لم تختر محافظة لتمثيلها.";
-                        if (uData.governorate && govsList.length > 0) {
-                            govRank = govsList.findIndex(g => g.id === uData.governorate) + 1;
-                            if (govRank === 1 && winningGov) {
-                                govMsg = `\n\n🚩 احتلت محافظتك (${uData.governorate}) المركز الأول وفزت بشعار البطل لمدة 7 أيام! 👑`;
-                            } else if (govRank > 0) {
-                                govMsg = `\n\n🚩 احتلت محافظتك (${uData.governorate}) المركز #${govRank}.`;
-                            }
-                        }
-
-                        const notifRef = doc(collection(db, "notifications"));
-                        globalBatch.set(notifRef, {
-                            userId: uData.id, type: 'weekly',
-                            message: `🏆 مبروك يا بطل! لقد فزت بالجائزة 🥇\n\nأنهيت الأسبوع بالمركز: #${myRank}\nنقاطك: ${uData.points}\nالجائزة: ${prize}$ دولار 💵${extraMsg}${govMsg}\n\nتم تصفير النقاط وبدء أسبوع جديد!`,
+                        await addDoc(collection(db, "notifications"), {
+                            userId: uid, type: 'weekly',
+                            message: rewardMsg,
                             read: false, createdAt: serverTimestamp()
                         });
-                        operationCount++;
                     }
+                } else if (uData.points > 0) {
+                    let currentRankText = myRankInfo ? `#${myRankInfo.rank}` : "+50";
+                    let currentPoints = myRankInfo ? myRankInfo.points : uData.points;
+                    
+                    rewardMsg = `مرحباً بك في تحديات الأسبوع الجديد! 🚀\n\n📈 إحصائياتك في الأسبوع الماضي:\n- المركز: ${currentRankText} عالمياً\n- النقاط: ${currentPoints} نقطة\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nلم يحالفك الحظ للوصول للـ 10 الأوائل (يجب تحقيق 150 نقطة كحد أدنى)، لكن الأسبوع الجديد فرصة للتعويض!\nتم تصفير النقاط لتبدأ بقوة نحو القمة. 🔥`;
 
-                    globalBatch.update(doc(db, "users", uData.id), updates);
-                    operationCount++;
-
-                    if (operationCount >= 480) {
-                        batchesArray.push(globalBatch.commit());
-                        globalBatch = writeBatch(db);
-                        operationCount = 0;
-                    }
-                });
-
-                if (operationCount > 0) batchesArray.push(globalBatch.commit());
-                await Promise.all(batchesArray);
-
-                // 4. تحديث واجهة المستخدم الحالي فوراً
-                if (currentUser && userData) {
-                    userData.points = 0;
-                    setupHeaderUI();
+                    await addDoc(collection(db, "notifications"), {
+                            userId: uid, type: 'weekly',
+                            message: rewardMsg,
+                            read: false, createdAt: serverTimestamp()
+                    });
                 }
+
+                await updateDoc(doc(db, "users", uid), updates);
                 
-                if (isManual) {
-                    showBeautifulAlert('success', 'تم التوزيع', '✅ تم التوزيع وتصفير النقاط والمحافظات في نفس اللحظة بنجاح!');
-                }
+                userData.points = 0;
+                userData.lastWeekId = currentWeek;
+                if (updates.balance) userData.balance = (userData.balance || 0) + updates.balance.operand;
                 
-                if (document.getElementById('tab-leaderboard').classList.contains('active')) {
-                    loadLeaderboard();
-                    if (!document.getElementById('govs-view-container').classList.contains('hidden')) {
-                        loadGovsLeaderboard();
-                    }
-                }
+                setupHeaderUI();
                 
             } catch (error) {
-                console.error("❌ خطأ في التوزيع:", error);
-                if (isManual) showBeautifulAlert('error', 'خطأ', '❌ حدث خطأ أثناء التوزيع.');
+                console.error("خطأ في نظام التصفير الفردي:", error);
             }
+        }
+        
+        function getCurrentWeekId() {
+            const now = getIraqDate();
+            let d = new Date(now);
+            // ضبط اليوم ليكون الجمعة كبداية الأسبوع
+            if (d.getDay() !== 5) {
+                d.setDate(d.getDate() - ((d.getDay() + 2) % 7));
+            }
+            d.setHours(0, 0, 0, 0);
+            return `week_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+        }
+
+        function getPreviousWeekId() {
+            const now = getIraqDate();
+            let d = new Date(now);
+            if (d.getDay() !== 5) {
+                d.setDate(d.getDate() - ((d.getDay() + 2) % 7));
+            }
+            d.setDate(d.getDate() - 7); // الأسبوع الماضي
+            d.setHours(0, 0, 0, 0);
+            return `week_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
         }
 
         function showBeautifulAlert(type, title, message) {
@@ -4445,11 +4290,11 @@ setupHeaderUI();
         };
 
 async function findRandomOpponent(sub, chapter) {
-    console.log("البحث عن منافس عشوائي للمادة والفصل:", sub, chapter);
-    try {
-        // ✅ اقتصادي: يجلب 25 مستخدم فقط 
-        const q = query(collection(db, "users"), where("grade", "==", userData.grade), limit(25));
-        const snap = await getDocs(q);
+            console.log("البحث عن منافس عشوائي للمادة والفصل:", sub, chapter);
+            try {
+                // تم إزالة نظام الـ 25 شخص، وتم وضع سقف عالي (200) لحماية قراءاتك من النفاد مع ضمان عشوائية تامة
+                const q = query(collection(db, "users"), where("grade", "==", userData.grade), limit(200));
+                const snap = await getDocs(q);
                 
                 if (snap.empty) {
                     showBeautifulAlert('warning', 'تنبيه', 'لا يوجد منافسين متاحين حالياً');
@@ -4457,71 +4302,48 @@ async function findRandomOpponent(sub, chapter) {
                     return;
                 }
                 
-                let eligibleUsers = [];
                 let usersWithRealPhotos = [];
                 
                 snap.forEach(doc => {
                     const user = doc.data();
                     if (user.uid && user.uid !== currentUser.uid) {
-                        const userDataObj = { id: doc.id, ...user };
-                        eligibleUsers.push(userDataObj);
-                        
-                        // عزل المستخدمين اللي حاطين صور حقيقية لحساباتهم
+                        // الشرط الصارم: يجب أن يمتلك صورة شخصية حقيقية فقط (تجاهل الصور الافتراضية)
                         if (user.photo && !user.photo.includes("ui-avatars.com")) {
-                            usersWithRealPhotos.push(userDataObj);
+                            usersWithRealPhotos.push({ id: doc.id, ...user });
                         }
                     }
                 });
                 
-                if (eligibleUsers.length === 0) {
-                    showBeautifulAlert('warning', 'تنبيه', 'لا يوجد منافسين متاحين حالياً');
+                if (usersWithRealPhotos.length === 0) {
+                    showBeautifulAlert('warning', 'عذراً', 'لا يوجد منافسين يمتلكون صورة شخصية حالياً، حاول لاحقاً.');
                     cancelSearch();
                     return;
                 }
-                
-                // الخوارزمية الذكية: نعتمد على أصحاب الصور الحقيقية كأولوية، وإذا ماكو نعتمد على الكل
-                // الخوارزمية الصارمة: يجب أن يكون الخصم لديه صورة حقيقية فقط
-        let poolToUse = usersWithRealPhotos;
-
-        if (poolToUse.length === 0) {
-            showBeautifulAlert('warning', 'عذراً', 'لا يوجد منافسين متاحين يمتلكون صورة شخصية حالياً، حاول لاحقاً.');
-            cancelSearch();
-            return;
-        }
-
-                // ترتيب القائمة حسب "آخر ظهور" (من الأحدث للأقدم)
-                poolToUse.sort((a, b) => {
-                    const dateA = a.lastLogin ? new Date(a.lastLogin).getTime() : 0;
-                    const dateB = b.lastLogin ? new Date(b.lastLogin).getTime() : 0;
-                    return dateB - dateA;
-                });
 
                 // جلب قائمة الخصوم اللي لعبت وياهم مؤخراً من ذاكرة هاتفك (حتى ما يتكررون)
                 let recentOpponents = JSON.parse(localStorage.getItem('recent_opponents_cycle') || '[]');
 
-                let chosenOpponent;
-                
-                // البحث عن أول شخص بالترتيب (أحدث ظهور) ما لعبت وياه بهاي الدورة
-                let availableOpponents = poolToUse.filter(op => !recentOpponents.includes(op.id));
+                // فلترة الخصوم اللي ما لاعب وياهم
+                let availableOpponents = usersWithRealPhotos.filter(op => !recentOpponents.includes(op.id));
 
-// إذا لعبت وي الكل، أو الدورة وصلت 25 شخص.. نصفر السجل ونستعمل كل القائمة من جديد
-if (availableOpponents.length === 0 || recentOpponents.length >= 25) {
-    recentOpponents = [];
-    availableOpponents = poolToUse;
-}
+                // إذا لعبت وي الكل، أو الدورة وصلت 20 شخص.. نصفر السجل ونستعمل كل القائمة من جديد
+                if (availableOpponents.length === 0 || recentOpponents.length >= 20) {
+                    recentOpponents = [];
+                    availableOpponents = usersWithRealPhotos;
+                }
 
-// التعديل الأهم: اختيار شخص (عشوائي) من القائمة مو أول واحد دائماً
-const randomIndex = Math.floor(Math.random() * availableOpponents.length);
-chosenOpponent = availableOpponents[randomIndex];
+                // التعديل الأهم: اختيار شخص (عشوائي تماماً) من القائمة المتاحة
+                const randomIndex = Math.floor(Math.random() * availableOpponents.length);
+                const chosenOpponent = availableOpponents[randomIndex];
 
-// حفظ الخصم الحالي بالقائمة حتى ما يطلعلك بالمباراة الجاية مباشرة
-recentOpponents.push(chosenOpponent.id);
-localStorage.setItem('recent_opponents_cycle', JSON.stringify(recentOpponents));
+                // حفظ الخصم الحالي بالقائمة حتى ما يطلعلك بالمباراة الجاية مباشرة
+                recentOpponents.push(chosenOpponent.id);
+                localStorage.setItem('recent_opponents_cycle', JSON.stringify(recentOpponents));
                 
                 await showVSAnimationWithButtons(
                     { uid: currentUser.uid, name: userData.name, photo: userData.photo, grade: userData.grade },
                     { uid: chosenOpponent.id, name: chosenOpponent.name, photo: chosenOpponent.photo, grade: chosenOpponent.grade },
-                    chapter // تمرير الفصل
+                    chapter 
                 );
                 
             } catch (error) {
@@ -5338,8 +5160,10 @@ function showWithdrawalResult() {
 
                 if (!window.isCurrentMatchFriendly) {
                     if (myScore > opScore) {
+                        // أنت فزت، راح نخصم النقاط من الخصم
                         updateDoc(doc(db, "users", opId), { points: increment(-pointsGained) });
                     } else if (myScore < opScore) {
+                        // أنت خسرت، راح نضيف النقاط للخصم
                         let opAdd = opScore * 2;
                         getDoc(doc(db, "users", opId)).then(opSnap => {
                             if (opSnap.exists()) {
@@ -5351,14 +5175,17 @@ function showWithdrawalResult() {
                     }
                 }
 
+                // --------- نظام الإشعارات والانتقام ---------
                 if (myScore > opScore) {
+                    // الحالة 1: أنت فزت (الخصم خسر) -> نرسل إشعار "انتقام" للخصم
                     addDoc(collection(db, "notifications"), {
                         userId: opId, type: 'revenge',
-                        message: `🔥 إهانة كروية! ${matchTypeTxt} المنافس "${userData.name}" سحقك بنتيجة ${myScore}-${opScore} وخسرت نقاط. ثأر لكرامتك! ⚔️`,
+                        message: `🔥 تحدي وزاري! ${matchTypeTxt} المنافس "${userData.name}" تفوق عليك بنتيجة ${myScore}-${opScore} وخسرت نقاط. ثأر لكرامتك! ⚔️`,
                         opponentId: currentUser.uid, opponentName: userData.name, matchResult: `${opScore}-${myScore}`,
                         read: false, createdAt: serverTimestamp()
                     });
                 } else if (myScore < opScore) {
+                    // الحالة 2: أنت خسرت (الخصم فاز) -> نرسل إشعار "انتقام" لك أنت
                     addDoc(collection(db, "notifications"), {
                         userId: currentUser.uid, type: 'revenge',
                         message: `🔥 خسرت أمام "${opName}" بنتيجة ${opScore}-${myScore} ${matchTypeTxt}. هل ستنتقم؟ ⚔️`,
@@ -5366,6 +5193,7 @@ function showWithdrawalResult() {
                         read: false, createdAt: serverTimestamp()
                     });
 
+                    // ونرسل إشعار "مكافأة وفوز" للخصم (لأنه كان غايب وفاز عليك بالذكاء الاصطناعي)
                     addDoc(collection(db, "notifications"), {
                         userId: opId, type: 'reward',
                         message: `🎉 مبروك! لقد فزت على "${userData.name}" بنتيجة ${opScore}-${myScore} ${matchTypeTxt} (أثناء غيابك) وتمت إضافة النقاط لرصيدك.`,
@@ -5586,6 +5414,517 @@ async function promptForRevengeSubject(opponentName) {
      setTimeout(() => { isExitingGame = false; }, 500);
 };
 
+// ==========================================
+// 🤖 مصنع الذكاء الاصطناعي لاستخراج الأسئلة 
+// ==========================================
+
+// المفاتيح معكوسة للحماية (يتم عكسها برمجياً عند الاستخدام)
+const HIDDEN_GEMINI_KEYS = [
+    'QAmauqPS1oPQg0h94FMgZdl67SdLfwm3DySazIA',
+    '4risF3DfN3HoDirKl-x3QaPzK_Ys5G_fAySazIA',
+    'g6P4fNC6-zkjzTetjCVMNtIOAMOIPPqWqsxDSykpv6uI6NR8bA.QA',
+    'A_gnakF37qsL738KlnohohHJYX08yygN6nF4-B5wA6fI6NR8bA.QA',
+    'QPLwob7aj6NEz04WZNl2-kgDJWSTM-5dY3tDyxIbZpaK6NR8bA.QA',
+    'wRPwTkvJC-JRhbqGpVksb4zlRtZ_veMhMMSU1fCzrxsK6NR8bA.QA',
+    'QPLwob7aj6NEz04WZNl2-kgDJWSTM-5dY3tDyxIbZpaK6NR8bA.QA',
+    'goxOdevQH1fPQGbGiTUmyIbIRaQQ624_iXpQBcYd-y7J6NR8bA.QA'
+];
+
+let currentKeyIndex = 0;
+let isQueueProcessing = false;
+let currentPreviewTaskId = null; // للاحتفاظ بالآيدي عند الارسال للمراجعة
+
+// عكس المفتاح
+function getActiveGeminiKey() {
+    return HIDDEN_GEMINI_KEYS[currentKeyIndex].split('').reverse().join('');
+}
+
+function rotateGeminiKey() {
+    currentKeyIndex = (currentKeyIndex + 1) % HIDDEN_GEMINI_KEYS.length;
+    console.log("تم التبديل للمفتاح رقم:", currentKeyIndex);
+}
+
+// التبديل بين الرفع والنتائج
+window.switchAITab = function(tab) {
+    const btnUpload = document.getElementById('tab-btn-ai-upload');
+    const btnResults = document.getElementById('tab-btn-ai-results');
+    const secUpload = document.getElementById('ai-upload-section');
+    const secResults = document.getElementById('ai-results-section');
+
+    if (tab === 'upload') {
+        btnUpload.className = "flex-1 py-3 rounded-xl font-black text-sm bg-white text-indigo-600 shadow-sm transition-all";
+        btnResults.className = "flex-1 py-3 rounded-xl font-black text-sm text-indigo-400 transition-all relative";
+        secUpload.classList.remove('hidden');
+        secResults.classList.add('hidden');
+    } else {
+        btnResults.className = "flex-1 py-3 rounded-xl font-black text-sm bg-white text-indigo-600 shadow-sm transition-all relative";
+        btnUpload.className = "flex-1 py-3 rounded-xl font-black text-sm text-indigo-400 transition-all";
+        secResults.classList.remove('hidden');
+        secUpload.classList.add('hidden');
+        renderAIQueue();
+    }
+};
+
+window.handleAIPdfSelect = function(input) {
+    if (input.files[0]) {
+        document.getElementById('ai-file-name-display').innerText = input.files[0].name;
+    }
+};
+
+// قراءة الـ Queue من قاعدة بيانات المتصفح
+function getAIQueue() {
+    const q = localStorage.getItem('ai_tasks_queue');
+    return q ? JSON.parse(q) : [];
+}
+
+function saveAIQueue(queue) {
+    localStorage.setItem('ai_tasks_queue', JSON.stringify(queue));
+    renderAIQueue();
+}
+
+window.startAIExtractionProcess = async function() {
+    const fileInput = document.getElementById('ai-pdf-input');
+    const grade = document.getElementById('ai-grade').value;
+    const subject = document.getElementById('ai-subject').value;
+    const chapter = document.getElementById('ai-chapter').value;
+
+    if (!grade || !subject || !chapter || !fileInput.files[0]) {
+        showBeautifulAlert('warning', 'بيانات ناقصة', 'يرجى اختيار الصف والمادة والفصل والملف أولاً.');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    showAuthLoading('جاري قراءة وتحليل كتاب الـ PDF... (قد يستغرق دقائق حسب حجم الملف)');
+
+    try {
+        const fileBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: fileBuffer }).promise;
+        let fullText = '';
+        
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const pageText = content.items.map(item => item.str).join(' ');
+            fullText += `\n--- Page ${i} ---\n` + pageText;
+        }
+
+        // التعديل العبقري: نقسم الملف إلى 8 أجزاء بالضبط مهما كان حجمه!
+        const totalParts = 8;
+        const chunkSize = Math.ceil(fullText.length / totalParts); 
+        const chunks = [];
+        for (let i = 0; i < fullText.length; i += chunkSize) {
+            chunks.push(fullText.substring(i, i + chunkSize));
+        }
+
+        const taskId = 'task_' + Date.now();
+        const newTask = {
+            id: taskId,
+            fileName: file.name,
+            grade: grade,
+            subject: subject,
+            chapter: chapter,
+            status: 'pending', 
+            totalChunks: chunks.length,
+            currentChunk: 0,
+            progress: 0,
+            extractedQuestions: [],
+            errorMsg: ''
+        };
+
+        await localforage.setItem(`ai_chunks_${taskId}`, chunks);
+
+        const queue = getAIQueue();
+        queue.push(newTask);
+        saveAIQueue(queue);
+
+        fileInput.value = '';
+        document.getElementById('ai-file-name-display').innerText = 'اضغط لاختيار ملف PDF';
+        
+        hideAuthLoading();
+        showBeautifulAlert('success', 'تم الإضافة للطابور', 'تم تقسيم الملف إلى 8 أجزاء ذكية بنجاح. انتقل للنتائج للمتابعة.');
+        switchAITab('results');
+
+        startAIQueueProcessor();
+
+    } catch (e) {
+        hideAuthLoading();
+        console.error(e);
+        showBeautifulAlert('error', 'فشل القراءة', 'حدث خطأ أثناء قراءة ملف الـ PDF. تأكد أنه ملف نصي وليس صور فقط.');
+    }
+};
+
+function renderAIQueue() {
+    const sec = document.getElementById('ai-results-section');
+    const queue = getAIQueue();
+    const badge = document.getElementById('ai-queue-badge');
+    
+    if (queue.length > 0) {
+        badge.innerText = queue.length;
+        badge.classList.remove('hidden');
+    } else {
+        badge.classList.add('hidden');
+    }
+
+    if (queue.length === 0) {
+        sec.innerHTML = `
+            <div class="text-center py-10 opacity-60">
+                <i class="fas fa-box-open text-5xl text-gray-300 mb-3"></i>
+                <p class="font-bold text-gray-500">الطابور فارغ، قم برفع ملف للبدء.</p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+    queue.forEach(task => {
+        let statusBadge = '';
+        let progressBar = `<div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden mt-3"><div class="h-full bg-indigo-500 transition-all duration-300" style="width: ${task.progress}%"></div></div>`;
+        let actionBtn = '';
+        let deleteBtn = `<button onclick="deleteAITask('${task.id}')" class="w-8 h-8 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition"><i class="fas fa-trash"></i></button>`;
+
+        if (task.status === 'pending') {
+            statusBadge = `<span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-[10px] font-bold">⏳ بالانتظار</span>`;
+        } else if (task.status === 'processing') {
+            statusBadge = `<span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-[10px] font-bold animate-pulse">⚙️ جاري الاستخراج (${task.progress}%)</span>`;
+            actionBtn = `<button onclick="pauseAITask('${task.id}')" class="bg-orange-100 text-orange-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-orange-200">إيقاف مؤقت</button>`;
+        } else if (task.status === 'paused') {
+            statusBadge = `<span class="bg-orange-100 text-orange-600 px-2 py-1 rounded text-[10px] font-bold">⏸️ متوقف مؤقتاً</span>`;
+            actionBtn = `<button onclick="resumeAITask('${task.id}')" class="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-200"><i class="fas fa-play"></i> استمرار</button>`;
+        } else if (task.status === 'success') {
+            statusBadge = `<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-[10px] font-bold">✅ اكتمل بنجاح</span>`;
+            progressBar = '';
+            actionBtn = `
+                <button onclick="previewExtractedQuestions('${task.id}')" class="bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-200 flex-1"><i class="fas fa-eye"></i> عرض وتأكيد</button>
+            `;
+            deleteBtn = `<button onclick="deleteAITask('${task.id}')" class="w-8 h-8 shrink-0 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition"><i class="fas fa-times"></i></button>`;
+        } else if (task.status === 'failed') {
+            statusBadge = `<span class="bg-red-100 text-red-600 px-2 py-1 rounded text-[10px] font-bold" title="${task.errorMsg}">❌ فشل المعالجة</span>`;
+            actionBtn = `<button onclick="resumeAITask('${task.id}')" class="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-200"><i class="fas fa-redo"></i> إعادة المحاولة</button>`;
+        }
+
+        html += `
+            <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm relative">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center gap-2 max-w-[70%]">
+                        <i class="fas fa-file-pdf text-xl text-red-400"></i>
+                        <h4 class="font-bold text-gray-800 text-sm truncate cursor-pointer hover:text-indigo-600 transition" ${task.status === 'success' ? `onclick="previewExtractedQuestions('${task.id}')"` : ''}>${task.fileName}</h4>
+                    </div>
+                    ${statusBadge}
+                </div>
+                
+                <div class="flex gap-1 flex-wrap mb-2">
+                    <span class="bg-gray-50 text-gray-500 px-1.5 py-0.5 rounded text-[10px] border border-gray-100">${getGradeName(task.grade)}</span>
+                    <span class="bg-indigo-50 text-indigo-500 px-1.5 py-0.5 rounded text-[10px] border border-indigo-100">${task.subject}</span>
+                    <span class="bg-purple-50 text-purple-500 px-1.5 py-0.5 rounded text-[10px] border border-purple-100">${task.chapter}</span>
+                </div>
+
+                ${task.status === 'processing' || task.status === 'paused' ? `<p class="text-[10px] text-gray-400 font-bold mb-1">المتبقي: ${task.totalChunks - task.currentChunk} أجزاء من أصل ${task.totalChunks}</p>` : ''}
+                
+                ${task.status === 'success' ? `<p class="text-xs font-black text-emerald-600 mb-2 mt-2 bg-emerald-50 inline-block px-2 py-1 rounded-md">الأسئلة المستخرجة: ${task.extractedQuestions.length}</p>` : ''}
+
+                ${progressBar}
+
+                <div class="flex items-center gap-2 mt-4 pt-3 border-t border-gray-50">
+                    ${actionBtn}
+                    ${deleteBtn}
+                </div>
+            </div>
+        `;
+    });
+    sec.innerHTML = html;
+}
+
+window.pauseAITask = function(taskId) {
+    const queue = getAIQueue();
+    const task = queue.find(t => t.id === taskId);
+    if(task && task.status === 'processing') {
+        task.status = 'paused';
+        saveAIQueue(queue);
+        isQueueProcessing = false; // ايقاف اللوب
+    }
+};
+
+window.resumeAITask = function(taskId) {
+    const queue = getAIQueue();
+    const task = queue.find(t => t.id === taskId);
+    if(task && (task.status === 'paused' || task.status === 'failed')) {
+        task.status = 'pending';
+        saveAIQueue(queue);
+        startAIQueueProcessor();
+    }
+};
+
+window.previewExtractedQuestions = function(taskId) {
+    const queue = getAIQueue();
+    const task = queue.find(t => t.id === taskId);
+    if(!task || task.status !== 'success') return;
+
+    currentPreviewTaskId = taskId;
+    document.getElementById('ai-preview-count').innerText = `${task.extractedQuestions.length} سؤال`;
+    
+    const listDiv = document.getElementById('ai-preview-list');
+    let html = '';
+    
+    task.extractedQuestions.forEach((q, idx) => {
+        let answersHtml = '';
+        if(q.type === 'mcq') {
+            answersHtml = `
+                <div class="mt-2 space-y-1">
+                    ${q.answers.map((ans, i) => `<div class="p-1.5 rounded text-xs ${i === q.correct ? 'bg-green-100 text-green-800 font-bold border border-green-200' : 'bg-white border border-gray-200 text-gray-600'}">${ans} ${i === q.correct ? '✅' : ''}</div>`).join('')}
+                </div>
+            `;
+        } else {
+            answersHtml = `
+                <div class="mt-2 flex gap-2">
+                    <span class="px-2 py-1 text-xs rounded font-bold ${q.correct ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-gray-100 text-gray-400 opacity-50'}">صح ${q.correct ? '✅' : ''}</span>
+                    <span class="px-2 py-1 text-xs rounded font-bold ${!q.correct ? 'bg-red-100 text-red-800 border border-red-200' : 'bg-gray-100 text-gray-400 opacity-50'}">خطأ ${!q.correct ? '✅' : ''}</span>
+                </div>
+            `;
+        }
+
+        html += `
+            <div class="bg-white p-3 rounded-xl border border-indigo-100 shadow-sm">
+                <div class="flex gap-2 mb-2">
+                    <span class="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-[10px] font-bold">#${idx+1}</span>
+                    <span class="bg-purple-50 text-purple-600 px-1.5 py-0.5 rounded text-[10px] font-bold">${q.type === 'mcq' ? 'خيارات' : 'صح وخطأ'}</span>
+                </div>
+                <p class="font-bold text-sm text-gray-800 leading-relaxed">${q.question}</p>
+                ${answersHtml}
+            </div>
+        `;
+    });
+
+    listDiv.innerHTML = html;
+    
+    // تصيير الرموز الرياضية إن وجدت
+    if(window.MathJax) setTimeout(() => { MathJax.typesetPromise([listDiv]).catch(console.log); }, 50);
+
+    document.getElementById('ai-preview-modal').classList.remove('hidden');
+};
+
+window.sendExtractedToReview = async function() {
+    if(!currentPreviewTaskId) return;
+    
+    const queue = getAIQueue();
+    const taskIndex = queue.findIndex(t => t.id === currentPreviewTaskId);
+    if(taskIndex === -1) return;
+    
+    const task = queue[taskIndex];
+    const btn = document.getElementById('btn-send-to-review');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+
+    try {
+        let batches = [];
+        let currentBatch = writeBatch(db);
+        let opCount = 0;
+
+        task.extractedQuestions.forEach(q => {
+            const docRef = doc(collection(db, "pending_questions"));
+            currentBatch.set(docRef, {
+                question: q.question,
+                answers: q.answers || [],
+                correct: q.correct,
+                type: q.type,
+                grade: task.grade,
+                subject: task.subject,
+                chapter: task.chapter,
+                status: 'pending',
+                senderId: 'AI_GEMINI',
+                senderName: 'الذكاء الاصطناعي 🤖',
+                createdAt: serverTimestamp()
+            });
+            opCount++;
+
+            if(opCount >= 490) {
+                batches.push(currentBatch.commit());
+                currentBatch = writeBatch(db);
+                opCount = 0;
+            }
+        });
+
+        if(opCount > 0) batches.push(currentBatch.commit());
+        await Promise.all(batches);
+
+        // حذف المهمة من الطابور بعد ارسالها بنجاح
+        queue.splice(taskIndex, 1);
+        saveAIQueue(queue);
+        await localforage.removeItem(`ai_chunks_${currentPreviewTaskId}`);
+
+        document.getElementById('ai-preview-modal').classList.add('hidden');
+        showBeautifulAlert('success', 'نجاح', `تم إرسال ${task.extractedQuestions.length} سؤال للمراجعة بنجاح! انتقل لقسم "مراجعة الأسئلة" للموافقة عليها.`);
+        
+    } catch (e) {
+        console.error(e);
+        showBeautifulAlert('error', 'خطأ', 'فشل إرسال الأسئلة، حاول مجدداً.');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال للمراجعة';
+    }
+};
+
+// -----------------------------------------------------
+// معالج الطابور الخلفي (القلب النابض)
+// -----------------------------------------------------
+window.startAIQueueProcessor = async function() {
+    if (isQueueProcessing) return;
+    isQueueProcessing = true;
+    processNextInQueue();
+};
+
+async function processNextInQueue() {
+    if (!isQueueProcessing) return;
+
+    let queue = getAIQueue();
+    // جلب أول مهمة بالانتظار أو قيد المعالجة (في حال غلق التطبيق ورجع)
+    let activeTaskIndex = queue.findIndex(t => t.status === 'processing' || t.status === 'pending');
+    
+    if (activeTaskIndex === -1) {
+        isQueueProcessing = false;
+        return; // الطابور فارغ أو كلشي مكتمل/متوقف
+    }
+
+    let task = queue[activeTaskIndex];
+    task.status = 'processing';
+    saveAIQueue(queue);
+
+    try {
+        const chunks = await localforage.getItem(`ai_chunks_${task.id}`);
+        if (!chunks) throw new Error("فقدان بيانات الملف المقطعة.");
+
+        while (task.currentChunk < task.totalChunks && task.status === 'processing') {
+            const textChunk = chunks[task.currentChunk];
+            
+            // استدعاء الـ API الفعلي لجوجل جيمني
+            const newQuestions = await callGeminiAPI(textChunk);
+            
+            // دمج الأسئلة الجديدة
+            if (newQuestions && newQuestions.length > 0) {
+                task.extractedQuestions = task.extractedQuestions.concat(newQuestions);
+            }
+
+            task.currentChunk++;
+            task.progress = Math.floor((task.currentChunk / task.totalChunks) * 100);
+            
+            // تحديث الـ Queue بالشاشة
+            queue = getAIQueue(); // جلب أحدث نسخة بحال المالك ضغط حذف
+            const idx = queue.findIndex(t => t.id === task.id);
+            if (idx === -1) {
+                // المالك قام بحذف الملف أثناء المعالجة
+                throw new Error("USER_DELETED");
+            }
+            queue[idx] = task;
+            saveAIQueue(queue);
+
+            // استراحة بسيطة لتجنب تجاوز حد الـ API
+            await new Promise(r => setTimeout(r, 2000));
+        }
+
+        if (task.status === 'processing') {
+            task.status = 'success';
+            task.progress = 100;
+            saveAIQueue(queue);
+        }
+
+    } catch (e) {
+        if (e.message === "USER_DELETED") {
+            console.log("تم إلغاء المهمة من قبل المستخدم");
+        } else {
+            console.error("AI Error:", e);
+            queue = getAIQueue();
+            const idx = queue.findIndex(t => t.id === task.id);
+            if (idx !== -1) {
+                queue[idx].status = 'failed';
+                queue[idx].errorMsg = e.message;
+                saveAIQueue(queue);
+            }
+            rotateGeminiKey(); // التبديل لمفتاح ثاني بحال الفشل
+        }
+    }
+
+    // الانتقال للملف اللي بعده بالطابور
+    setTimeout(() => {
+        if (isQueueProcessing) processNextInQueue();
+    }, 1000);
+}
+
+// الاتصال المباشر بنماذج جوجل Gemini
+async function callGeminiAPI(textChunk) {
+    // التعديل الجوهري: الأوامر مصممة لخلق 50 سؤال من خلال التلاعب بالمنهج حصراً
+    const prompt = `أنت خبير تربوي عراقي محترف في صياغة الأسئلة الوزارية الذكية.
+الهدف: بناء بنك أسئلة ضخم. مطلوب منك استخراج (50 سؤالاً) بالضبط من هذا النص (25 سؤال اختيارات mcq، و 25 سؤال صح/خطأ tf).
+
+قواعد الابتكار المنهجي (للوصول للعدد 50 بدون أي تأليف من خارج النص):
+1. المنهج فقط: يمنع منعاً باتاً اختراع معلومات خارجية. كل معلومة يجب أن تكون من النص المرفق.
+2. تدوير الأفكار: إذا كانت المعلومات في النص لا تكفي لـ 50 سؤالاً، قم بـ "إعادة صياغة" الأسئلة والتلاعب بمنطقها. 
+   - كيف تفعل ذلك؟ اسأل عن نفس الفكرة بطريقة عكسية، حول النتيجة إلى سبب، استخرج سؤالاً عن التعريف ثم سؤالاً آخر عن التطبيق لنفس الفكرة.
+3. أسئلة الاختيارات (mcq): 3 خيارات فقط، متناسقة ومتقاربة بالطول لتصعيب التخمين (إجابة واحدة صحيحة واثنتان خاطئتان مأخوذتان من نفس النص للتمويه).
+4. أسئلة الصح/الخطأ (tf): نصفها عبارات صحيحة، ونصفها عبارات تم التلاعب بكلمة جوهرية فيها لتصبح خاطئة بشكل ذكي يختبر تركيز الطالب.
+5. الرموز: استخدم صيغة LaTeX (بين $ أو $$).
+6. التجاهل: تجاهل أرقام الصفحات، الفهارس، والحقوق.
+7. المخرجات: مصفوفة JSON نقية فقط (بدون أي نصوص إضافية، فقط الأقواس).
+
+الهيكل المطلوب (يجب أن يحتوي على 50 عنصر):
+[
+  {
+    "type": "mcq",
+    "question": "نص السؤال المنهجي المعاد صياغته",
+    "answers": ["الخيار الأول", "الخيار الثاني", "الخيار الثالث"],
+    "correct": 0
+  },
+  {
+    "type": "tf",
+    "question": "نص العبارة المنهجية (التي قد تكون صحيحة أو تم التلاعب بها بذكاء لتصبح خاطئة)",
+    "correct": true
+  }
+]
+
+ابدأ العمل بتركيز عالي لاستخراج واستنطاق 50 سؤالاً من هذا النص:
+---
+${textChunk}
+---
+`;
+
+    // تبديل المفتاح السري قبل كل طلب (هذا راح يخلي كل قطعة من الـ 8 قطع تنسحب بمفتاح مختلف تماماً!)
+    rotateGeminiKey();
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${getActiveGeminiKey()}`;
+    
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: {
+                temperature: 0.4, // رفعناه قليلاً للـ 0.4 حتى نسمح له بالإبداع في "إعادة الصياغة والتلاعب بالعبارات" بدون أن يخترع أشياء من خياله
+                maxOutputTokens: 8192, 
+                topK: 40,
+                topP: 0.95
+            }
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    if (!data.candidates || data.candidates.length === 0) return [];
+    
+    let responseText = data.candidates[0].content.parts[0].text.trim();
+    
+    try {
+        const match = responseText.match(/\[[\s\S]*\]/);
+        if (match) {
+            return JSON.parse(match[0]);
+        } else {
+            return JSON.parse(responseText);
+        }
+    } catch (error) {
+        console.warn("⚠️ تم تجاوز هذا الجزء. الـ AI أرجع نصاً غير صالح كـ JSON. النص هو:", responseText);
+        return []; 
+    }
+}
+
         window.openPage = async (screenId, skipHistory = false) => {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
@@ -5607,7 +5946,6 @@ async function promptForRevengeSubject(opponentName) {
             else if (screenId === 'screen-review-questions') {
                 loadReviewQuestions();
             }
-            
             else if (screenId === 'screen-notifications') {
                 loadNotifications();
                 markNotificationsAsRead();
@@ -5615,14 +5953,23 @@ async function promptForRevengeSubject(opponentName) {
             else if (screenId === 'screen-admin-badges') {
                 loadAdminBadges();
             }
+            else if (screenId === 'screen-admin-ai-extract') {
+                // تشغيل واجهة الذكاء الاصطناعي وبدء الطابور تلقائياً لو كان بي ملفات
+                switchAITab('upload');
+                renderAIQueue();
+                startAIQueueProcessor(); 
+            }
 
-            // إخفاء الزر فوراً إن لم نكن بصفحة المميزين
+            // إيقاف عمل الاستخراج بشكل مؤقت اذا المالك طلع من صفحة الذكاء الاصطناعي لتوفير الموارد
+            if (screenId !== 'screen-admin-ai-extract' && typeof isQueueProcessing !== 'undefined') {
+                isQueueProcessing = false;
+            }
+
             if (screenId !== 'tab-premium') {
                 const btn = document.getElementById('add-subscription-btn');
                 if (btn) btn.classList.add('hidden');
             }
 
-            // تسجيل التحرك للهاتف
             if (!skipHistory) {
                 history.pushState({ screen: screenId, type: 'sub' }, '', '#' + screenId);
             }
@@ -6865,671 +7212,6 @@ window.deleteBadge = async function(index) {
         };
         
 
-let selectedBulkType = 'mcq';
-
-window.setBulkType = (type) => {
-    selectedBulkType = type;
-    document.getElementById('bulk-btn-mcq').className = `py-3 rounded-xl border-2 font-bold transition-all flex-1 ${type==='mcq'?'border-indigo-600 bg-indigo-50 text-indigo-600':'border-gray-100 text-gray-400'}`;
-    document.getElementById('bulk-btn-tf').className = `py-3 rounded-xl border-2 font-bold transition-all flex-1 ${type==='tf'?'border-indigo-600 bg-indigo-50 text-indigo-600':'border-gray-100 text-gray-400'}`;
-};
-
-window.switchAITab = (tab) => {
-    if(tab === 'upload') {
-        document.getElementById('ai-upload-section').classList.remove('hidden');
-        document.getElementById('ai-results-section').classList.add('hidden');
-        document.getElementById('tab-ai-upload-btn').classList.add('active');
-        document.getElementById('tab-ai-results-btn').classList.remove('active');
-    } else {
-        document.getElementById('ai-upload-section').classList.add('hidden');
-        document.getElementById('ai-results-section').classList.remove('hidden');
-        document.getElementById('tab-ai-upload-btn').classList.remove('active');
-        document.getElementById('tab-ai-results-btn').classList.add('active');
-        renderAIQueue();
-    }
-};
-
-const HIDDEN_KEYS = [
-    'QAmauqPS1oPQg0h94FMgZdl67SdLfwm3DySazIA',
-    '4risF3DfN3HoDirKl-x3QaPzK_Ys5G_fAySazIA',
-    'g6P4fNC6-zkjzTetjCVMNtIOAMOIPPqWqsxDSykpv6uI6NR8bA.QA',
-    'A_gnakF37qsL738KlnohohHJYX08yygN6nF4-B5wA6fI6NR8bA.QA',
-    'QPLwob7aj6NEz04WZNl2-kgDJWSTM-5dY3tDyxIbZpaK6NR8bA.QA',
-    'wRPwTkvJC-JRhbqGpVksb4zlRtZ_veMhMMSU1fCzrxsK6NR8bA.QA',
-    'QPLwob7aj6NEz04WZNl2-kgDJWSTM-5dY3tDyxIbZpaK6NR8bA.QA',
-    'goxOdevQH1fPQGbGiTUmyIbIRaQQ624_iXpQBcYd-y7J6NR8bA.QA',
-    'gP6wGJUIVJwE8HDF7TBdRC0TQxCcpc64afGMAKdpASK6NR8bA.QA'
-];
-
-const GEMINI_API_KEYS = HIDDEN_KEYS.map(k => k.split('').reverse().join(''));
-
-let isQueueProcessing = false;
-let aiQueueInterval = null;
-
-function getAIQueue() {
-    return JSON.parse(localStorage.getItem('admin_ai_queue') || '[]');
-}
-
-function saveAIQueue(queue) {
-    localStorage.setItem('admin_ai_queue', JSON.stringify(queue));
-    renderAIQueue();
-}
-
-window.addFileToAIQueue = async function() {
-    const fileInput = document.getElementById('bulk-ai-pdf');
-    const grade = document.getElementById('bulk-ai-grade').value;
-    const subject = document.getElementById('bulk-ai-subject').value;
-    const chapter = document.getElementById('bulk-ai-chapter').value;
-    
-    if (!fileInput.files[0] || !grade || !subject || !chapter) {
-        showBeautifulAlert('warning', 'نقص معلومات', 'يرجى رفع الملف واختيار الصف والمادة والفصل/الموضوع بدقة');
-        return;
-    }
-
-    const btn = document.getElementById('bulk-add-queue-btn');
-    const readProgress = document.getElementById('ai-read-progress');
-    const readBar = document.getElementById('ai-read-bar');
-    const readText = document.getElementById('ai-read-text');
-    
-    btn.disabled = true;
-    btn.classList.add('opacity-50');
-    readProgress.classList.remove('hidden');
-
-    try {
-        const pdfjs = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
-        pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-        
-        const file = fileInput.files[0];
-        const arrayBuffer = await file.arrayBuffer();
-        const pdf = await pdfjs.getDocument({data: arrayBuffer}).promise;
-        
-        let fullText = '';
-        let hasUsedOCR = false;
-
-        for (let i = 1; i <= pdf.numPages; i++) {
-            readText.innerText = `جاري قراءة الصفحة ${i} من ${pdf.numPages}...`;
-            const page = await pdf.getPage(i);
-            const content = await page.getTextContent();
-            let pageText = content.items.map(s => s.str).join(' ');
-
-            // التحقق إذا كانت الصفحة عبارة عن صورة سكنر (نص قليل جداً أو فارغ)
-            if (pageText.trim().length < 20) {
-                if (!hasUsedOCR) {
-                    readText.innerText = `تم اكتشاف ملف سكنر، جاري تفعيل القراءة البصرية (OCR)... قد يستغرق وقتاً`;
-                    hasUsedOCR = true;
-                }
-                
-                // تحويل الصفحة إلى صورة (Canvas)
-                const viewport = page.getViewport({ scale: 1.5 });
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = viewport.width; 
-                canvas.height = viewport.height;
-                
-                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
-                
-                // استخدام Tesseract.js لقراءة النص العربي من الصورة
-                if (window.Tesseract) {
-                    const result = await Tesseract.recognize(canvas, 'ara', {
-                        logger: m => {
-                            if(m.status === 'recognizing text') {
-                                readText.innerText = `فحص الصورة صفحة ${i}: ${Math.round(m.progress * 100)}%`;
-                            }
-                        }
-                    });
-                    pageText = result.data.text;
-                }
-            }
-
-            fullText += pageText + '\n';
-            readBar.style.width = Math.round((i / pdf.numPages) * 100) + '%';
-        }
-
-        // إرسال النص كدفعة واحدة (بدون تقطيع) لتسريع العملية
-        let cleanFullText = fullText.trim();
-        
-        if(cleanFullText.length === 0) {
-            throw new Error("لم نتمكن من قراءة أي نص من الملف.");
-        }
-
-        // نضع النص بالكامل كعنصر واحد في المصفوفة
-        const chunksArray = [cleanFullText];
-
-        const queue = getAIQueue();
-        
-        queue.push({
-            id: Date.now().toString(),
-            grade: grade,
-            subject: subject,
-            chapter: chapter,
-            type: selectedBulkType,
-            chunks: chunksArray, // قطعة واحدة بالكامل
-            totalChunks: chunksArray.length,
-            processedChunks: 0,
-            status: 'waiting', 
-            questions: [],
-            progressLog: 'تم استلام الملف بالكامل، بانتظار المعالجة.. ⏳', 
-            createdAt: Date.now()
-        });
-
-        saveAIQueue(queue);
-        showBeautifulAlert('success', 'تم الإضافة', `تم قراءة الملف بنجاح وإضافته للطابور كدفعة واحدة لتسريع الاستخراج.`);
-        
-        fileInput.value = '';
-        readProgress.classList.add('hidden');
-        readBar.style.width = '0%';
-        btn.disabled = false;
-        btn.classList.remove('opacity-50');
-
-        startAIQueueProcessor();
-
-    } catch (error) {
-        console.error("PDF Read Error:", error);
-        showBeautifulAlert('error', 'خطأ في الملف', 'حدث خطأ أثناء قراءة الملف: ' + error.message);
-        readProgress.classList.add('hidden');
-        btn.disabled = false;
-        btn.classList.remove('opacity-50');
-    }
-};
-
-window.renderAIQueue = function() {
-    if (document.querySelector('.screen.active').id !== 'screen-admin-ai-pdf') return;
-
-    const queue = getAIQueue();
-    document.getElementById('ai-queue-count').innerText = queue.length;
-    const listDiv = document.getElementById('ai-queue-list');
-    
-    const clearBtn = document.querySelector('button[onclick="clearCompletedAITasks()"]');
-    if(clearBtn) clearBtn.innerHTML = 'مسح الطابور 🗑️';
-    
-    if (queue.length === 0) {
-        listDiv.innerHTML = '<p class="text-center text-gray-400 py-10 font-bold">طابور الاستخراج فارغ حالياً.</p>';
-        return;
-    }
-
-    const sortedQueue = [...queue].sort((a, b) => b.createdAt - a.createdAt);
-
-    let html = '';
-    sortedQueue.forEach(task => {
-        let statusHtml = '';
-        let borderClass = 'border-gray-100';
-        let bgClass = 'bg-white';
-        let clickAction = '';
-        let cursor = 'cursor-default';
-
-        // حساب النسبة المئوية الحقيقية
-        let percentage = 0;
-        if (task.totalChunks && task.totalChunks > 0) {
-            percentage = Math.round((task.processedChunks / task.totalChunks) * 100);
-        }
-
-        if (task.status === 'waiting') {
-            statusHtml = '<span class="bg-yellow-100 text-yellow-800 text-[10px] px-2 py-1 rounded font-bold w-full text-center block"><i class="fas fa-clock mr-1"></i> الإنتظار</span>';
-            borderClass = 'border-yellow-200';
-        } else if (task.status === 'processing') {
-            // استخدام النسبة المئوية بدلاً من الأرقام
-            statusHtml = `<span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-1 rounded font-bold animate-pulse w-full text-center block"><i class="fas fa-spinner fa-spin mr-1"></i> يستخرج (${percentage}%)</span>`;
-            borderClass = 'border-blue-400';
-            bgClass = 'bg-blue-50';
-        } else if (task.status === 'extracted') {
-            statusHtml = '<span class="bg-green-100 text-green-800 text-[10px] px-2 py-1 rounded font-bold w-full text-center block"><i class="fas fa-check mr-1"></i> اكتمل (100%)</span>';
-            borderClass = 'border-green-300';
-            bgClass = 'bg-green-50 hover:bg-green-100 transition';
-            cursor = 'cursor-pointer';
-            clickAction = `onclick="openAIResult('${task.id}')"`;
-        } else if (task.status === 'failed') {
-            statusHtml = `<span class="bg-red-100 text-red-800 text-[10px] px-2 py-1 rounded font-bold w-full text-center block"><i class="fas fa-times mr-1"></i> توقف (${percentage}%)</span>`;
-            borderClass = 'border-red-300';
-        }
-
-        let deleteBtn = `<button onclick="deleteAITask('${task.id}'); event.stopPropagation();" class="mt-2 text-red-500 hover:text-red-700 bg-red-50 px-2 py-1.5 rounded-lg border border-red-100 text-[10px] font-bold transition flex items-center justify-center gap-1 w-full"><i class="fas fa-trash-alt"></i> حذف</button>`;
-
-        html += `
-            <div ${clickAction} class="${bgClass} p-4 rounded-xl border-2 ${borderClass} shadow-sm flex items-center justify-between ${cursor} mb-3">
-                <div class="w-3/4 pr-2">
-                    <p class="font-bold text-gray-800 text-sm truncate mb-1">${getGradeName(task.grade)} - ${task.subject}</p>
-                    <div class="flex gap-1 flex-wrap mb-1">
-                        <span class="text-[10px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">${task.chapter}</span>
-                        <span class="text-[10px] text-indigo-500 bg-indigo-50 px-1.5 py-0.5 rounded">${task.type === 'mcq' ? 'اختيارات' : 'صح وخطأ'}</span>
-                    </div>
-                    
-                    ${task.status === 'processing' ? `
-                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2 mb-1">
-                      <div class="bg-blue-500 h-1.5 rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
-                    </div>
-                    ` : ''}
-                    
-                    <p id="ai-log-${task.id}" class="text-[11px] font-bold mt-2 p-2 rounded-lg border ${task.status === 'failed' ? 'bg-red-50 text-red-600 border-red-100' : 'bg-indigo-50 text-indigo-700 border-indigo-100'} w-full whitespace-normal break-words leading-relaxed transition-all duration-300 min-h-[40px]">
-                        ${task.progressLog || 'في الانتظار...'}
-                    </p>
-
-                    ${task.status === 'extracted' ? `<p class="text-[10px] text-green-600 font-bold mt-2">اضغط لعرض والموافقة على (${task.questions.length}) سؤال 📝</p>` : ''}
-                    ${task.status === 'failed' ? `
-                        <button onclick="retryAITask('${task.id}'); event.stopPropagation();" class="text-[10px] text-indigo-600 font-bold underline mt-2 border border-indigo-200 px-2 py-1 rounded bg-white shadow-sm w-full block text-center">إعادة المحاولة 🔄</button>
-                    ` : ''}
-                </div>
-                <div class="w-1/4 flex flex-col items-center justify-center border-r border-gray-200 pr-2 h-full">
-                    ${statusHtml}
-                    ${deleteBtn}
-                </div>
-            </div>
-        `;
-    });
-    listDiv.innerHTML = html;
-};
-
-window.startAIQueueProcessor = function() {
-    if (isQueueProcessing) return;
-
-    const queue = getAIQueue();
-    let needsSave = false;
-    
-    // تحويل المهام اللي كانت قيد المعالجة (لو طفيت التطبيق بالغلط) إلى انتظار حتى ترجع تشتغل
-    queue.forEach(t => {
-        if (t.status === 'processing') {
-            t.status = 'waiting'; 
-            needsSave = true;
-        }
-    });
-    if (needsSave) saveAIQueue(queue);
-
-    isQueueProcessing = true;
-    
-    // إرسال أمر للأندرويد حتى يخلي التطبيق شغال بالخلفية
-    if(typeof window.SketchwareJS !== 'undefined' && window.SketchwareJS.startBackgroundService) {
-        window.SketchwareJS.startBackgroundService();
-    }
-    
-    // استدعاء الدالة لمرة واحدة، وهي راح تتكفل بالباقي وتسوي دوران ذكي
-    processNextInQueue(); 
-};
-
-async function processNextInQueue() {
-    const cooldownUntil = localStorage.getItem('admin_ai_cooldown');
-    const cooldownBanner = document.getElementById('ai-cooldown-banner');
-    const timerText = document.getElementById('ai-cooldown-timer');
-
-    if (cooldownUntil && Date.now() < parseInt(cooldownUntil)) {
-        if (cooldownBanner) {
-            cooldownBanner.classList.remove('hidden');
-            const diffMs = parseInt(cooldownUntil) - Date.now();
-            const minutes = Math.floor(diffMs / 60000);
-            const seconds = Math.floor((diffMs % 60000) / 1000);
-            if (timerText) timerText.innerText = `${minutes}:${seconds < 10 ? '0'+seconds : seconds}`;
-        }
-        setTimeout(processNextInQueue, 1000);
-        return; 
-    } else {
-        if (cooldownBanner) cooldownBanner.classList.add('hidden');
-        localStorage.removeItem('admin_ai_cooldown');
-    }
-
-    const queue = getAIQueue();
-    let activeTaskIndex = queue.findIndex(t => t.status === 'processing');
-    if (activeTaskIndex === -1) {
-        activeTaskIndex = queue.findIndex(t => t.status === 'waiting');
-    }
-
-    if (activeTaskIndex === -1) {
-        isQueueProcessing = false; 
-        if(typeof window.SketchwareJS !== 'undefined' && window.SketchwareJS.stopBackgroundService) {
-            window.SketchwareJS.stopBackgroundService();
-        }
-        return;
-    }
-
-    const task = queue[activeTaskIndex];
-    task.status = 'processing';
-    saveAIQueue(queue);
-
-    // 1. تجميع الأجزاء (تم التصحيح إلى chunks بدلاً من chunksText)
-    const remainingChunks = [];
-    for (let i = 0; i < task.chunks.length; i++) {
-        if (task.chunks[i] !== null && task.chunks[i] !== undefined) {
-            remainingChunks.push({ text: task.chunks[i], originalIndex: i });
-        }
-    }
-
-    if (remainingChunks.length === 0) {
-        task.status = 'extracted';
-        saveAIQueue(queue);
-        setTimeout(processNextInQueue, 2000);
-        return;
-    }
-
-    // دالة مساعدة لتحديث حالة الـ Log بشكل حي
-    const updateAILog = (taskId, msg) => {
-        const currentQ = getAIQueue();
-        const tToUpdate = currentQ.find(t => t.id === taskId);
-        if (tToUpdate) {
-            tToUpdate.progressLog = msg;
-            localStorage.setItem('admin_ai_queue', JSON.stringify(currentQ));
-        }
-        const logEl = document.getElementById('ai-log-' + taskId);
-        if (logEl) logEl.innerText = msg;
-    };
-
-    // 2. دالة المعالجة التي ستبحث عن مفتاح يعمل بالتسلسل
-    const processChunkConcurrently = async (chunkObj) => {
-        const currentChunkText = chunkObj.text;
-
-        let subjectInstructions = "";
-        if (task.subject === 'رياضيات') {
-            subjectInstructions = "استخرج مسائل حسابية ومعادلات فقط. للخيارات الخاطئة ضع نواتج مموهة ومحتملة. استخدم صيغة LaTeX الرياضية (بين $ للسطري و $$ للمستقل) لجميع الأرقام والمعادلات.";
-        } else if (['فيزياء', 'كيمياء', 'اقتصاد'].includes(task.subject)) {
-            subjectInstructions = "استخرج 50% مسائل وحسابات رياضية، و 50% كلاميات (تعاليل، تعاريف، مفاهيم). استخدم صيغة LaTeX الرياضية (بين $ للسطري و $$ للمستقل) للأرقام والمعادلات.";
-        } else if (['انكليزي', 'عربي', 'قواعد', 'ادب'].includes(task.subject)) {
-            subjectInstructions = "استخرج أسئلة تركز على القواعد، المعاني، والمفردات المذكورة في النص بشكل دقيق.";
-        } else {
-            subjectInstructions = "استخرج أسئلة شرحيات وحفظيات متنوعة تغطي التعاليل، التعاريف، والفراغات.";
-        }
-
-        const promptMCQ = `أنت أستاذ وخبير في مناهج وزارة التربية العراقية (السادس الإعدادي والثالث متوسط).
-المطلوب: استخراج أسئلة اختيار من متعدد (MCQ) من النص المرفق لمادة: ${task.subject}.
-التعليمات الصارمة جداً: ${subjectInstructions}
-1. (فلترة المحتوى): استخرج الأسئلة حصراً من صلب المنهج العلمي والوزاري.
-2. (التجاهل التام): يُمنع منعاً باتاً استخراج أسئلة من: حقوق الطبع، أسماء المدرسين، أرقام الهواتف، العناوين، الفهارس، التمنيات بالنجاح، أو أي نص لا يمثل معلومة علمية منهجية.
-3. (الخيارات الثلاثة): يجب أن يحتوي كل سؤال على 3 خيارات فقط: إجابة صحيحة واحدة، وإجابتين خاطئة مموهة بذكاء ومنطقية علمياً.
-4. (الدقة): إذا كان النص المرفق عبارة عن حقوق ملزمة أو نص غير تعليمي، لا تستخرج أي سؤال وأرجع مصفوفة فارغة.
-النص:
-${currentChunkText}`;
-
-        const promptTF = `أنت أستاذ وخبير في مناهج وزارة التربية العراقية (السادس الإعدادي والثالث متوسط).
-المطلوب: استخراج أسئلة صح وخطأ (True/False) من النص المرفق لمادة: ${task.subject}.
-التعليمات الصارمة جداً: ${subjectInstructions}
-1. (فلترة المحتوى): استخرج الأسئلة حصراً من صلب المنهج العلمي والوزاري والحقائق العلمية الثابتة.
-2. (التجاهل التام): يُمنع منعاً باتاً استخراج أسئلة من: حقوق الطبع، أسماء المدرسين، أرقام الهواتف، الإعلانات، أو أي نص خارج المنهج.
-3. (التوازن): اجعل الأسئلة المستخرجة متوازنة (بعضها عبارات صحيحة وبعضها خاطئة تم التلاعب بها بذكاء لاختبار فهم الطالب).
-4. (الدقة): إذا كان النص المرفق لا يحتوي على مادة علمية مفيدة، لا تستخرج أي سؤال وأرجع مصفوفة فارغة.
-النص:
-${currentChunkText}`;
-
-        const schemaMCQ = { type: "OBJECT", properties: { data: { type: "ARRAY", items: { type: "OBJECT", properties: { question: { type: "STRING" }, answers: { type: "ARRAY", items: { type: "STRING" } }, correct: { type: "INTEGER" } }, required: ["question", "answers", "correct"] } } }, required: ["data"] };
-        const schemaTF = { type: "OBJECT", properties: { data: { type: "ARRAY", items: { type: "OBJECT", properties: { question: { type: "STRING" }, correct: { type: "BOOLEAN" } }, required: ["question", "correct"] } } }, required: ["data"] };
-
-        const currentSchema = task.type === 'mcq' ? schemaMCQ : schemaTF;
-        const finalPrompt = task.type === 'mcq' ? promptMCQ : promptTF; // تم إضافة هذا السطر السحري لحل المشكلة جذرياً
-
-        let extractedQuestions = [];
-        let isSuccess = false;
-        let lastErrorMessage = "جميع المفاتيح عاطلة أو مستهلكة";
-
-        // اللوب: يجرب المفاتيح بالتسلسل
-        for (let k = 0; k < GEMINI_API_KEYS.length; k++) {
-            const currentKey = GEMINI_API_KEYS[k];
-            updateAILog(task.id, `جاري فحص وتجربة المفتاح رقم ${k + 1}... 🔍`);
-
-            try {
-                // الفحص المبدئي لمعرفة إذا كان المفتاح شغال
-                const modelsRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${currentKey}`);
-                if (modelsRes.ok) {
-                    const modelsData = await modelsRes.json();
-                    
-                    // جلب كل الموديلات المتوفرة والمسموحة بهذا المفتاح
-                    let availableModels = modelsData.models
-                        .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes("generateContent"))
-                        .map(m => m.name.replace('models/', ''));
-
-                    // خوارزمية ذكية لاختيار أحدث وأقوى موديل متوفر تلقائياً
-                    let targetModelName = 
-                        availableModels.find(m => m.includes("gemini-3.0")) ||
-                        availableModels.find(m => m.includes("gemini-2.5")) || 
-                        availableModels.find(m => m.includes("gemini-2.0")) || 
-                        availableModels.find(m => m.includes("gemini-1.5-pro")) || 
-                        availableModels.find(m => m.includes("gemini-1.5-flash")) || 
-                        availableModels[0]; // كخيار أخير احتياطي
-
-                    updateAILog(task.id, `المفتاح ${k + 1} شغال! جاري الاستخراج بموديل (${targetModelName})... ⏳`);
-                    
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${targetModelName}:generateContent?key=${currentKey}`;
-                    
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: finalPrompt }] }],
-                            generationConfig: { 
-                                response_mime_type: "application/json", 
-                                response_schema: currentSchema, 
-                                temperature: 0.2 
-                            }
-                        })
-                    });
-
-                    const result = await response.json();
-
-                    if (response.ok && !result.error) {
-                        const questionsText = result.candidates[0].content.parts[0].text;
-                        
-                        try {
-                            // تنظيف النص من أي كود ماركداون (Markdown) يضيفه الذكاء الاصطناعي بالغلط ويسبب فشل
-                            let cleanText = questionsText.replace(/```json/gi, '').replace(/```/g, '').trim();
-                            const parsedData = JSON.parse(cleanText);
-                            let rawArray = Array.isArray(parsedData) ? parsedData : (parsedData.data || []);
-
-                            if (rawArray.length > 0) {
-                                extractedQuestions = rawArray.map(q => {
-                                    if (task.type === 'mcq') {
-                                        let safeAnswers = q.answers || q.options || q.choices || q.الخيارات;
-                                        if (!Array.isArray(safeAnswers) || safeAnswers.length === 0) safeAnswers = ["خطأ في الاستخراج", "بيانات مفقودة", "تمويه فارغ"];
-                                        return { question: q.question || q.السؤال || "سؤال غير معروف", answers: safeAnswers, correct: typeof q.correct === 'number' ? q.correct : 0 };
-                                    } else {
-                                        let isTrue = true;
-                                        if (q.correct === false || q.correct === 'false' || q.correct === 0) isTrue = false;
-                                        return { question: q.question || q.السؤال || "سؤال غير معروف", correct: isTrue };
-                                    }
-                                });
-                                
-                                isSuccess = true;
-                                updateAILog(task.id, `نجح الاستخراج (${targetModelName}) بالمفتاح ${k + 1}! ✅`);
-                                break; 
-                            } else {
-                                lastErrorMessage = "البيانات المستخرجة فارغة";
-                                updateAILog(task.id, `تم الاستخراج لكن الملف فارغ، جاري الانتقال... ⚠️`);
-                            }
-                        } catch (parseError) {
-                            lastErrorMessage = "فشل في ترتيب البيانات (JSON Error)";
-                            updateAILog(task.id, `الموديل خربط بصيغة الأسئلة، جاري الانتقال للتالي... ⚠️`);
-                        }
-                    } else {
-                        lastErrorMessage = result.error?.message || "خطأ غير معروف من جوجل";
-                        updateAILog(task.id, `فشل الموديل: ${lastErrorMessage.substring(0, 40)}... ⚠️`);
-                    }
-                } else {
-                    lastErrorMessage = "المفتاح محظور أو الكوتا منتهية";
-                    updateAILog(task.id, `المفتاح ${k + 1} مستهلك، جاري الانتقال... 🔄`);
-                }
-            } catch (e) {
-                console.error("AI Fetch Error:", e); // إضافة مهمة لطباعة الخطأ الحقيقي في الكونسول لسهولة الصيانة
-                lastErrorMessage = "مشكلة في الشبكة أو خطأ داخلي";
-                updateAILog(task.id, `خطأ بالمفتاح ${k + 1}، جاري الانتقال للتالي... 📡`);
-            }
-            
-            await new Promise(r => setTimeout(r, 1000));
-        }
-
-        if (!isSuccess) {
-            updateAILog(task.id, `فشلت جميع المفاتيح المتاحة! ❌`);
-        }
-
-        return { success: isSuccess, questions: extractedQuestions, error: lastErrorMessage, originalIndex: chunkObj.originalIndex };
-    };
-
-    // 3. التنفيذ (المعدل: بالتسلسل لتجنب ضغط السيرفرات وخطأ High Demand)
-    for (let i = 0; i < remainingChunks.length; i++) {
-        const chunkObj = remainingChunks[i];
-        
-        // معالجة الجزء الحالي
-        const res = await processChunkConcurrently(chunkObj);
-        
-        const currentQueue = getAIQueue();
-        const taskToUpdate = currentQueue.find(t => t.id === task.id);
-        
-        if (taskToUpdate && res.success) {
-            taskToUpdate.questions = taskToUpdate.questions.concat(res.questions);
-            taskToUpdate.processedChunks++;
-            taskToUpdate.chunks[res.originalIndex] = null;
-            taskToUpdate.errorReason = null;
-            saveAIQueue(currentQueue);
-        } else if (taskToUpdate && !res.success) {
-            taskToUpdate.errorReason = res.error;
-            saveAIQueue(currentQueue);
-        }
-        
-        // استراحة 2 ثانية بين كل جزء وجزء حتى لا تستنزف طاقة المفاتيح
-        await new Promise(r => setTimeout(r, 2000)); 
-    }
-
-    // 5. اتخاذ القرار النهائي للملف
-    const finalQueue = getAIQueue();
-    const finalTask = finalQueue.find(t => t.id === task.id);
-
-    if (finalTask) {
-        if (finalTask.processedChunks >= finalTask.totalChunks) {
-            finalTask.status = 'extracted';
-            finalTask.chunks = []; // تم التصحيح لتفريغ المتغير الصحيح
-            saveAIQueue(finalQueue);
-            
-            setTimeout(processNextInQueue, 2000); 
-        } else {
-            finalTask.status = 'failed';
-            saveAIQueue(finalQueue);
-            isQueueProcessing = false;
-            showBeautifulAlert('error', 'توقف مؤقت', 'فشل الاستخراج، يمكنك المحاولة مجدداً باستكمال الباقي.');
-        }
-    }
-}
-
-window.retryAITask = function(taskId) {
-    const queue = getAIQueue();
-    const task = queue.find(t => t.id === taskId);
-    if(task) {
-        task.status = 'waiting';
-        saveAIQueue(queue);
-        startAIQueueProcessor();
-    }
-};
-
-window.clearCompletedAITasks = function() {
-    const queue = getAIQueue();
-    // إبقاء المهام التي قيد المعالجة (processing) فقط، ومسح (المكتمل، الفاشل، والانتظار المعلق)
-    const newQueue = queue.filter(t => t.status === 'processing');
-    saveAIQueue(newQueue);
-};
-
-let currentViewingTask = null;
-window.openAIResult = function(taskId) {
-    const queue = getAIQueue();
-    currentViewingTask = queue.find(t => t.id === taskId);
-    if (!currentViewingTask || currentViewingTask.status !== 'extracted') return;
-
-    document.getElementById('ai-review-title').innerText = `${getGradeName(currentViewingTask.grade)} - ${currentViewingTask.subject} - ${currentViewingTask.chapter}`;
-    document.getElementById('ai-review-count').innerText = currentViewingTask.questions.length;
-    
-    const listDiv = document.getElementById('ai-review-questions-list');
-    let html = '';
-    
-    currentViewingTask.questions.forEach((q, idx) => {
-        let ansHtml = '';
-        if (currentViewingTask.type === 'mcq') {
-            ansHtml = `<div class="text-[10px] mt-1 space-y-0.5">
-                ${(q.answers||[]).map((a, i) => `<p class="${i === q.correct ? 'text-green-600 font-bold' : 'text-gray-500'}">- ${a} ${i === q.correct ? '✅' : ''}</p>`).join('')}
-            </div>`;
-        } else {
-            ansHtml = `<p class="text-[10px] mt-1 font-bold ${q.correct ? 'text-green-600' : 'text-red-500'}">${q.correct ? '✅ صح' : '❌ خطأ'}</p>`;
-        }
-        
-        html += `
-            <div class="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                <p class="text-xs font-bold text-gray-800">${idx + 1}. ${q.question}</p>
-                ${ansHtml}
-            </div>
-        `;
-    });
-    
-    listDiv.innerHTML = html;
-    
-    document.getElementById('btn-approve-ai').onclick = () => approveAITask();
-    document.getElementById('btn-reject-ai').onclick = () => rejectAITask();
-    
-    document.getElementById('ai-review-modal').classList.remove('hidden');
-    
-    if (window.MathJax) {
-        setTimeout(() => MathJax.typesetPromise([listDiv]).catch(console.log), 50);
-    }
-};
-
-window.closeAIReviewModal = function() {
-    document.getElementById('ai-review-modal').classList.add('hidden');
-    currentViewingTask = null;
-};
-
-window.approveAITask = async function() {
-    if (!currentViewingTask || !confirm("هل أنت متأكد؟ (سيتم إرسال هذه الأسئلة لقسم 'مراجعة الأسئلة' ولن تدخل للعبة مباشرة إلا بعد موافقتك عليها من هناك)")) return;
-    
-    const btn = document.getElementById('btn-approve-ai');
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال للمراجعة...';
-    btn.disabled = true;
-
-    try {
-        let batch = writeBatch(db);
-        let opCount = 0;
-        let batches = [];
-
-        for (const q of currentViewingTask.questions) {
-            // هنا نرسلها حصراً لجدول الطلبات المعلقة (pending_questions)
-            const newDocRef = doc(collection(db, "pending_questions"));
-            batch.set(newDocRef, {
-                question: q.question,
-                answers: q.answers || null,
-                correct: q.correct,
-                type: currentViewingTask.type,
-                grade: currentViewingTask.grade,
-                subject: currentViewingTask.subject,
-                chapter: currentViewingTask.chapter,
-                senderId: 'AI_GEMINI',
-                senderName: 'المستخرج الذكي التلقائي 🤖',
-                status: 'pending',
-                createdAt: serverTimestamp()
-            });
-            opCount++;
-            
-            if (opCount >= 490) {
-                batches.push(batch.commit());
-                batch = writeBatch(db);
-                opCount = 0;
-            }
-        }
-        
-        if (opCount > 0) batches.push(batch.commit());
-        await Promise.all(batches);
-
-        const queue = getAIQueue();
-        const newQueue = queue.filter(t => t.id !== currentViewingTask.id);
-        saveAIQueue(newQueue);
-        
-        closeAIReviewModal();
-        showBeautifulAlert('success', 'تم الإرسال للمراجعة', 'تم إرسال الأسئلة لقسم (مراجعة الأسئلة) بنجاح! اذهب إلى هناك لقبولها بشكل نهائي وإضافتها للعبة.');
-
-    } catch (e) {
-        console.error(e);
-        showBeautifulAlert('error', 'خطأ', 'حدث خطأ أثناء الإرسال.');
-    } finally {
-        btn.innerHTML = 'إرسال للمراجعة ✅';
-        btn.disabled = false;
-    }
-};
-
-window.rejectAITask = function() {
-    if (!currentViewingTask || !confirm("هل أنت متأكد من رفض هذه التشكيلة وحذفها نهائياً؟")) return;
-    
-    const queue = getAIQueue();
-    const newQueue = queue.filter(t => t.id !== currentViewingTask.id);
-    saveAIQueue(newQueue);
-    
-    closeAIReviewModal();
-    showBeautifulAlert('info', 'تم الرفض', 'تم حذف نتيجة الاستخراج من الطابور.');
-};
-
 if (window.location.hash === '#screen-admin-hub') {
     startAIQueueProcessor();
 }
@@ -7543,7 +7225,7 @@ window.syncQuestionsPacket = async function() {
     
     try {
         if (typeof localforage === 'undefined') {
-            showBeautifulAlert('error', 'خطأ برمجي', 'مكتبة localforage غير موجودة! تأكد من إضافتها في قسم الـ head.');
+            showBeautifulAlert('error', 'خطأ برمجي', 'مكتبة localforage غير موجودة! تأكد من إضافتها.');
             return;
         }
 
@@ -7561,13 +7243,60 @@ window.syncQuestionsPacket = async function() {
                 statusTxt.innerText = "جاري تنزيل الأسئلة الجديدة لهاتفك... 🚀";
                 progBar.style.width = '30%';
 
-                // جلب الملف من الإنترنت
-                const response = await fetch(bundleUrl);
-                if (!response.ok) throw new Error("فشل في تحميل الرابط: " + response.status);
+                let questionsData = null;
+
+                try {
+                    // المحاولة الأولى: سحب الملف الكامل من الـ Storage (سريع وما يستهلك قراءات)
+                    const response = await fetch(bundleUrl);
+                    if (!response.ok) throw new Error("Storage Limit Exceeded: " + response.status);
+                    questionsData = await response.json();
+                } catch (fetchError) {
+                    console.log("الرابط السريع معطل، تفعيل المزامنة الجزئية الذكية من Firestore...");
+                    statusTxt.innerText = "جاري سحب الأسئلة الجديدة فقط... 🔄";
+                    progBar.style.width = '50%';
+                    
+                    // المحاولة الثانية (الطوارئ الذكية): سحب الأسئلة الجديدة فقط!
+                    const localData = await localforage.getItem('all_questions_data') || [];
+                    
+                    if (localTimestamp && localData.length > 0) {
+                        // نجيب بس الأسئلة اللي تاريخها أحدث من آخر مرة حدث بيها الطالب! (قراءات لا تذكر)
+                        const q = query(collection(db, "questions"), where("createdAt", ">", new Date(localTimestamp)));
+                        const qSnap = await getDocs(q);
+                        
+                        let newQs = [];
+                        qSnap.forEach(doc => {
+                            const data = doc.data();
+                            newQs.push({
+                                id: doc.id,
+                                question: data.question,
+                                answers: data.answers || [],
+                                correct: data.correct,
+                                type: data.type,
+                                grade: data.grade,
+                                subject: data.subject,
+                                chapter: data.chapter || ''
+                            });
+                        });
+                        
+                        // دمج الأسئلة القديمة المخزونة بالجهاز مع الأسئلة الجديدة المسترجعة
+                        questionsData = [...localData, ...newQs];
+                        console.log(`تم سحب ${newQs.length} سؤال جديد فقط بدلاً من سحب الكل!`);
+                    } else {
+                        // حالة نادرة: إذا الطالب أول مرة يفتح التطبيق بحياته والستورج قافل (نضطر نسحب الكل)
+                        const qSnap = await getDocs(collection(db, "questions"));
+                        questionsData = [];
+                        qSnap.forEach(doc => {
+                            const data = doc.data();
+                            questionsData.push({ id: doc.id, question: data.question, answers: data.answers || [], correct: data.correct, type: data.type, grade: data.grade, subject: data.subject, chapter: data.chapter || '' });
+                        });
+                    }
+                }
                 
-                const questionsData = await response.json();
-                
-                progBar.style.width = '70%';
+                if (!questionsData || questionsData.length === 0) {
+                    throw new Error("لا توجد أسئلة متاحة حالياً في النظام.");
+                }
+
+                progBar.style.width = '80%';
                 statusTxt.innerText = "جاري حفظ البيانات وتجهيز النظام...";
 
                 await localforage.setItem('all_questions_data', questionsData);
@@ -7578,7 +7307,7 @@ window.syncQuestionsPacket = async function() {
                 progBar.style.width = '100%';
                 statusTxt.innerText = "اكتمل التحديث بنجاح! ✅";
                 
-                setTimeout(() => { updateScreen.classList.add('hidden'); }, 1000);
+                setTimeout(() => { updateScreen.classList.add('hidden'); }, 1500);
             } else {
                 console.log("الأسئلة محدثة لديك مسبقاً.");
                 const localData = await localforage.getItem('all_questions_data');
@@ -7590,9 +7319,9 @@ window.syncQuestionsPacket = async function() {
     } catch (error) {
         console.error("خطأ المزامنة:", error);
         updateScreen.classList.add('hidden');
-        // هنا راح تطلعلنا رسالة الخطأ بالضبط شنو هي!
-        showBeautifulAlert('error', 'فشل تحميل الأسئلة', 'السبب: ' + error.message);
+        showBeautifulAlert('error', 'تنبيه', 'حدثت مشكلة في التحديث، سيتم استخدام الأسئلة المتوفرة بجهازك.');
         
+        // في حال فشل كل شيء، حاول استخدام ما هو موجود في الذاكرة
         const localData = await localforage.getItem('all_questions_data');
         if (localData) window.cachedQuestionsArray = localData;
     }
@@ -7803,142 +7532,6 @@ let selectedAvatarGender = null;
             document.getElementById('btn-gender-girl').className = `py-4 rounded-2xl border-2 font-black transition-all ${g==='girl'?'border-indigo-500 bg-indigo-50 text-indigo-600 shadow-md scale-105':'border-gray-100 text-gray-400'}`;
         };
 
-        window.saveAchievementSetup = async function() {
-            const gpa = document.getElementById('target-gpa').value;
-            if (!gpa || gpa < 50 || gpa > 100) { showBeautifulAlert('warning', 'تنبيه', 'أدخل معدل صحيح (50-100)'); return; }
-            if (!selectedAvatarGender) { showBeautifulAlert('warning', 'تنبيه', 'اختر شخصيتك أولاً'); return; }
-
-            try {
-                await updateDoc(doc(db, "users", currentUser.uid), { 
-                    targetGPA: parseFloat(gpa), avatarGender: selectedAvatarGender, completedChapters: [] 
-                });
-                userData.targetGPA = parseFloat(gpa);
-                userData.avatarGender = selectedAvatarGender;
-                userData.completedChapters = [];
-                
-                document.getElementById('achievement-setup').classList.add('hidden');
-                initAchievementSystem();
-            } catch(e) {
-                showBeautifulAlert('error', 'خطأ', 'حدث خطأ أثناء الحفظ');
-            }
-        };
-
-        window.initAchievementSystem = function() {
-            if (!userData) return;
-            
-            if (!userData.grade) {
-                showBeautifulAlert('info', 'خطوة مفقودة', 'يرجى تحديد مرحلتك الدراسية من قسم التحديات أولاً.');
-                switchTab('challenges');
-                return;
-            }
-
-            if (!userData.targetGPA || !userData.avatarGender) {
-                document.getElementById('achievement-setup').classList.remove('hidden');
-                document.getElementById('achievement-cloud').classList.add('hidden');
-                return;
-            }
-
-            document.getElementById('achievement-setup').classList.add('hidden');
-            document.getElementById('achievement-cloud').classList.remove('hidden');
-
-// تحميل المجسم فورياً من الذاكرة
-preloadAndSetAvatar(userData.avatarGender);
-
-            // حساب الجاهزية
-            const completedCount = (userData.completedChapters || []).length;
-            let totalChapters = 0;
-            if (typeof chaptersData !== 'undefined' && chaptersData[userData.grade]) {
-                Object.values(chaptersData[userData.grade]).forEach(arr => totalChapters += arr.length);
-            }
-            if (totalChapters === 0) totalChapters = 50; // افتراضي احتياطي
-
-            const readiness = Math.min(((completedCount / totalChapters) * 100), 100).toFixed(1);
-            const cloudText = document.getElementById('cloud-text');
-            
-            if (parseFloat(readiness) >= userData.targetGPA) {
-                cloudText.innerHTML = `🌟 أصبحت جاهز للوزاري يا <span class="text-indigo-900">${userData.name}</span>! 🎉`;
-                document.getElementById('achievement-cloud').classList.add('border-green-400', 'bg-green-50');
-            } else {
-                cloudText.innerHTML = `<span class="text-[10px] text-gray-400 block uppercase mb-1">الهدف: ${userData.targetGPA}%</span>${userData.name} جاهز بنسبة <span class="text-indigo-600 font-black text-lg">${readiness}%</span> للوزاري`;
-            }
-
-            if(typeof populateSubjects === 'function') {
-                populateSubjects(userData.grade, 'achieve-subject', 'achieve-chapter');
-            }
-        };
-
-        window.openAchievementModal = function() {
-            // فحص إذا كان المستخدم مامحدد هدفه بعد
-            if(!userData || !userData.targetGPA) {
-                showBeautifulAlert('warning', 'تنبيه', 'لازم تحدد معدلك المحلوم بيه وشخصيتك أولاً من صفحة "رحلتي"!');
-                return;
-            }
-            // إذا كلشي تمام، يفتح النافذة
-            document.getElementById('add-achievement-modal').classList.remove('hidden');
-        };
-
-        window.confirmAchievement = async function() {
-    const sub = document.getElementById('achieve-subject').value;
-    const chap = document.getElementById('achieve-chapter').value;
-    if(!sub || !chap) { showBeautifulAlert('warning', 'تنبيه', 'اختر المادة والفصل'); return; }
-
-    const key = `${sub}_${chap}`;
-    if((userData.completedChapters || []).includes(key)) {
-        showBeautifulAlert('info', 'إنجاز سابق', 'هذا الفصل مسجل كمنجز مسبقاً!');
-        return;
-    }
-
-    // إضافة رسالة التأكيد
-    if (!confirm(`هل أنت متأكد من أنك أكملت "${chap}" في مادة ${sub}؟\n\n(يجب الإجابة على 15 سؤال صحيح من أصل 30 لتأكيد الإنجاز، وإلا ستعتبر كاذباً وتخصم منك نقاط!)`)) {
-        return;
-    }
-
-    document.getElementById('add-achievement-modal').classList.add('hidden');
-    document.getElementById('searching-ui').classList.remove('hidden');
-    document.getElementById('searching-ui').style.display = 'flex';
-    document.getElementById('search-msg').innerText = "جاري تجهيز الاختبار الشامل (30 سؤال)... 📝";
-
-    try {
-        const qMCQ = await getQuestions(sub, chap, 'mcq');
-        const qTF = await getQuestions(sub, chap, 'tf');
-        // جلب 30 سؤال مختلط
-        let combinedQs = qMCQ.concat(qTF);
-        for (let i = combinedQs.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [combinedQs[i], combinedQs[j]] = [combinedQs[j], combinedQs[i]];
-        }
-        let allQs = combinedQs.slice(0, 30);
-
-        if(allQs.length < 15) {
-            showBeautifulAlert('error', 'نقص أسئلة', 'لا توجد أسئلة كافية في هذا الفصل حالياً لاختبارك (يجب توفر 15 سؤال على الأقل).');
-            cancelSearch(); return;
-        }
-
-        currentGameMode = 'achievement_test';
-        localMatchData = {
-            status: 'active', grade: userData.grade, subject: sub, chapter: chap,
-            player1: { uid: currentUser.uid, name: userData.name, score: 0, photo: userData.photo },
-            player2: { uid: 'BOT', name: 'لجنة الاختبار', score: 0, photo: 'https://ui-avatars.com/api/?name=Test' },
-            questions: allQs, currentIdx: 0, totalQuestions: allQs.length
-        };
-        
-        document.getElementById('searching-ui').classList.add('hidden');
-        document.getElementById('game-overlay').classList.remove('hidden');
-        renderGame(localMatchData);
-    } catch(e) { cancelSearch(); }
-};
-
-window.preloadAndSetAvatar = function(gender) {
-    if (!gender || !AVATAR_URLS[gender]) {
-        gender = 'boy'; 
-    }
-    
-    const url = AVATAR_URLS[gender];
-    const viewer = document.getElementById('avatar-3d-model');
-    
-    if (!viewer) return;
-    viewer.src = url;
-};
      
         window.saveForcedGov = async function() {
             const gov = document.getElementById('force-gov-select').value;
@@ -8207,73 +7800,6 @@ window.copyIdText = function(id) {
     });
 };
 
-window.showAchievementsList = function() {
-    if (!userData || !userData.grade) {
-        showBeautifulAlert('warning', 'تنبيه', 'يجب تحديد المرحلة الدراسية أولاً من التحديات');
-        return;
-    }
-    
-    const container = document.getElementById('achievements-details-container');
-    container.innerHTML = '';
-    
-    const userGrade = userData.grade;
-    const completed = userData.completedChapters || [];
-    const gradeSubjects = subjects[userGrade] || [];
-    
-    if (gradeSubjects.length === 0) {
-        container.innerHTML = '<p class="text-center text-gray-500 mt-10 font-bold">لا توجد مواد متاحة لمرحلتك.</p>';
-        document.getElementById('achievements-list-modal').classList.remove('hidden');
-        return;
-    }
-
-    let html = '';
-    
-    gradeSubjects.forEach(sub => {
-        const subjectChapters = chaptersData[userGrade][sub] || [];
-        const totalSubChapters = subjectChapters.length;
-        
-        // جلب الفصول المنجزة لهذه المادة حصراً
-        const completedInSub = subjectChapters.filter(chap => completed.includes(`${sub}_${chap}`));
-        const completedCount = completedInSub.length;
-        
-        html += `
-            <div class="bg-gray-50 rounded-xl border border-gray-200 overflow-hidden mb-3 shadow-sm">
-                <div class="p-4 bg-white flex justify-between items-center cursor-pointer hover:bg-indigo-50 transition-colors" onclick="this.nextElementSibling.classList.toggle('hidden')">
-                    <span class="font-black text-gray-800">${sub}</span>
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs font-black ${completedCount === totalSubChapters ? 'text-white bg-green-500' : 'text-indigo-700 bg-indigo-100'} px-2.5 py-1 rounded-lg">
-                            ${completedCount} / ${totalSubChapters}
-                        </span>
-                        <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
-                    </div>
-                </div>
-                <div class="hidden p-3 border-t border-gray-100 bg-gray-50 space-y-2">
-        `;
-        
-        if (totalSubChapters === 0) {
-            html += `<p class="text-xs text-gray-400 text-center font-bold">لا توجد فصول لهذه المادة</p>`;
-        } else {
-            subjectChapters.forEach(chap => {
-                const isDone = completedInSub.includes(chap);
-                html += `
-                    <div class="flex justify-between items-center p-2.5 rounded-lg transition-all ${isDone ? 'bg-green-100 border border-green-300' : 'bg-white border border-gray-200'}">
-                        <span class="text-xs font-bold ${isDone ? 'text-green-800' : 'text-gray-600'}">${chap}</span>
-                        ${isDone ? '<i class="fas fa-check-circle text-green-600 text-lg"></i>' : '<i class="far fa-circle text-gray-300 text-lg"></i>'}
-                    </div>
-                `;
-            });
-        }
-        
-        html += `
-                </div>
-            </div>
-        `;
-    });
-    
-    container.innerHTML = html;
-    document.getElementById('achievements-list-modal').classList.remove('hidden');
-};
-
 window.createQuestionsBundle = async function() {
     if (!confirm("هل أنت متأكد من رغبتك في تحديث حزمة الأسئلة ورفعها للطلاب؟\n(هذه العملية قد تستغرق بعض الوقت حسب عدد الأسئلة)")) return;
 
@@ -8333,27 +7859,30 @@ window.createQuestionsBundle = async function() {
     }
 };
 
-window.deleteAITask = function(taskId) {
-    if(!confirm("هل أنت متأكد من حذف هذا الملف من الطابور؟")) return;
+window.deleteAITask = async function(taskId) {
+    if(!confirm("هل أنت متأكد من حذف هذا الملف وإلغاء استخراج الأسئلة منه؟")) return;
     
     const queue = getAIQueue();
     const taskToDelete = queue.find(t => t.id === taskId);
     
-    // فلترة الطابور لحذف الملف المختار
     const newQueue = queue.filter(t => t.id !== taskId);
     saveAIQueue(newQueue);
     
-    // إذا كان الملف المحذوف هو اللي ديستخرج حالياً، لازم نكسر المعالجة ونشغل الملف البعده
+    // تنظيف القطع من localforage لتفريغ مساحة الجهاز
+    try {
+        await localforage.removeItem(`ai_chunks_${taskId}`);
+    } catch(e) { console.log("خطأ في تنظيف قطع الـ AI:", e); }
+    
     if (taskToDelete && taskToDelete.status === 'processing') {
-        isQueueProcessing = false; // نوقف اللوب الحالي
+        isQueueProcessing = false; 
         setTimeout(() => {
             if (newQueue.length > 0) {
-                startAIQueueProcessor(); // نشغل الملف اللي بعده بالطابور
+                startAIQueueProcessor(); 
             }
         }, 1500);
     }
     
-    showBeautifulAlert('success', 'تم الحذف', 'تم حذف الملف المعلك بنجاح.');
+    showBeautifulAlert('success', 'تم الحذف', 'تم حذف الملف وإلغاء عمليته بنجاح.');
 };
 
 let currentViewedUserId = null;
@@ -8609,92 +8138,6 @@ window.startFriendlyFromProfile = function() {
     searchFriendByID();
 };
 
-window.testAPIKeys = async function() {
-    const btn = document.getElementById('test-keys-btn');
-    const resultsBox = document.getElementById('keys-test-results');
-    
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-microscope fa-spin text-lg"></i><span>جاري تحليل البيانات...</span>';
-    resultsBox.classList.remove('hidden');
-    resultsBox.innerHTML = '<p class="text-center animate-pulse text-indigo-600 font-bold py-4">جاري فحص حالة كل مفتاح في السيرفرات...</p>';
-
-    let htmlResults = '';
-    
-    for (let i = 0; i < GEMINI_API_KEYS.length; i++) {
-        const currentKey = GEMINI_API_KEYS[i];
-        let report = { title: '', color: '', desc: '', icon: '' };
-
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${currentKey}`);
-            
-            if (response.ok) {
-                // الفحص العميق: إذا كان 200 فهذا يعني أن المفتاح نشط تماماً
-                report = { 
-                    title: 'نشط جداً', 
-                    color: 'text-green-700 bg-green-50 border-green-200', 
-                    desc: 'المفتاح سليم، الكوتا متاحة، والاتصال مستقر.', 
-                    icon: '✅' 
-                };
-            } else {
-                const errorData = await response.json();
-                const code = response.status;
-                
-                if (code === 429) {
-                    report = { 
-                        title: 'الكوتا مستهلكة', 
-                        color: 'text-orange-700 bg-orange-50 border-orange-200', 
-                        desc: 'المفتاح يعمل لكن حد الاستخدام اليومي (Quota) ممتلئ حالياً. انتظر تجدده.', 
-                        icon: '⏳' 
-                    };
-                } else if (code === 403) {
-                    report = { 
-                        title: 'مفتاح محظور', 
-                        color: 'text-red-700 bg-red-50 border-red-200', 
-                        desc: 'Google قامت بحظر هذا المفتاح أو تم حذفه من مشروعك في Cloud Console.', 
-                        icon: '🚫' 
-                    };
-                } else if (code === 401) {
-                    report = { 
-                        title: 'مفتاح غير صالح', 
-                        color: 'text-red-700 bg-red-50 border-red-200', 
-                        desc: 'هذا المفتاح غير موجود أو خاطئ برمجياً (تأكد من النسخ واللصق).', 
-                        icon: '⚠️' 
-                    };
-                } else {
-                    report = { 
-                        title: 'خطأ برمجي', 
-                        color: 'text-gray-700 bg-gray-50 border-gray-200', 
-                        desc: `رمز الخطأ: ${code} - تأكد من إعدادات الربط في Google Cloud.`, 
-                        icon: '❓' 
-                    };
-                }
-            }
-        } catch (e) {
-            report = { 
-                title: 'خطأ اتصال', 
-                color: 'text-red-700 bg-red-50 border-red-200', 
-                desc: 'لا يوجد اتصال بالإنترنت أو السيرفر مرفوض من قبل الشبكة.', 
-                icon: '🌐' 
-            };
-        }
-
-        htmlResults += `
-            <div class="p-3 mb-2 rounded-xl border ${report.color} shadow-sm">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-sm">مفتاح ${i + 1}</span>
-                    <span class="font-black text-lg">${report.icon}</span>
-                </div>
-                <div class="text-[13px] font-bold mb-1">${report.title}</div>
-                <div class="text-[11px] opacity-80 leading-tight">${report.desc}</div>
-                <div class="mt-2 text-[10px] font-mono break-all opacity-60">Key: ${currentKey.substring(0, 8)}...</div>
-            </div>
-        `;
-    }
-
-    resultsBox.innerHTML = htmlResults;
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-stethoscope text-lg"></i><span>إعادة الفحص الدقيق 🔄</span>';
-};
 
 window.changeUserPassword = async function() {
     const oldPass = document.getElementById('old-pass-input').value;
