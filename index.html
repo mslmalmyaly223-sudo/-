@@ -1126,26 +1126,25 @@
     <div id="main-app" class="hidden w-full h-full relative">
         
         <div class="absolute top-0 w-full h-20 bg-white/95 backdrop-blur-sm shadow-sm z-30 flex items-center justify-between px-5 pt-2">
-            <div>
-                <h1 class="font-black text-lg text-indigo-900">هكر الوزاري</h1>
-                <p id="header-grade-badge" class="text-xs text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5 rounded-full hidden">...</p>
-            </div>
-            
-            <div class="flex items-center gap-3">
-                <div id="notification-header-btn" class="notification-btn hidden" onclick="openPage('screen-notifications')">
+    <div>
+        <h1 class="font-black text-lg text-indigo-900">هكر الوزاري</h1>
+        <p id="header-grade-badge" class="text-xs text-indigo-600 font-bold bg-indigo-50 px-2 py-0.5 rounded-full hidden">...</p>
+    </div>
+    
+    <div class="flex items-center gap-3">
+        <div id="notification-header-btn" class="notification-btn hidden" onclick="openPage('screen-notifications')">
     <i class="fas fa-bell"></i>
     <div id="notification-header-dot" class="notification-dot"></div>
 </div>
 <button id="search-friend-btn" onclick="openFriendSearchModal()" class="text-gray-400 hover:text-indigo-600 transition">
     <i class="fas fa-search text-xl"></i>
 </button>
-                <button id="add-subscription-btn" class="hidden bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm hover:shadow-md transition">+ إضافة اشتراك</button>
-                <div class="bg-yellow-50 px-3 py-1 rounded-full border border-yellow-100 flex items-center gap-2 shadow-sm">
-                    <span id="header-points" class="font-bold text-yellow-700">0</span>
-                    <i class="fas fa-gem text-yellow-500"></i>
-                </div>
-            </div>
+        <div class="bg-yellow-50 px-3 py-1 rounded-full border border-yellow-100 flex items-center gap-2 shadow-sm">
+            <span id="header-points" class="font-bold text-yellow-700">0</span>
+            <i class="fas fa-gem text-yellow-500"></i>
         </div>
+    </div>
+</div>
 
         <div id="tab-challenges" class="screen pt-20">
             <div class="scroll-container px-5 py-6">
@@ -1288,57 +1287,62 @@
 </button>
         </div>
 
-        <div id="result-screen" class="fixed inset-0 z-[200] hidden bg-slate-900/85 backdrop-blur-md flex items-center justify-center p-5">
-            <div class="relative w-full max-w-sm bg-white rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.5)] overflow-hidden animate-[zoomInBounce_0.6s_cubic-bezier(0.34,1.56,0.64,1)] flex flex-col items-center text-center border border-white/20">
+        <div id="result-screen" class="fixed inset-0 z-[200] hidden bg-slate-950/80 backdrop-blur-xl flex items-center justify-center p-4">
+            <div class="relative w-full max-w-sm bg-gradient-to-b from-slate-900 to-slate-950 rounded-[2.5rem] shadow-[0_0_40px_rgba(79,70,229,0.3)] border border-slate-700/50 p-6 flex flex-col items-center overflow-hidden animate-[zoomInBounce_0.5s_ease-out]">
                 
-                <div class="absolute top-0 w-[150%] h-40 bg-gradient-to-b from-indigo-500/10 to-transparent rounded-b-[100%]"></div>
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-32 bg-gradient-to-b from-indigo-500/20 to-transparent blur-[30px] pointer-events-none"></div>
                 
-                <button onclick="closeResultScreen()" class="absolute top-5 right-5 w-10 h-10 bg-white/50 backdrop-blur-md rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-red-500 transition-all z-20 shadow-sm border border-gray-100">
-                    <i class="fas fa-times"></i>
+                <button onclick="closeResultScreen()" class="absolute top-5 right-5 w-8 h-8 bg-slate-800/50 hover:bg-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-all z-20 border border-slate-600/50">
+                    <i class="fas fa-times text-xs"></i>
                 </button>
 
-                <div class="relative z-10 mt-12 mb-2">
-                    <div id="result-icon-container" class="text-8xl drop-shadow-[0_10px_10px_rgba(0,0,0,0.15)] animate-[float_3s_ease-in-out_infinite]">🏆</div>
+                <div class="relative z-10 w-24 h-24 mt-2 bg-slate-800/80 rounded-[2rem] border border-slate-600/50 shadow-[inset_0_4px_20px_rgba(0,0,0,0.5),0_10px_20px_rgba(0,0,0,0.5)] flex items-center justify-center rotate-3 hover:rotate-0 transition-transform duration-500">
+                    <div id="result-icon-container" class="text-5xl drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] animate-[float_3s_ease-in-out_infinite]">🏆</div>
                 </div>
 
-                <h2 id="result-title" class="relative z-10 text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-1">مبروك!</h2>
-                <p id="result-msg" class="relative z-10 text-gray-400 font-bold text-sm mb-8 px-6">لقد قمت بأداء رائع</p>
+                <h2 id="result-title" class="relative z-10 text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 mt-5 tracking-wider">مبروك!</h2>
+                <p id="result-msg" class="relative z-10 text-slate-400 font-bold text-[10px] mt-1.5 px-4 text-center">لقد قمت بأداء رائع في هذا التحدي</p>
 
-                <div class="w-full px-6 mb-8 relative z-10">
-                    <div class="bg-slate-50 rounded-3xl p-5 flex items-center justify-between border-2 border-white shadow-[inset_0_2px_10px_rgba(0,0,0,0.03),0_5px_15px_rgba(0,0,0,0.06)] relative">
-                        
-                        <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full flex items-center justify-center text-white font-black text-lg border-[3px] border-white shadow-[0_5px_15px_rgba(0,0,0,0.2)] z-20">
-                            VS
+                <div class="w-full relative z-10 mt-7 mb-6 flex items-stretch justify-between bg-slate-950/50 rounded-3xl p-3 border border-slate-800/80 shadow-inner">
+                    
+                    <div class="flex-1 flex flex-col items-center p-3 bg-gradient-to-b from-indigo-500/10 to-transparent rounded-2xl border border-indigo-500/20">
+                        <span class="text-[9px] text-indigo-300 font-black mb-2 bg-indigo-500/20 px-3 py-1 rounded-lg w-full text-center tracking-widest uppercase">أنت</span>
+                        <p id="final-my-score" class="text-4xl font-black text-indigo-400 drop-shadow-[0_0_10px_rgba(129,140,248,0.5)]">0</p>
+                    </div>
+
+                    <div class="shrink-0 flex flex-col items-center justify-center px-3 relative">
+                        <div class="absolute w-px h-full bg-gradient-to-b from-transparent via-slate-600 to-transparent opacity-50"></div>
+                        <div class="w-8 h-8 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center z-10 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                            <i class="fas fa-bolt text-amber-400 text-sm drop-shadow-[0_0_8px_rgba(251,191,36,0.6)] animate-pulse"></i>
                         </div>
+                    </div>
 
-                        <div class="flex-1 flex flex-col items-center justify-center pr-2">
-                            <span class="px-3 py-1 bg-indigo-100 text-indigo-600 text-[10px] font-black rounded-full mb-2 tracking-wider">أنت</span>
-                            <p id="final-my-score" class="text-5xl font-black text-indigo-600 drop-shadow-sm">0</p>
+                    <div class="flex-1 flex flex-col items-center p-3 bg-gradient-to-b from-rose-500/10 to-transparent rounded-2xl border border-rose-500/20">
+                        <span id="final-op-name" class="text-[9px] text-rose-300 font-black mb-2 bg-rose-500/20 px-3 py-1 rounded-lg w-full text-center truncate tracking-widest uppercase">الخصم</span>
+                        <p id="final-op-score" class="text-4xl font-black text-rose-400 drop-shadow-[0_0_10px_rgba(244,63,94,0.5)]">0</p>
+                    </div>
+                    
+                </div>
+
+                <div class="relative z-10 w-full mb-6">
+                    <div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl px-4 py-3 flex items-center justify-between w-full shadow-inner">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-amber-500/10 rounded-full flex items-center justify-center border border-amber-500/20">
+                                <i class="fas fa-gem text-amber-400 text-xs"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-300 tracking-wide">النقاط بعد المباراة</span>
                         </div>
-
-                        <div class="w-[2px] h-16 bg-gray-200 rounded-full"></div>
-
-                        <div class="flex-1 flex flex-col items-center justify-center pl-2">
-                            <span id="final-op-name" class="px-3 py-1 bg-red-100 text-red-600 text-[10px] font-black rounded-full mb-2 truncate max-w-[80px] tracking-wider">الخصم</span>
-                            <p id="final-op-score" class="text-5xl font-black text-red-500 drop-shadow-sm">0</p>
-                        </div>
+                        <span id="result-points-gained-text" class="px-3 py-1 rounded-xl text-sm font-black shadow-md border border-white/10">+0</span>
                     </div>
                 </div>
 
-                <div class="relative z-10 mb-10 flex flex-col items-center w-full px-8">
-                    <p class="text-xs font-bold text-gray-400 mb-3 tracking-wide">النقاط</p>
-                    <div class="flex items-center justify-center gap-3">
-                        <span id="result-points-gained-text" class="px-6 py-2 rounded-2xl text-2xl font-black shadow-sm border border-white/50 transition-all">+0</span>
-                        <div class="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center shadow-inner border border-amber-200 animate-pulse">
-                            <i class="fas fa-gem text-2xl text-amber-500"></i>
+                <div class="w-full relative z-10">
+                    <button onclick="closeResultScreen()" class="group w-full relative overflow-hidden rounded-2xl p-[2px] active:scale-95 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 rounded-2xl opacity-70"></div>
+                        <div class="relative bg-slate-900 px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all group-hover:bg-slate-800/80">
+                            <span class="text-white font-black text-sm tracking-wide">متابعة التحديات</span>
+                            <i class="fas fa-arrow-left text-indigo-400 group-hover:-translate-x-1 transition-transform"></i>
                         </div>
-                    </div>
-                </div>
-
-                <div class="w-full px-6 mb-8 relative z-10">
-                    <button onclick="closeResultScreen()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white font-black text-lg shadow-[0_10px_20px_rgba(79,70,229,0.3)] hover:shadow-[0_15px_25px_rgba(79,70,229,0.4)] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3">
-                        <span>العودة للرئيسية</span>
-                        <i class="fas fa-arrow-left"></i>
                     </button>
                 </div>
             </div>
@@ -1526,27 +1530,7 @@
             </div>
         </div>
 
-        <div id="tab-premium" class="screen pt-20">
-    <div class="absolute top-0 w-full h-20 bg-white/95 backdrop-blur-sm shadow-sm z-30 flex items-center justify-center px-5">
-        <h1 class="font-black text-xl text-indigo-900">قسم المميزين 👑</h1>
-    </div>
-            <div class="scroll-container px-5 py-6">
-                <div id="premium-locked-view">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-yellow-100 mb-6">
-                        <h3 class="font-bold text-gray-800 mb-4 text-center">تفعيل الاشتراك المميز 🔑</h3>
-                        <input type="text" id="premium-code-input" placeholder="أدخل كود التفعيل هنا" class="input-box mb-3 text-center font-mono font-bold text-lg tracking-widest text-indigo-700 uppercase">
-                        <button onclick="activatePremiumCode()" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold shadow-md hover:bg-indigo-700 transition mb-4">تأكيد الكود</button>
-                        
-                        <div class="flex flex-col gap-2">
-                            <button onclick="window.open('https://t.me/mslmr19', '_blank')" class="w-full bg-blue-500 text-white py-3 rounded-xl font-bold shadow-md hover:bg-blue-600 transition flex items-center justify-center gap-2">
-                                <i class="fab fa-telegram-plane"></i> احصل على كود التحقق
-                            </button>
-                            <button onclick="showPremiumDetails()" class="w-full bg-yellow-50 text-yellow-700 py-3 rounded-xl font-bold border border-yellow-200 hover:bg-yellow-100 transition">
-                                <i class="fas fa-info-circle ml-1"></i> تفاصيل الحساب المميز
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        
 
                 <div id="premium-active-view" class="hidden">
                     <div class="premium-timer-container">
@@ -1614,73 +1598,70 @@
         
         <div id="screen-hacker-store" class="screen pt-20 bg-slate-50">
             <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
-                <button onclick="backToProfile()" class="text-gray-500 hover:text-gray-800 transition"><i class="fas fa-arrow-right text-xl"></i></button>
-                <h1 class="font-black text-lg text-purple-800">متجر الهكر 🛒</h1>
-                <div class="mr-auto bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100 flex items-center gap-1 shadow-sm">
-                    <span id="store-user-balance" class="font-bold text-emerald-700">$0</span>
+                <button onclick="backToProfile()" class="text-gray-500 hover:text-indigo-600 transition"><i class="fas fa-arrow-right text-xl"></i></button>
+                <h1 class="font-black text-lg text-indigo-800">متجر الهكر 🛒</h1>
+                <div class="mr-auto bg-gradient-to-r from-emerald-500 to-teal-500 px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-md">
+                    <i class="fas fa-wallet text-white text-sm"></i>
+                    <span id="store-user-balance" class="font-bold text-white text-sm">$0</span>
                 </div>
             </div>
             
-            <div class="scroll-container px-5 py-6 space-y-5 pb-24">
+            <div class="scroll-container px-4 py-6 space-y-4 pb-24">
                 
-                <div class="bg-white p-5 rounded-2xl border-2 border-yellow-200 shadow-md relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-yellow-400 text-white text-[10px] font-black px-3 py-1 rounded-bl-xl shadow-sm">يدوي</div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-white text-2xl shadow-inner shrink-0 animate-pulse">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="font-black text-gray-800 text-lg">اشتراك المميزين (شهر)</h3>
-                            <p class="text-xs text-gray-500 mt-1 font-bold">احصل على كل ميزات הـ VIP (أسئلة أكثر، نقاط مضاعفة، أدوات هكر).</p>
-                            <div class="flex justify-between items-center mt-4">
-                                <span class="text-lg font-black text-emerald-600">30$</span>
-                                <button id="btn-buy-sub" onclick="buyStoreItem('sub', 30)" class="bg-indigo-600 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-indigo-700 transition active:scale-95">شراء الآن</button>
+                <!-- خلفية مخصصة -->
+                <div class="bg-white rounded-[1.5rem] shadow-sm border border-gray-100 p-4 relative overflow-hidden flex flex-col gap-3 hover:shadow-md transition-shadow">
+                    <div class="absolute top-0 right-0 w-1.5 h-full bg-blue-500 rounded-r-full"></div>
+                    
+                    <div class="flex justify-between items-center w-full">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 shadow-inner shrink-0">
+                                <i class="fas fa-image text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-black text-gray-800 text-sm">خلفية مخصصة</h3>
+                                <div id="status-bg-display" class="text-[10px] text-gray-400 font-bold mt-0.5">غير مفعل</div>
                             </div>
                         </div>
+                        <span id="price-bg" class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-lg text-sm font-black border border-emerald-100">25$</span>
+                    </div>
+
+                    <p class="text-[10px] text-gray-500 font-bold leading-relaxed bg-gray-50 p-2 rounded-lg border border-gray-100">ارفع صورة من جهازك لتصبح خلفية حسابك في التصنيف والملف الشخصي (صالحة لمدة 30 يوم).</p>
+                    
+                    <div class="flex items-center gap-2 w-full">
+                        <input type="file" id="store-bg-upload" accept="image/*" class="hidden" onchange="previewStoreBg(this)">
+                        <button onclick="document.getElementById('store-bg-upload').click()" class="bg-gray-100 text-gray-600 text-xs font-bold py-2.5 px-3 rounded-xl hover:bg-gray-200 transition flex items-center gap-2 border border-gray-200 shrink-0">
+                            <i class="fas fa-upload"></i> <span id="store-bg-status">اختر صورة</span>
+                        </button>
+                        <button id="btn-buy-bg" onclick="buyStoreItem('bg', 25)" class="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2.5 rounded-xl text-xs font-black shadow-md hover:shadow-lg active:scale-95 transition flex items-center justify-center gap-2">
+                            <i class="fas fa-shopping-cart"></i> شراء وتفعيل
+                        </button>
                     </div>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border-2 border-blue-200 shadow-md relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-[10px] font-black px-3 py-1 rounded-bl-xl shadow-sm">تلقائي</div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-xl flex items-center justify-center text-white text-2xl shadow-inner shrink-0">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <div class="flex-1 w-full">
-                            <h3 class="font-black text-gray-800 text-lg">خلفية مخصصة (شهر)</h3>
-                            <p class="text-xs text-gray-500 mt-1 font-bold">ارفع صورة من جهازك لتصبح خلفية حسابك في التصنيف والملف الشخصي.</p>
-                            
-                            <div class="mt-3 flex gap-2 items-center w-full">
-                                <input type="file" id="store-bg-upload" accept="image/*" class="hidden" onchange="previewStoreBg(this)">
-                                <button onclick="document.getElementById('store-bg-upload').click()" class="flex-1 bg-gray-100 text-gray-600 text-xs font-bold py-2 rounded-lg border border-gray-300 hover:bg-gray-200">اختر صورة 📁</button>
-                                <span id="store-bg-status" class="text-[10px] text-red-500 font-bold">لم يتم الاختيار</span>
+                <!-- شعار مخصص -->
+                <div class="bg-white rounded-[1.5rem] shadow-sm border border-gray-100 p-4 relative overflow-hidden flex flex-col gap-3 hover:shadow-md transition-shadow">
+                    <div class="absolute top-0 right-0 w-1.5 h-full bg-pink-500 rounded-r-full"></div>
+                    
+                    <div class="flex justify-between items-center w-full">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-pink-50 rounded-xl flex items-center justify-center text-pink-600 shadow-inner shrink-0">
+                                <i class="fas fa-certificate text-lg"></i>
                             </div>
-
-                            <div class="flex justify-between items-center mt-4 w-full">
-                                <span class="text-lg font-black text-emerald-600">25$</span>
-                                <button onclick="buyStoreItem('bg', 25)" class="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-blue-700 transition active:scale-95">شراء وتركيب</button>
+                            <div>
+                                <h3 class="font-black text-gray-800 text-sm">شعار مخصص</h3>
+                                <div id="status-badge-display" class="text-[10px] text-gray-400 font-bold mt-0.5">غير مفعل</div>
                             </div>
                         </div>
+                        <span id="price-badge" class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-lg text-sm font-black border border-emerald-100">15$</span>
                     </div>
-                </div>
 
-                <div class="bg-white p-5 rounded-2xl border-2 border-pink-200 shadow-md relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-pink-500 text-white text-[10px] font-black px-3 py-1 rounded-bl-xl shadow-sm">تلقائي</div>
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-pink-400 to-rose-600 rounded-xl flex items-center justify-center text-white text-2xl shadow-inner shrink-0">
-                            <i class="fas fa-certificate"></i>
-                        </div>
-                        <div class="flex-1 w-full">
-                            <h3 class="font-black text-gray-800 text-lg">شعار مخصص (شهر)</h3>
-                            <p class="text-xs text-gray-500 mt-1 font-bold">اكتب أي لقب بجانب اسمك يظهر للجميع بالتصنيف.</p>
-                            
-                            <input type="text" id="store-badge-text" placeholder="اكتب الشعار (15 حرف كحد أقصى)" maxlength="15" class="input-box mt-3 text-sm font-bold text-center border-pink-100 focus:border-pink-500">
-
-                            <div class="flex justify-between items-center mt-4 w-full">
-                                <span class="text-lg font-black text-emerald-600">15$</span>
-                                <button onclick="buyStoreItem('badge', 15)" class="bg-pink-600 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-pink-700 transition active:scale-95">شراء وتركيب</button>
-                            </div>
-                        </div>
+                    <p class="text-[10px] text-gray-500 font-bold leading-relaxed bg-gray-50 p-2 rounded-lg border border-gray-100">اكتب لقب بجانب اسمك يظهر للجميع بالتصنيف (صالح لمدة 30 يوم).</p>
+                    
+                    <div class="flex items-center gap-2 w-full">
+                        <input type="text" id="store-badge-text" placeholder="اكتب الشعار (15 حرف)" maxlength="15" class="bg-gray-50 border border-gray-200 text-xs font-bold text-center rounded-xl py-2.5 px-2 flex-1 focus:border-pink-400 outline-none transition">
+                        <button id="btn-buy-badge" onclick="buyStoreItem('badge', 15)" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white py-2.5 px-4 rounded-xl text-xs font-black shadow-md hover:shadow-lg active:scale-95 transition flex items-center justify-center gap-2 shrink-0">
+                            <i class="fas fa-shopping-cart"></i> شراء وتفعيل
+                        </button>
                     </div>
                 </div>
 
@@ -1720,14 +1701,10 @@
                         <span class="font-bold text-sm text-gray-700">المستخدمين</span>
                     </button>
                     <button onclick="openPage('screen-admin-all')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2 hover:bg-gray-50">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600"><i class="fas fa-edit text-xl"></i></div>
-                        <span class="font-bold text-sm text-gray-700">تعديل</span>
-                    </button>
-                    <button onclick="openPage('screen-admin-subscription')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2 hover:bg-gray-50">
-                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600"><i class="fas fa-ticket-alt text-xl"></i></div>
-                        <span class="font-bold text-sm text-gray-700">إدارة الاشتراكات</span>
-                    </button>
-                    <button onclick="openPage('screen-admin-stats')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2 hover:bg-gray-50">
+    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600"><i class="fas fa-edit text-xl"></i></div>
+    <span class="font-bold text-sm text-gray-700">تعديل</span>
+</button>
+<button onclick="openPage('screen-admin-stats')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2 hover:bg-gray-50">
                         <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600"><i class="fas fa-chart-pie text-xl"></i></div>
                         <span class="font-bold text-sm text-gray-700">إحصائيات</span>
                     </button>
@@ -1747,98 +1724,6 @@
     <span class="font-bold text-sm text-gray-700">استخراج AI</span>
 </button>
                     
-                </div>
-            </div>
-        </div>
-
-        <div id="screen-admin-subscription" class="screen pt-20">
-            <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
-                <button onclick="openPage('screen-admin-hub')" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
-                <h1 class="font-bold text-lg text-gray-800">إدارة الاشتراكات</h1>
-            </div>
-            <div class="scroll-container px-5 py-6">
-                <div class="flex flex-col gap-4">
-                    <button onclick="openPage('screen-admin-generate-code')" class="bg-white p-6 rounded-2xl shadow-sm border border-green-100 flex flex-col items-center justify-center gap-3 hover:bg-green-50 transition">
-                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600"><i class="fas fa-key text-2xl"></i></div>
-                        <h3 class="font-bold text-gray-800">تكوين كود</h3>
-                    </button>
-
-                    <button onclick="openPage('screen-admin-delete-code')" class="bg-white p-6 rounded-2xl shadow-sm border border-red-100 flex flex-col items-center justify-center gap-3 hover:bg-red-50 transition">
-                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center text-red-600"><i class="fas fa-trash-alt text-2xl"></i></div>
-                        <h3 class="font-bold text-gray-800">حذف كود الاشتراك</h3>
-                    </button>
-
-                    <button onclick="openPage('screen-admin-premium-users')" class="bg-white p-6 rounded-2xl shadow-sm border border-blue-100 flex flex-col items-center justify-center gap-3 hover:bg-blue-50 transition">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i class="fas fa-crown text-2xl"></i></div>
-                        <h3 class="font-bold text-gray-800">المستخدمين المميزين</h3>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-
-        <div id="screen-admin-generate-code" class="screen pt-20">
-            <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
-                <button onclick="openPage('screen-admin-subscription')" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
-                <h1 class="font-bold text-lg text-gray-800">تكوين كود جديد</h1>
-            </div>
-            <div class="scroll-container px-5 py-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-800 mb-3">تكوين كود اشتراك مميز</h3>
-                    <div class="mb-6">
-                        <label class="block text-xs font-bold text-gray-500 mb-2">مدة الاشتراك</label>
-                        <select id="admin-sub-duration" class="input-box mb-3">
-                            <option value="7">أسبوع (7 أيام)</option>
-                            <option value="30">شهر (30 يوم)</option>
-                            <option value="90">3 أشهر (90 يوم)</option>
-                            <option value="180">6 أشهر (180 يوم)</option>
-                            <option value="365">سنة (365 يوم)</option>
-                        </select>
-                        <button onclick="generateSubscriptionCode()" class="btn-main bg-green-600 mb-4">
-                            <i class="fas fa-key ml-2"></i> تكوين وتوليد كود
-                        </button>
-                        
-                        <div id="generated-code-display" class="hidden bg-green-50 border border-green-200 p-4 rounded-xl text-center mt-4">
-                            <p class="text-xs text-green-500 mb-1">الكود الجديد:</p>
-                            <h2 class="text-2xl font-mono font-bold text-green-800 select-all" id="gen-code-text">...</h2>
-                            <div class="flex justify-center gap-2 mt-3">
-                                <button onclick="copyGenCode()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-700 transition flex items-center gap-1">
-                                    <i class="fas fa-copy"></i> نسخ الكود
-                                </button>
-                                <button onclick="document.getElementById('generated-code-display').classList.add('hidden')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-gray-300 transition">
-                                    إخفاء
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="screen-admin-delete-code" class="screen pt-20">
-            <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
-                <button onclick="openPage('screen-admin-subscription')" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
-                <h1 class="font-bold text-lg text-gray-800">حذف كود اشتراك</h1>
-            </div>
-            <div class="scroll-container px-5 py-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-red-100">
-                    <h3 class="font-bold text-red-800 mb-3">حذف كود اشتراك</h3>
-                    <input type="text" id="admin-delete-code-input" placeholder="أدخل الكود لحذفه" class="input-box mb-4 uppercase">
-                    <button onclick="deleteSubscriptionCode()" class="btn-main bg-red-600 hover:bg-red-700">
-                        <i class="fas fa-trash-alt ml-2"></i> حذف الكود
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="screen-admin-premium-users" class="screen pt-20">
-            <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
-                <button onclick="openPage('screen-admin-subscription')" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
-                <h1 class="font-bold text-lg text-gray-800">المستخدمين المميزين</h1>
-            </div>
-            <div class="scroll-container px-5 py-6">
-                <div id="premium-users-list" class="space-y-3">
-                    <p class="text-center text-gray-400">جاري التحميل...</p>
                 </div>
             </div>
         </div>
@@ -1931,8 +1816,13 @@
                 </div>
             </div>
 
-            <button onclick="startAIExtractionProcess()" class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-black py-4 rounded-xl shadow-md hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+            <button onclick="startAIExtractionProcess()" class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-black py-4 rounded-xl shadow-md hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 mb-3">
                 <i class="fas fa-magic"></i> بدء الاستخراج السحري
+            </button>
+
+            <!-- زر الفحص الجديد -->
+            <button onclick="openKeysTestModal()" class="w-full bg-slate-100 text-slate-600 border-2 border-slate-200 font-bold py-3 rounded-xl hover:bg-slate-200 active:scale-95 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-satellite-dish text-indigo-500 animate-pulse"></i> فحص صلاحية مفاتيح الـ API (Gemini)
             </button>
         </div>
 
@@ -1960,8 +1850,36 @@
     </div>
 </div>
 
+<!-- نافذة فحص مفاتيح الذكاء الاصطناعي الجديدة -->
+<div id="ai-keys-test-modal" class="modal-overlay hidden" style="z-index: 100000;">
+    <div class="modal-content relative bg-slate-50 p-0 rounded-[2rem] w-11/12 max-w-md h-[80vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200">
+        
+        <div class="bg-gradient-to-r from-slate-800 to-slate-900 p-5 text-white flex justify-between items-center z-10 shadow-md">
+            <div>
+                <h3 class="font-black text-lg flex items-center gap-2"><i class="fas fa-satellite-dish text-emerald-400"></i> رادار المفاتيح</h3>
+                <p id="keys-test-status" class="text-xs text-slate-300 font-bold mt-1">بانتظار بدء الفحص...</p>
+            </div>
+            <button onclick="document.getElementById('ai-keys-test-modal').classList.add('hidden')" class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div class="p-4 bg-white border-b border-gray-100 flex justify-center shadow-sm z-10">
+            <button id="btn-start-keys-test" onclick="startKeysTest()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-black py-3 rounded-xl shadow-md hover:opacity-90 transition flex items-center justify-center gap-2">
+                <i class="fas fa-play"></i> بدء الفحص الآن
+            </button>
+        </div>
+
+        <div id="keys-test-results-list" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50">
+            <!-- ستظهر نتائج الفحص هنا -->
+            <div class="flex flex-col items-center justify-center h-full opacity-50">
+                <i class="fas fa-key text-5xl text-gray-300 mb-3"></i>
+                <p class="text-sm font-bold text-gray-400">اضغط على بدء الفحص لاختبار المفاتيح</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
         <div id="screen-admin-users" class="screen pt-20">
-            <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
                 <button onclick="openPage('screen-admin-hub')" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
                 <h1 class="font-bold text-lg text-gray-800">إدارة المستخدمين</h1>
             </div>
@@ -2046,67 +1964,13 @@
     <div onclick="switchTab('leaderboard')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400">
         <i class="fas fa-trophy text-xl mb-1"></i><span class="text-[10px] font-bold">التصنيف</span>
     </div>
-    <div onclick="switchTab('premium')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400">
-    <i class="fas fa-crown text-xl mb-1"></i><span class="text-[10px] font-bold">للمميزين</span>
-</div>
     <div onclick="switchTab('profile')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400 relative">
         <i class="fas fa-user text-xl mb-1"></i><span class="text-[10px] font-bold">حسابي</span>
         <div id="profile-tab-badge" class="red-dot"></div>
     </div>
 </div>
         
-        <div id="premium-details-modal" class="modal-overlay hidden">
-            <div class="modal-content relative bg-gradient-to-br from-indigo-900 to-indigo-800 text-white border-2 border-yellow-500">
-                <button onclick="document.getElementById('premium-details-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
-                <div class="text-center mb-6">
-                    <i class="fas fa-crown text-5xl text-yellow-400 mb-3 animate-bounce"></i>
-                    <h2 class="text-2xl font-black text-yellow-400">مميزات الحساب المميز</h2>
-                </div>
-                <div class="space-y-4 text-right">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-yellow-500 text-indigo-900 flex items-center justify-center font-bold"><i class="fas fa-check"></i></div>
-                        <p class="font-bold">توثيق مميز للحساب (علامة بجانب الاسم).</p>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-yellow-500 text-indigo-900 flex items-center justify-center font-bold"><i class="fas fa-check"></i></div>
-                        <p class="font-bold">خلفية مميزة متحركة في التصنيف.</p>
-                    </div>
-                    <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-yellow-500 text-indigo-900 flex items-center justify-center font-bold">15</div>
-                <p class="font-bold">15 سؤال في كل مباراة (بدلاً من 10).</p>
-            </div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-yellow-500 text-indigo-900 flex items-center justify-center font-bold">2x</div>
-                        <p class="font-bold">نقاط مضاعفة من التحديات.</p>
-                    </div>
-                    <div class="flex items-center gap-3">
-    <div class="w-10 h-10 rounded-full bg-yellow-500 text-indigo-900 flex items-center justify-center font-bold"><i class="fas fa-user-secret"></i></div>
-    <p class="font-bold">استخدام أدوات الهكر (تجميد وحذف إجابة).</p>
-</div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-yellow-500 text-indigo-900 flex items-center justify-center font-bold"><i class="fas fa-star"></i></div>
-                        <p class="font-bold">أولوية في البحث عن مباريات.</p>
-                    </div>
-                </div>
-                <button onclick="document.getElementById('premium-details-modal').classList.add('hidden')" class="mt-8 w-full bg-yellow-500 text-indigo-900 font-bold py-3 rounded-xl hover:bg-yellow-400 transition">فهمت، شكراً</button>
-            </div>
-        </div>
-
-        <div id="badge-selector-modal" class="modal-overlay hidden">
-            <div class="modal-content relative">
-                 <button onclick="document.getElementById('badge-selector-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
-                 <h3 class="font-bold text-lg mb-4 text-indigo-700 text-center">اختر لقب التوثيق</h3>
-                 <div class="grid grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto p-2" id="badge-grid"></div>
-            </div>
-        </div>
-
-        <div id="bg-selector-modal" class="modal-overlay hidden">
-             <div class="modal-content relative">
-                 <button onclick="document.getElementById('bg-selector-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times"></i></button>
-                 <h3 class="font-bold text-lg mb-4 text-purple-700 text-center">اختر خلفية التصنيف</h3>
-                 <div class="space-y-3" id="bg-grid"></div>
-            </div>
-        </div>
+        
         
         <div id="edit-modal" class="modal-overlay hidden">
             <div class="modal-content relative">
@@ -2137,118 +2001,95 @@
                 <button onclick="saveFullEditQ()" class="btn-main mt-6 bg-indigo-600 text-sm">حفظ التعديلات</button>
             </div>
         </div>
-
-        <div id="add-subscription-modal" class="modal-overlay hidden">
-            <div class="modal-content relative">
-                <button onclick="document.getElementById('add-subscription-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
-                <h3 class="font-bold text-lg mb-4 text-indigo-700 text-center">إضافة اشتراك</h3>
-                <input type="text" id="add-subscription-code" placeholder="أدخل كود الاشتراك" class="input-box mb-4 text-center font-mono text-lg uppercase">
-                <button onclick="addSubscriptionTime()" class="btn-main bg-green-600 hover:bg-green-700">
-                    <i class="fas fa-plus-circle ml-2"></i> إضافة المدة
-                </button>
-            </div>
-        </div>
         
-        <div id="screen-public-profile" class="screen pt-0 bg-slate-50 transition-all duration-700">
+        <div id="screen-public-profile" class="screen pt-0 bg-slate-50 transition-all duration-700 overflow-x-hidden">
             
             <div id="pub-profile-full-bg" class="absolute inset-0 z-0 opacity-10 transition-all duration-500"></div>
 
-            <div class="scroll-container px-4 pt-0 pb-20 relative z-10">
+            <div class="scroll-container px-0 pt-0 pb-20 relative z-10 w-full">
                 
-                <div id="pub-profile-header-bg" class="-mx-4 w-[calc(100%+2rem)] h-36 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-gradient-to-r from-indigo-500 to-purple-600 mb-14">
-                    <button onclick="closePublicProfile()" class="absolute top-6 right-4 w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition shadow-sm border border-white/30 z-20">
+                <div id="pub-profile-header-bg" class="w-full h-32 relative rounded-b-[2rem] shadow-sm z-10 transition-all duration-500 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-800">
+                    <button onclick="closePublicProfile()" class="absolute top-5 right-4 w-8 h-8 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/40 transition shadow-sm border border-white/20 z-20">
                         <i class="fas fa-arrow-right text-sm"></i>
                     </button>
-                    
-                    <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2 z-20">
-                        <div class="relative">
-                            <img id="pub-profile-img" src="" class="w-24 h-24 rounded-full border-4 border-white shadow-xl object-cover bg-white">
-                            <div id="pub-online-status" class="absolute bottom-1 right-1 w-5 h-5 bg-gray-400 border-[3px] border-white rounded-full shadow-sm"></div>
-                        </div>
-                    </div>
                 </div>
                 
-                <div class="text-center mb-4 animate-[fadeIn_0.3s_ease-out]">
+                <div class="relative -mt-12 z-20 flex flex-col items-center px-4 animate-[slideUp_0.3s_ease-out]">
+                    <div class="relative mb-2">
+                        <img id="pub-profile-img" src="" class="w-24 h-24 rounded-full border-[3px] border-white shadow-lg object-contain bg-white p-0.5">
+                        <div id="pub-online-status" class="absolute bottom-1 right-1 w-4 h-4 bg-gray-400 border-2 border-white rounded-full shadow-sm"></div>
+                    </div>
+
                     <div class="flex items-center justify-center gap-1.5 flex-wrap mb-1" id="pub-profile-name-container">
-                        <h2 id="pub-profile-name" class="text-xl font-black text-gray-800 drop-shadow-sm">جاري التحميل...</h2>
+                        <h2 id="pub-profile-name" class="text-lg font-black text-gray-800 drop-shadow-sm">جاري التحميل...</h2>
                     </div>
                     
-                    <div class="flex justify-center items-center gap-1.5 mb-2">
-                        <span class="text-[10px] font-bold text-gray-500 bg-gray-200/50 px-2.5 py-1 rounded-md border border-gray-200">ID: <span id="pub-profile-id">...</span></span>
-                        <button id="pub-btn-copy-id" class="w-6 h-6 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center hover:bg-indigo-200 active:scale-95 transition shadow-sm">
-                            <i class="fas fa-copy text-[10px]"></i>
-                        </button>
+                    <div class="flex justify-center items-center gap-2 mb-2">
+                        <span class="text-[10px] font-bold text-gray-500 bg-white px-2.5 py-1 rounded-md shadow-sm border border-gray-100 flex items-center gap-1">
+                            ID: <span id="pub-profile-id" class="text-gray-700">...</span>
+                            <button id="pub-btn-copy-id" class="ml-1 text-indigo-500 hover:text-indigo-700 transition"><i class="fas fa-copy"></i></button>
+                        </span>
                     </div>
 
-                    <div class="flex justify-center items-center gap-1.5 mb-2 flex-wrap">
-                        <span id="pub-profile-grade" class="text-[10px] bg-indigo-50 text-indigo-600 font-bold px-2.5 py-0.5 rounded border border-indigo-100 shadow-sm">...</span>
-                        <span id="pub-profile-gov" class="text-[10px] bg-emerald-50 text-emerald-600 font-bold px-2.5 py-0.5 rounded border border-emerald-100 shadow-sm hidden">...</span>
+                    <div class="flex justify-center items-center gap-1.5 mb-3 flex-wrap">
+                        <span id="pub-profile-grade" class="text-[10px] bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded border border-indigo-100 shadow-sm">...</span>
+                        <span id="pub-profile-gov" class="text-[10px] bg-emerald-50 text-emerald-600 font-bold px-2 py-0.5 rounded border border-emerald-100 shadow-sm hidden">...</span>
                     </div>
 
-                    <p id="pub-profile-bio" class="text-[11px] text-gray-600 max-w-[260px] mx-auto leading-relaxed font-medium bg-white/70 p-2.5 rounded-lg border border-white shadow-sm backdrop-blur-md">...</p>
-                </div>
-
-                <div class="bg-white/90 backdrop-blur-md rounded-2xl p-3 shadow-[0_5px_15px_rgba(0,0,0,0.04)] border border-white mb-3 animate-[slideUp_0.4s_ease-out]">
-                    <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-3">
-                        <div class="flex-1 text-center border-r border-gray-100">
-                            <p class="text-[9px] font-black text-gray-400 tracking-wide mb-0.5"><i class="fas fa-gem text-indigo-400 mr-1"></i> النقاط الكلية</p>
-                            <p id="pub-profile-points" class="text-xl font-black text-indigo-600">0</p>
-                        </div>
-                        <div class="flex-1 text-center">
-                            <p class="text-[9px] font-black text-gray-400 tracking-wide mb-0.5"><i class="fas fa-money-bill-wave text-emerald-400 mr-1"></i> المحفظة</p>
-                            <p id="pub-profile-money" class="text-xl font-black text-emerald-500">$0</p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="bg-amber-50/90 p-2 rounded-lg border border-amber-100 text-center shadow-inner">
-                            <i class="fas fa-trophy text-amber-500 text-sm mb-1"></i>
-                            <p class="text-[8px] text-gray-500 font-bold mb-0.5 uppercase tracking-wider">أفضل مركز</p>
-                            <p id="pub-stat-best-rank" class="text-lg font-black text-amber-600">-</p>
-                        </div>
-                        <div class="bg-rose-50/90 p-2 rounded-lg border border-rose-100 text-center shadow-inner">
-                            <i class="fas fa-level-down-alt text-rose-400 text-sm mb-1"></i>
-                            <p class="text-[8px] text-gray-500 font-bold mb-0.5 uppercase tracking-wider">أسوء مركز</p>
-                            <p id="pub-stat-worst-rank" class="text-lg font-black text-rose-600">-</p>
-                        </div>
+                    <div class="w-full max-w-xs relative">
+                        <i class="fas fa-quote-right absolute -top-2 -right-1 text-indigo-100 text-xl z-0"></i>
+                        <p id="pub-profile-bio" class="text-[11px] text-gray-600 text-center leading-relaxed font-bold bg-white/80 backdrop-blur-md p-2.5 rounded-xl border border-white shadow-[0_2px_10px_rgba(0,0,0,0.03)] relative z-10">...</p>
                     </div>
                 </div>
 
-                <div class="bg-white/90 backdrop-blur-md rounded-xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.03)] border border-white flex items-center justify-between mb-4 animate-[slideUp_0.5s_ease-out]">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 border border-slate-200">
+                <div class="px-4 mt-4 space-y-3 relative z-20 animate-[slideUp_0.5s_ease-out]">
+                    
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div class="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 flex flex-col items-center justify-center relative overflow-hidden">
+                            <div class="absolute -right-3 -bottom-3 opacity-5"><i class="fas fa-gem text-5xl text-indigo-500"></i></div>
+                            <i class="fas fa-gem text-indigo-500 text-lg mb-1"></i>
+                            <p class="text-[9px] font-bold text-gray-400 mb-0.5">النقاط الكلية</p>
+                            <p id="pub-profile-points" class="text-xl font-black text-indigo-700">0</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 flex flex-col items-center justify-center relative overflow-hidden">
+                            <div class="absolute -left-3 -bottom-3 opacity-5"><i class="fas fa-wallet text-5xl text-emerald-500"></i></div>
+                            <i class="fas fa-wallet text-emerald-500 text-lg mb-1"></i>
+                            <p class="text-[9px] font-bold text-gray-400 mb-0.5">المحفظة</p>
+                            <p id="pub-profile-money" class="text-xl font-black text-emerald-600">$0</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-3 shadow-sm border border-gray-100">
+                        <h3 class="text-[11px] font-black text-gray-800 mb-3 flex items-center gap-1.5">
+                            <i class="fas fa-chart-line text-indigo-500"></i> سجل الأداء
+                        </h3>
+                        
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-amber-50 p-2 rounded-xl border border-amber-100 text-center">
+                                <p class="text-[9px] text-gray-500 font-bold mb-0.5">🏆 أفضل مركز</p>
+                                <p id="pub-stat-best-rank" class="text-base font-black text-amber-600">-</p>
+                            </div>
+                            <div class="bg-rose-50 p-2 rounded-xl border border-rose-100 text-center">
+                                <p class="text-[9px] text-gray-500 font-bold mb-0.5">📉 أسوء مركز</p>
+                                <p id="pub-stat-worst-rank" class="text-base font-black text-rose-600">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-2.5 shadow-sm border border-gray-100 flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-500 border border-slate-100">
                             <i class="far fa-clock text-xs"></i>
                         </div>
                         <div>
-                            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wide">آخر نشاط باللعبة</p>
-                            <p id="pub-last-seen" class="text-xs font-black text-gray-700">جاري الحساب...</p>
+                            <p class="text-[9px] font-bold text-gray-400">آخر نشاط باللعبة</p>
+                            <p id="pub-last-seen" class="text-[11px] font-black text-gray-700 mt-0.5">جاري الحساب...</p>
                         </div>
                     </div>
-                </div>
 
-                <button id="pub-btn-friendly" onclick="startFriendlyFromProfile()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black py-3 rounded-xl shadow-[0_8px_15px_rgba(79,70,229,0.25)] hover:shadow-[0_12px_20px_rgba(79,70,229,0.35)] active:scale-95 transition-all flex items-center justify-center gap-2 border border-indigo-400 animate-[slideUp_0.6s_ease-out]">
-                    <i class="fas fa-handshake text-sm"></i> <span class="text-sm">طلب مباراة ودية ⚔️</span>
-                </button>
-            </div>
-        </div>
+                    <button id="pub-btn-friendly" onclick="startFriendlyFromProfile()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black py-3 rounded-xl shadow-[0_4px_12px_rgba(79,70,229,0.2)] hover:shadow-[0_6px_16px_rgba(79,70,229,0.3)] active:scale-95 transition-all flex items-center justify-center gap-2 mt-1">
+                        <i class="fas fa-handshake text-base"></i> <span class="text-sm">طلب مباراة ودية ⚔️</span>
+                    </button>
 
-                <h3 class="font-bold text-gray-800 mb-3 ml-1">📊 إحصائيات اللاعب</h3>
-                <div class="grid grid-cols-2 gap-3 mb-6">
-                    <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100 text-center shadow-sm">
-                        <i class="fas fa-fire text-amber-500 text-xl mb-1"></i>
-                        <p class="text-[10px] text-gray-500 font-bold">أفضل سلسلة فوز</p>
-                        <p id="pub-stat-winstreak" class="text-xl font-black text-amber-700">0</p>
-                    </div>
-                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 text-center shadow-sm">
-                        <i class="fas fa-check-double text-emerald-500 text-xl mb-1"></i>
-                        <p class="text-[10px] text-gray-500 font-bold">أكثر إجابات صحيحة متتالية</p>
-                        <p id="pub-stat-correct" class="text-xl font-black text-emerald-700">0</p>
-                    </div>
-                    <div class="bg-red-50 p-4 rounded-2xl border border-red-100 text-center shadow-sm col-span-2">
-                        <i class="fas fa-skull text-red-500 text-xl mb-1"></i>
-                        <p class="text-[10px] text-gray-500 font-bold">أسوء نتيجة في مباراة</p>
-                        <p id="pub-stat-worst" class="text-xl font-black text-red-700">0</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -2460,7 +2301,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 38;
+        const CURRENT_APP_VERSION = 40;
 
 async function checkForUpdates() {
     try {
@@ -2514,30 +2355,7 @@ const GLOBAL_LOADER_HTML = `
         <i class="fas fa-user-secret liquid-icon mb-4"></i>
         <p class="text-indigo-600 font-bold text-sm animate-pulse">جاري التحميل...</p>
     </div>
-`;
-
-        let premiumInterval = null;
-        let DEFAULT_BADGES = ["سجاج", "سجاجة", "دكتور", "دكتورة", "كسلان", "كسولة", "شطور", "شطورة", "نايم", "نايمة", "نعسان", "نعسانة", "ماكو واهس", "مهندس", "مهندسة", "واحد عراق", "صگاركم", "صگارتكم", "فستقة", "المحامي", "المحامية"];
-let BADGES_LIST = [...DEFAULT_BADGES];
-        const BACKGROUNDS_LIST = [
-    { id: 'bg-medical', name: 'طبي (سمائي)', class: 'bg-medical' },
-    { id: 'bg-law', name: 'قانون (جوزي)', class: 'bg-law' },
-    { id: 'bg-edu', name: 'تعليم (أخضر)', class: 'bg-edu' },
-    { id: 'bg-eng', name: 'هندسة (أصفر)', class: 'bg-eng' },
-    { id: 'bg-smart', name: 'ذكي (برتقالي)', class: 'bg-smart' },
-    { id: 'bg-love', name: 'حب (وردي)', class: 'bg-love' },
-    { id: 'bg-space', name: 'فضاء (أسود)', class: 'bg-space' },
-    { id: 'bg-galaxy', name: 'مجرة (بنفسجي)', class: 'bg-galaxy' },
-    { id: 'bg-fire', name: 'نار (أحمر)', class: 'bg-fire' },
-    { id: 'bg-ocean', name: 'محيط (أزرق)', class: 'bg-ocean' },
-    { id: 'bg-forest', name: 'غابة (أخضر)', class: 'bg-forest' },
-    // الـ 5 الجديدة
-    { id: 'bg-hacker', name: 'هاكر (ماتريكس)', class: 'bg-hacker' },
-    { id: 'bg-royal', name: 'ملكي (ذهبي فاخر)', class: 'bg-royal' },
-    { id: 'bg-neon', name: 'نيون (مشع)', class: 'bg-neon' },
-    { id: 'bg-cyberpunk', name: 'سايبر (مستقبلي)', class: 'bg-cyberpunk' },
-    { id: 'bg-crystal', name: 'كرستال (زجاجي)', class: 'bg-crystal' }
-];
+`;      
 
 // إنشاء بيئة صوتية ذكية لا تؤثر على موسيقى الخلفية في الجهاز
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -2663,80 +2481,65 @@ document.addEventListener('click', function(e) {
 
             if (user) {
                 currentUser = user;
-                console.log("تم تسجيل الدخول بنجاح، UID:", user.uid);
-
                 try {
                     const docSnap = await getDoc(doc(db, "users", user.uid));
                     if (docSnap.exists()) {
                         userData = docSnap.data();
-                        console.log("تم تحميل بيانات المستخدم:", userData.name);
 
                         if (userData.isBanned === true) {
-    banScreen.classList.remove('hidden');
-    await signOut(auth);
-    localStorage.setItem('device_banned', 'true');
-    return;
-}
+                            banScreen.classList.remove('hidden');
+                            await signOut(auth);
+                            localStorage.setItem('device_banned', 'true');
+                            return;
+                        }
 
-if (localStorage.getItem('device_banned') === 'true' && userData.email !== ADMIN_EMAIL) {
-    banScreen.classList.remove('hidden');
-    await signOut(auth);
-    return;
-}
+                        if (localStorage.getItem('device_banned') === 'true' && userData.email !== ADMIN_EMAIL) {
+                            banScreen.classList.remove('hidden');
+                            await signOut(auth);
+                            return;
+                        }
 
-// التعديل الجديد: التحقق من التحديث الإجباري قبل إكمال الدخول
-const needsUpdate = await checkForUpdates();
-if (needsUpdate) return; // إيقاف كل شيء وإبقاء شاشة التحديث ظاهرة
+                        const needsUpdate = await checkForUpdates();
+                        if (needsUpdate) return; 
 
-await updateDoc(doc(db, "users", user.uid), {
+                        await updateDoc(doc(db, "users", user.uid), {
                             lastActive: serverTimestamp(),
                             lastLogin: new Date().toISOString()
                         });
                         
-                        // هنا يتم تشغيل نظام التصفير الفردي
                         await checkAndApplyIndividualReset(user.uid, userData);
                         
                         setupProfileUI();
                         setupHeaderUI();
                         setupAdminUI();
-                        await fetchGlobalBadges(); // 👈 هذا السطر السحري اللي راح يحفظ التوثيقات الجديدة
+                        await fetchGlobalBadges(); 
+
                         if (userData.avatarGender) {
-
-const achieveBg = document.getElementById('achieve-bg-container');
-if (achieveBg) {
-    if (userData.avatarGender === 'boy') {
-        // خلفية للولد: تدرج أزرق ونيلي غامق
-        achieveBg.className = "w-full flex-1 relative flex flex-col items-center justify-center transition-colors duration-700 overflow-hidden bg-gradient-to-b from-blue-900 via-indigo-900 to-slate-950";
-    } else {
-        // خلفية للبنت: تدرج وردي وبنفسجي غامق
-        achieveBg.className = "w-full flex-1 relative flex flex-col items-center justify-center transition-colors duration-700 overflow-hidden bg-gradient-to-b from-pink-900 via-purple-900 to-slate-950";
-    }
-}
-
-// حساب الجاهزية
-const completedCount = (userData.completedChapters || []).length;
-}
-                        const iraqDate = getIraqDate();
-const currentDayKey = `${iraqDate.getDate()}-${iraqDate.getMonth()}-${iraqDate.getFullYear()}`;
-
-if (userData.lastRewardDayKey === currentDayKey) {
-    // إذا مستلم الهدية اليوم، اعرض الإعلان فوراً
-    if(typeof window.checkAndShowGlobalAd === 'function') {
-        window.checkAndShowGlobalAd();
-    }
-} else {
-    // إذا ممستلمها، نعرض الهدية أولاً (والإعلان يظهر بعد الاستلام)
-    checkDailyReward();
-}
-window.syncQuestionsPacket();
-checkPremiumStatus();
-checkNotifications();
-if(userData.email === ADMIN_EMAIL) checkAdminNotifications();
-checkPendingQuestionsNotification();
-
-if (userData.grade) {
-                            document.getElementById('grade-selector-card').classList.add('hidden');
+                            const achieveBg = document.getElementById('achieve-bg-container');
+                            if (achieveBg) {
+                                if (userData.avatarGender === 'boy') {
+                                    achieveBg.className = "w-full flex-1 relative flex flex-col items-center justify-center transition-colors duration-700 overflow-hidden bg-gradient-to-b from-blue-900 via-indigo-900 to-slate-950";
+                                } else {
+                                    achieveBg.className = "w-full flex-1 relative flex flex-col items-center justify-center transition-colors duration-700 overflow-hidden bg-gradient-to-b from-pink-900 via-purple-900 to-slate-950";
+                                }
+                            }
                         }
+
+                        const iraqDate = getIraqDate();
+                        const currentDayKey = `${iraqDate.getDate()}-${iraqDate.getMonth()}-${iraqDate.getFullYear()}`;
+
+                        if (userData.lastRewardDayKey === currentDayKey) {
+                            if(typeof window.checkAndShowGlobalAd === 'function') {
+                                window.checkAndShowGlobalAd();
+                            }
+                        } else {
+                            checkDailyReward();
+                        }
+                        
+                        window.syncQuestionsPacket();
+                        checkNotifications();
+                        if(userData.email === ADMIN_EMAIL) checkAdminNotifications();
+                        checkPendingQuestionsNotification();
 
                         if (userData.grade) {
                             document.getElementById('grade-selector-card').classList.add('hidden');
@@ -2745,7 +2548,6 @@ if (userData.grade) {
                             document.getElementById('header-grade-badge').classList.remove('hidden');
                             populateSubjects(userData.grade, 'challenge-subject', 'challenge-chapter');
                         } else {
-                        
                             document.getElementById('grade-selector-card').classList.remove('hidden');
                             document.getElementById('challenge-active-card').classList.add('hidden');
                             document.getElementById('header-grade-badge').classList.add('hidden');
@@ -2756,15 +2558,14 @@ if (userData.grade) {
                         intro.classList.add('hidden');
                         authScreen.classList.add('hidden');
                         mainApp.classList.remove('hidden');
+                        
                         if(!document.querySelector('.screen.active')) switchTab('challenges');
                         startWeeklyCountdown();
                         
-                        // فحص وعرض الإعلان بذكاء ومباشرة عند فتح التطبيق
                         if(typeof window.checkAndShowGlobalAd === 'function') {
                             window.checkAndShowGlobalAd();
                         }
 
-                        // مزامنة ومعايرة شارة أبطال المحافظات الحالية والجديدة فوراً عند الدخول
                         try {
                             const govSettingSnap = await getDoc(doc(db, "system_settings", "winning_gov"));
                             if (govSettingSnap.exists()) {
@@ -2775,22 +2576,19 @@ if (userData.grade) {
                                     weekId: govSettingData.weekId || ''
                                 }));
                             }
-                        } catch(e) { console.log("خطأ مزامنة الشارة المباشر:", e); }
+                        } catch(e) {}
 
-                        // -- إجبار المستخدم القديم على اختيار المحافظة فوراً --
                         if (!userData.governorate) {
                             setTimeout(() => {
                                 const forceModal = document.getElementById('force-gov-modal');
                                 if (forceModal) {
                                     forceModal.classList.remove('hidden');
-                                    forceModal.style.display = 'flex'; // تأكيد قاطع على ظهورها فوق كل شيء
+                                    forceModal.style.display = 'flex'; 
                                 }
-                            }, 1000); // تأخير ثانية وحدة لضمان تحميل واجهة التحديات بالكامل
+                            }, 1000); 
                         }
-                        // -----------------------------------------------------------------
                         
                     } else {
-                        console.log("المستخدم غير موجود في قاعدة البيانات، تسجيل الخروج...");
                         await signOut(auth);
                         location.reload();
                     }
@@ -2801,7 +2599,6 @@ if (userData.grade) {
                     location.reload();
                 }
             } else {
-                console.log("المستخدم غير مسجل دخول");
                 setTimeout(() => {
                     intro.classList.add('hidden');
                     mainApp.classList.add('hidden');
@@ -2901,245 +2698,229 @@ window.globalLeaderboardData = [];
         let globalLeaderboardUnsubscribe = null;
         let myCachedRank = "..."; 
 
-        // إزالة نظام الكاش بالكامل وتحويله إلى اتصال فوري (Real-Time)
         window.initGlobalLeaderboardListener = function() {
-            if (globalLeaderboardUnsubscribe) return; // شغال مسبقاً
+    if (globalLeaderboardUnsubscribe) return; 
+    
+    console.log("بدء الاستماع المباشر (الفوري) للتصنيف العالمي...");
+    const q = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
+
+    globalLeaderboardUnsubscribe = onSnapshot(q, (snapshot) => {
+        let tempList = [];
+        const currentSystemWeekId = getCurrentWeekId(); 
+
+        snapshot.forEach(doc => {
+            const d = doc.data();
+            const actualPoints = (d.lastWeekId === currentSystemWeekId) ? (d.points || 0) : 0;
             
-            console.log("بدء الاستماع المباشر (الفوري) للتصنيف العالمي...");
-            const q = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
-
-            globalLeaderboardUnsubscribe = onSnapshot(q, (snapshot) => {
-                let tempList = [];
-                const currentSystemWeekId = getCurrentWeekId(); 
-
-                snapshot.forEach(doc => {
-                    const d = doc.data();
-                    const actualPoints = (d.lastWeekId === currentSystemWeekId) ? (d.points || 0) : 0;
-                    
-                    tempList.push({
-                        id: doc.id, name: d.name, photo: d.photo, points: actualPoints,
-                        uniqueId: d.uniqueId, isPremium: d.isPremium, premiumExpiry: d.premiumExpiry,
-                        selectedBadge: d.selectedBadge, selectedBadgeColor: d.selectedBadgeColor,
-                        selectedBgTheme: d.selectedBgTheme, bio: d.bio, governorate: d.governorate,
-                        avatarGender: d.avatarGender, level: d.level
-                    });
-                });
-
-                tempList.sort((a, b) => b.points - a.points);
-                window.globalLeaderboardData = tempList;
-
-                if (currentUser && userData) {
-                    const myIndex = window.globalLeaderboardData.findIndex(u => u.id === currentUser.uid);
-                    myCachedRank = myIndex !== -1 ? myIndex + 1 : "+50";
-                    
-                    const rankEl = document.getElementById('my-rank-text');
-                    if (rankEl) rankEl.innerText = "#" + myCachedRank;
-                    
-                    if (myIndex !== -1 && userData.points > 0) {
-                        let liveRank = myIndex + 1;
-                        let needsUpdate = false;
-                        
-                        if (!userData.bestRank || liveRank < userData.bestRank) {
-                            userData.bestRank = liveRank; needsUpdate = true;
-                        }
-                        if (!userData.worstRank || liveRank > userData.worstRank) {
-                            userData.worstRank = liveRank; needsUpdate = true;
-                        }
-                        
-                        if (needsUpdate) {
-                            updateDoc(doc(db, "users", currentUser.uid), { 
-                                bestRank: userData.bestRank, 
-                                worstRank: userData.worstRank 
-                            }).catch(e => console.log(e));
-                        }
-                    }
-                    
-                    const bestEl = document.getElementById('my-stat-best-rank');
-                    const worstEl = document.getElementById('my-stat-worst-rank');
-                    const currentEl = document.getElementById('my-stat-current-rank');
-                    
-                    if (bestEl) bestEl.innerText = userData.bestRank ? "#" + userData.bestRank : '-';
-                    if (worstEl) worstEl.innerText = userData.worstRank ? "#" + userData.worstRank : '-';
-                    if (currentEl) currentEl.innerText = myCachedRank.toString().includes('#') ? myCachedRank : "#" + myCachedRank;
-                }
-
-                // تحديث الشاشة فوراً عند أي صعود أو نزول بالنقاط
-                const leaderboardTab = document.getElementById('tab-leaderboard');
-                const playersView = document.getElementById('players-view-container');
-                if (leaderboardTab && leaderboardTab.classList.contains('active') && playersView && !playersView.classList.contains('hidden')) {
-                    window.renderGlobalLeaderboard();
-                }
-            }, (error) => {
-                console.error("خطأ في جلب التصنيف المباشر:", error);
+            tempList.push({
+                id: doc.id, name: d.name, photo: d.photo, points: actualPoints,
+                uniqueId: d.uniqueId, bio: d.bio, governorate: d.governorate,
+                avatarGender: d.avatarGender, level: d.level,
+                customBgImage: d.customBgImage, customBgExpiry: d.customBgExpiry,
+                customBadgeText: d.customBadgeText, customBadgeExpiry: d.customBadgeExpiry, customBadgeColor: d.customBadgeColor
             });
-        };
+        });
 
-// الدالة السحرية للتصفير الفردي
-        async function checkAndApplyIndividualReset(uid, uData) {
-            const currentWeek = getCurrentWeekId();
-            if (uData.lastWeekId === currentWeek) return;
+        tempList.sort((a, b) => b.points - a.points);
+        window.globalLeaderboardData = tempList;
 
-            const previousWeek = uData.lastWeekId || getPreviousWeekId();
-            const snapshotRef = doc(db, "weekly_snapshots", previousWeek);
+        if (currentUser && userData) {
+            const myIndex = window.globalLeaderboardData.findIndex(u => u.id === currentUser.uid);
+            myCachedRank = myIndex !== -1 ? myIndex + 1 : "+50";
+            
+            const rankEl = document.getElementById('my-rank-text');
+            if (rankEl) rankEl.innerText = "#" + myCachedRank;
+            
+            const bestEl = document.getElementById('my-stat-best-rank');
+            const worstEl = document.getElementById('my-stat-worst-rank');
+            const currentEl = document.getElementById('my-stat-current-rank');
+            
+            if (bestEl) bestEl.innerText = userData.bestRank ? "#" + userData.bestRank : '-';
+            if (worstEl) worstEl.innerText = userData.worstRank ? "#" + userData.worstRank : '-';
+            if (currentEl) currentEl.innerText = myCachedRank.toString().includes('#') ? myCachedRank : "#" + myCachedRank;
+        }
 
-            let createdNow = false;
-            let snapshotData = null;
-            let govsSnapshotData = null;
-            let winningGovName = null;
+        const leaderboardTab = document.getElementById('tab-leaderboard');
+        const playersView = document.getElementById('players-view-container');
+        if (leaderboardTab && leaderboardTab.classList.contains('active') && playersView && !playersView.classList.contains('hidden')) {
+            window.renderGlobalLeaderboard();
+        }
+    }, (error) => {
+        console.error("خطأ في جلب التصنيف المباشر:", error);
+    });
+};
 
-            try {
-                // 1. أخذ لقطة للمستخدمين والمحافظات
-                await runTransaction(db, async (transaction) => {
-                    const snapDoc = await transaction.get(snapshotRef);
-                    
-                    if (!snapDoc.exists()) {
-                        console.log("يتم الآن إنشاء لقطة الأسبوع الماضي (Snapshot)...");
-                        
-                        // جلب أفضل 50 لاعب
-                        const qUsers = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
-                        const topUsersSnap = await getDocs(qUsers);
-                        let topUsersData = {};
-                        topUsersSnap.docs.forEach((d, index) => {
-                            topUsersData[d.id] = { rank: index + 1, points: d.data().points || 0 };
-                        });
+async function checkAndApplyIndividualReset(uid, uData) {
+    const currentWeek = getCurrentWeekId();
+    if (uData.lastWeekId === currentWeek) return; // الطالب محدث وما يحتاج تصفير
 
-                        // جلب المحافظات وترتيبها
-                        const govsSnap = await getDocs(collection(db, "governorates"));
-                        let govsList = [];
-                        govsSnap.forEach(d => govsList.push({ name: d.id, points: d.data().totalPoints || 0 }));
-                        govsList.sort((a, b) => b.points - a.points);
-                        
-                        let winner = null;
-                        if (govsList.length > 0 && govsList[0].points > 0) {
-                            winner = govsList[0].name;
-                        }
+    const previousWeek = uData.lastWeekId || getPreviousWeekId();
+    const snapshotRef = doc(db, "weekly_snapshots", previousWeek);
 
-                        const snapPayload = {
-                            createdAt: serverTimestamp(),
-                            leaderboard: topUsersData,
-                            governorates: govsList,
-                            winningGov: winner,
-                            createdBy: uid
-                        };
+    let snapshotData = {};
+    let govsSnapshotData = [];
+    let winningGovName = null;
 
-                        transaction.set(snapshotRef, snapPayload);
-                        
-                        snapshotData = topUsersData;
-                        govsSnapshotData = govsList;
-                        winningGovName = winner;
-                        createdNow = true;
-                    } else {
-                        const data = snapDoc.data();
-                        snapshotData = data.leaderboard || {};
-                        govsSnapshotData = data.governorates || [];
-                        winningGovName = data.winningGov || null;
-                    }
+    let updates = {
+        points: 0, 
+        lastWeekId: currentWeek 
+    };
+
+    // 1. نظام الجوائز والسناب شات (معزول تماماً في Try/Catch حتى لو فشل ما يأثر على تصفير الطالب)
+    try {
+        const snapDoc = await getDoc(snapshotRef);
+        
+        if (!snapDoc.exists()) {
+            console.log("يتم الآن إنشاء لقطة الأسبوع الماضي (Snapshot)...");
+            
+            // استخدام getDocs و setDoc العادي بدل Transaction لمنع التعليق
+            const qUsers = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
+            const topUsersSnap = await getDocs(qUsers);
+            let topUsersData = {};
+            topUsersSnap.docs.forEach((d, index) => {
+                topUsersData[d.id] = { rank: index + 1, points: d.data().points || 0 };
+            });
+
+            const govsSnap = await getDocs(collection(db, "governorates"));
+            let govsList = [];
+            govsSnap.forEach(d => govsList.push({ name: d.id, points: d.data().totalPoints || 0 }));
+            govsList.sort((a, b) => b.points - a.points);
+            
+            let winner = null;
+            if (govsList.length > 0 && govsList[0].points > 0) {
+                winner = govsList[0].name;
+            }
+
+            const snapPayload = {
+                createdAt: serverTimestamp(),
+                leaderboard: topUsersData,
+                governorates: govsList,
+                winningGov: winner,
+                createdBy: uid
+            };
+
+            await setDoc(snapshotRef, snapPayload);
+            
+            snapshotData = topUsersData;
+            govsSnapshotData = govsList;
+            winningGovName = winner;
+
+            // تحديث المحافظات
+            const globalBatch = writeBatch(db);
+            const expiryDate = Date.now() + (7 * 24 * 60 * 60 * 1000);
+            
+            if (winningGovName) {
+                globalBatch.set(doc(db, "system_settings", "winning_gov"), {
+                    name: winningGovName,
+                    expiry: expiryDate,
+                    weekId: currentWeek
                 });
+            }
+            
+            if (govsSnapshotData) {
+                govsSnapshotData.forEach(g => {
+                    globalBatch.set(doc(db, "governorates", g.name), { totalPoints: 0 }, { merge: true });
+                });
+            }
+            await globalBatch.commit();
+        } else {
+            const data = snapDoc.data();
+            snapshotData = data.leaderboard || {};
+            govsSnapshotData = data.governorates || [];
+            winningGovName = data.winningGov || null;
+        }
 
-                // 2. إذا هذا المستخدم هو البطل اللي صنع اللقطة، نصفر المحافظات بالداتا بيس ونسجل الفائز
-                if (createdNow) {
-                    const globalBatch = writeBatch(db);
-                    const expiryDate = Date.now() + (7 * 24 * 60 * 60 * 1000);
-                    
-                    if (winningGovName) {
-                        globalBatch.set(doc(db, "system_settings", "winning_gov"), {
-                            name: winningGovName,
-                            expiry: expiryDate,
-                            weekId: currentWeek
-                        });
-                    }
-                    
-                    if (govsSnapshotData) {
-                        govsSnapshotData.forEach(g => {
-                            globalBatch.set(doc(db, "governorates", g.name), { totalPoints: 0 }, { merge: true });
-                        });
-                    }
-                    await globalBatch.commit();
-                }
+        // --- حساب جوائز اللاعب ---
+        let myRankInfo = snapshotData[uid];
+        let rewardMsg = "";
 
-                // 3. تجهيز بيانات اللاعب وبناء الرسالة
-                let myRankInfo = snapshotData[uid];
-                let rewardMsg = "";
-                let updates = {
-                    points: 0, 
-                    lastWeekId: currentWeek 
-                };
-
-                // البحث عن مركز المحافظة الخاصة باللاعب
-                let myGovRank = 0;
-                let myGovPoints = 0;
-                let isMyGovWinner = false;
-
-                if (uData.governorate && govsSnapshotData && govsSnapshotData.length > 0) {
-                    const gIndex = govsSnapshotData.findIndex(g => g.name === uData.governorate);
-                    if (gIndex !== -1) {
-                        myGovRank = gIndex + 1;
-                        myGovPoints = govsSnapshotData[gIndex].points;
-                        if (myGovRank === 1 && winningGovName === uData.governorate) {
-                            isMyGovWinner = true;
-                        }
-                    }
-                }
-
-                let govMsgText = "";
-                if (!uData.governorate) {
-                    govMsgText = "🚩 لم تقم باختيار محافظة لتمثيلها.";
-                } else if (isMyGovWinner) {
-                    govMsgText = `🏆 مبروك! محافظتك (${uData.governorate}) اكتسحت المركز الأول برصيد ${myGovPoints} نقطة، وحصلت على شعار البطل الملكي لمدة أسبوع كامل! 👑`;
-                } else if (myGovRank > 0) {
-                    govMsgText = `🚩 محافظتك (${uData.governorate}) أنهت الأسبوع بالمركز #${myGovRank} برصيد ${myGovPoints} نقطة.`;
-                }
-
-                // 4. فحص الفوز والجوائز
-                if (myRankInfo && myRankInfo.points >= 150 && myRankInfo.rank <= 10) {
-                    const rank = myRankInfo.rank;
-                    let prizeMoney = 0;
-
-                    if (rank === 1) { prizeMoney = 10; updates.level = increment(1); }
-                    else if (rank === 2) prizeMoney = 7;
-                    else if (rank === 3) prizeMoney = 5;
-                    else if (rank === 4) prizeMoney = 3;
-                    else if (rank === 5) prizeMoney = 2;
-                    else if (rank <= 10) prizeMoney = 1;
-
-                    if (prizeMoney > 0) {
-                        updates.balance = increment(prizeMoney);
-                        
-                        let levelUpMsg = rank === 1 ? "\n\n⭐ ارتفع مستوى حسابك درجة إضافية لأنك البطل الأول! ⭐" : "";
-
-                        rewardMsg = `مرحباً يا بطل! 🌟\nانتهى التحدي وحان وقت الحصاد...\n\n🥇 المركز العالمي: #${rank}\n💎 النقاط المجموعة: ${myRankInfo.points} نقطة\n💵 الجائزة: ${prizeMoney}$ دولار (تمت إضافتها لمحفظتك)${levelUpMsg}\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nتم تصفير نقاطك لتبدأ بداية جديدة وقوية. استعد للأسبوع الجديد! 🚀`;
-                        
-                        await addDoc(collection(db, "notifications"), {
-                            userId: uid, type: 'weekly',
-                            message: rewardMsg,
-                            read: false, createdAt: serverTimestamp()
-                        });
-                    }
-                } else if (uData.points > 0) {
-                    let currentRankText = myRankInfo ? `#${myRankInfo.rank}` : "+50";
-                    let currentPoints = myRankInfo ? myRankInfo.points : uData.points;
-                    
-                    rewardMsg = `مرحباً بك في تحديات الأسبوع الجديد! 🚀\n\n📈 إحصائياتك في الأسبوع الماضي:\n- المركز: ${currentRankText} عالمياً\n- النقاط: ${currentPoints} نقطة\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nلم يحالفك الحظ للوصول للـ 10 الأوائل (يجب تحقيق 150 نقطة كحد أدنى)، لكن الأسبوع الجديد فرصة للتعويض!\nتم تصفير النقاط لتبدأ بقوة نحو القمة. 🔥`;
-
-                    await addDoc(collection(db, "notifications"), {
-                            userId: uid, type: 'weekly',
-                            message: rewardMsg,
-                            read: false, createdAt: serverTimestamp()
-                    });
-                }
-
-                await updateDoc(doc(db, "users", uid), updates);
-                
-                userData.points = 0;
-                userData.lastWeekId = currentWeek;
-                if (updates.balance) userData.balance = (userData.balance || 0) + updates.balance.operand;
-                
-                setupHeaderUI();
-                
-            } catch (error) {
-                console.error("خطأ في نظام التصفير الفردي:", error);
+        if (myRankInfo && myRankInfo.rank > 0) {
+            const finalRank = myRankInfo.rank;
+            if (!uData.bestRank || finalRank < uData.bestRank) {
+                updates.bestRank = finalRank;
+                userData.bestRank = finalRank;
+            }
+            if (!uData.worstRank || finalRank > uData.worstRank) {
+                updates.worstRank = finalRank;
+                userData.worstRank = finalRank;
             }
         }
+
+        let myGovRank = 0;
+        let myGovPoints = 0;
+        let isMyGovWinner = false;
+
+        if (uData.governorate && govsSnapshotData && govsSnapshotData.length > 0) {
+            const gIndex = govsSnapshotData.findIndex(g => g.name === uData.governorate);
+            if (gIndex !== -1) {
+                myGovRank = gIndex + 1;
+                myGovPoints = govsSnapshotData[gIndex].points;
+                if (myGovRank === 1 && winningGovName === uData.governorate) {
+                    isMyGovWinner = true;
+                }
+            }
+        }
+
+        let govMsgText = "";
+        if (!uData.governorate) {
+            govMsgText = "🚩 لم تقم باختيار محافظة لتمثيلها.";
+        } else if (isMyGovWinner) {
+            govMsgText = `🏆 مبروك! محافظتك (${uData.governorate}) اكتسحت المركز الأول برصيد ${myGovPoints} نقطة، وحصلت على شعار البطل الملكي لمدة أسبوع كامل! 👑`;
+        } else if (myGovRank > 0) {
+            govMsgText = `🚩 محافظتك (${uData.governorate}) أنهت الأسبوع بالمركز #${myGovRank} برصيد ${myGovPoints} نقطة.`;
+        }
+
+        if (myRankInfo && myRankInfo.points >= 150 && myRankInfo.rank <= 10) {
+            const rank = myRankInfo.rank;
+            let prizeMoney = 0;
+
+            if (rank === 1) { prizeMoney = 10; updates.level = increment(1); }
+            else if (rank === 2) prizeMoney = 7;
+            else if (rank === 3) prizeMoney = 5;
+            else if (rank === 4) prizeMoney = 3;
+            else if (rank === 5) prizeMoney = 2;
+            else if (rank <= 10) prizeMoney = 1;
+
+            if (prizeMoney > 0) {
+                updates.balance = increment(prizeMoney);
+                let levelUpMsg = rank === 1 ? "\n\n⭐ ارتفع مستوى حسابك درجة إضافية لأنك البطل الأول! ⭐" : "";
+                rewardMsg = `مرحباً يا بطل! 🌟\nانتهى التحدي وحان وقت الحصاد...\n\n🥇 المركز العالمي: #${rank}\n💎 النقاط المجموعة: ${myRankInfo.points} نقطة\n💵 الجائزة: ${prizeMoney}$ دولار (تمت إضافتها لمحفظتك)${levelUpMsg}\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nتم تصفير نقاطك لتبدأ بداية جديدة وقوية. استعد للأسبوع الجديد! 🚀`;
+                
+                addDoc(collection(db, "notifications"), {
+                    userId: uid, type: 'weekly',
+                    message: rewardMsg,
+                    read: false, createdAt: serverTimestamp()
+                });
+            }
+        } else if (uData.points > 0) {
+            let currentRankText = myRankInfo ? `#${myRankInfo.rank}` : "+50";
+            let currentPoints = myRankInfo ? myRankInfo.points : uData.points;
+            rewardMsg = `مرحباً بك في تحديات الأسبوع الجديد! 🚀\n\n📈 إحصائياتك في الأسبوع الماضي:\n- المركز: ${currentRankText} عالمياً\n- النقاط: ${currentPoints} نقطة\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nلم يحالفك الحظ للوصول للـ 10 الأوائل (يجب تحقيق 150 نقطة كحد أدنى)، لكن الأسبوع الجديد فرصة للتعويض!\nتم تصفير النقاط لتبدأ بقوة نحو القمة. 🔥`;
+
+            addDoc(collection(db, "notifications"), {
+                    userId: uid, type: 'weekly',
+                    message: rewardMsg,
+                    read: false, createdAt: serverTimestamp()
+            });
+        }
+    } catch (error) {
+        console.error("خطأ في نظام السناب شات (تم التجاوز لإكمال التصفير الفعلي للطالب):", error);
+    }
+
+    // 2. التصفير الفعلي والإجباري للمستخدم (مستحيل يفشل حتى لو فشل السناب شات)
+    try {
+        await updateDoc(doc(db, "users", uid), updates);
+        
+        userData.points = 0;
+        userData.lastWeekId = currentWeek;
+        if (updates.balance) userData.balance = (userData.balance || 0) + updates.balance.operand;
+        
+        setupHeaderUI();
+        console.log("تم تصفير الطالب بنجاح ونقله للأسبوع: " + currentWeek);
+    } catch (error) {
+        console.error("خطأ قاتل: فشل تصفير المستخدم بالداتا بيس:", error);
+    }
+}
         
         function getCurrentWeekId() {
             const now = getIraqDate();
@@ -3420,11 +3201,6 @@ window.globalLeaderboardData = [];
                         lastRewardDayKey: null, 
                         rewardWeekKey: null,
                         daysClaimedInWeek: 0,
-                        isPremium: false,
-                        premiumExpiry: null,
-                        selectedBadge: null,
-                        selectedBadgeColor: null,
-                        selectedBgTheme: 'bg-rank-default',
                         lastLogin: new Date().toISOString(),
                         dailyAIRemaining: 10,
                         lastAIReset: new Date().toISOString().split('T')[0]
@@ -3544,11 +3320,20 @@ window.checkDailyReward = async () => {
 };
 
 window.claimReward = async () => {
+    const currentWeek = getCurrentWeekId();
+    
+    // التعديل السحري: إذا الطالب مستحق تصفير (مثلاً دخل يوم الجمعة)، نصفره "قبل" الهدية!
+    if (userData.lastWeekId !== currentWeek) {
+        showAuthLoading("جاري تهيئة الأسبوع الجديد...");
+        await checkAndApplyIndividualReset(currentUser.uid, userData);
+        hideAuthLoading();
+    }
+
     const iraqDate = getIraqDate();
     const currentDayKey = `${iraqDate.getDate()}-${iraqDate.getMonth()}-${iraqDate.getFullYear()}`;
     const currentDayIndex = iraqDate.getDay(); 
 
-    const rewardItem = GLOBAL_DAILY_REWARDS[currentDayIndex]; // استخدام المصفوفة العامة
+    const rewardItem = GLOBAL_DAILY_REWARDS[currentDayIndex]; 
     
     let rewardAmount = 0;
     let moneyAmount = 0;
@@ -3804,108 +3589,75 @@ window.markNotificationsAsRead = () => window.markAllNotificationsAsRead(false);
         }
 
         function setupProfileUI() {
-            document.getElementById('profile-name-text').innerText = userData.name;
-const lvlContainer = document.getElementById('profile-name-container');
-const oldLvl = lvlContainer.querySelector('.user-level-tag');
-if(oldLvl) oldLvl.remove();
-lvlContainer.insertAdjacentHTML('beforeend', window.getLevelUI(userData.level));
-            const idEl = document.getElementById('profile-id-text');
-            idEl.innerText = "ID: " + userData.uniqueId;
-            idEl.classList.add('cursor-pointer', 'hover:text-indigo-500', 'transition');
-            idEl.onclick = () => window.copyIdText(userData.uniqueId);
-            document.getElementById('profile-img').src = userData.photo;
+    document.getElementById('profile-name-text').innerText = userData.name;
+    const lvlContainer = document.getElementById('profile-name-container');
+    const oldLvl = lvlContainer.querySelector('.user-level-tag');
+    if(oldLvl) oldLvl.remove();
+    lvlContainer.insertAdjacentHTML('beforeend', window.getLevelUI(userData.level));
+    const idEl = document.getElementById('profile-id-text');
+    idEl.innerText = "ID: " + userData.uniqueId;
+    idEl.classList.add('cursor-pointer', 'hover:text-indigo-500', 'transition');
+    idEl.onclick = () => window.copyIdText(userData.uniqueId);
+    document.getElementById('profile-img').src = userData.photo;
 
-            // --- كود عرض الخلفية المخصصة في حسابي (النسخة الأقوى والمضمونة 100%) ---
-            const privateCard = document.getElementById('private-profile-card');
-            const privateGradient = document.getElementById('private-profile-gradient');
-            const nameText = document.getElementById('profile-name-text');
-            const idText = document.getElementById('profile-id-text');
-            const bioTextEl = document.getElementById('profile-bio-text');
+    const privateCard = document.getElementById('private-profile-card');
+    const privateGradient = document.getElementById('private-profile-gradient');
+    const nameText = document.getElementById('profile-name-text');
+    const idText = document.getElementById('profile-id-text');
+    const bioTextEl = document.getElementById('profile-bio-text');
 
-            if (privateCard && privateGradient) {
-                let isBgValid = false;
-                
-                // فحص ذكي وقوي لصلاحية الصورة (يتعامل مع كل صيغ الوقت بالفايربيس)
-                if (userData.customBgImage && userData.customBgExpiry) {
-                    try {
-                        let expiryDate;
-                        if (typeof userData.customBgExpiry.toDate === 'function') {
-                            expiryDate = userData.customBgExpiry.toDate();
-                        } else if (userData.customBgExpiry.seconds) {
-                            expiryDate = new Date(userData.customBgExpiry.seconds * 1000);
-                        } else {
-                            expiryDate = new Date(userData.customBgExpiry);
-                        }
-                        if (expiryDate > new Date()) isBgValid = true;
-                    } catch (e) {
-                        isBgValid = true; // في حال فشل قراءة الوقت نعتبرها صالحة مؤقتاً
-                    }
-                }
-
-                if (isBgValid) {
-                    // إجبار الكارت على عرض الصورة وإزالة اللون الأبيض نهائياً
-                    privateCard.style.background = `url('${userData.customBgImage}') center top / cover no-repeat`;
-                    privateCard.className = "p-6 rounded-3xl shadow-xl text-center mb-6 mt-4 relative overflow-hidden border-2 border-indigo-400";
-                    
-                    // إضافة طبقة تعتيم سوداء شفافة لضمان وضوح النصوص
-                    privateGradient.className = "absolute inset-0 bg-black/50 z-0"; 
-                    
-                    // تلوين النصوص للأبيض حتى تبين بوضوح فوق الصورة
-                    if(nameText) { nameText.classList.remove('text-gray-800'); nameText.classList.add('text-white', 'relative', 'z-10'); }
-                    if(idText) { idText.classList.remove('text-gray-400'); idText.classList.add('text-gray-200', 'relative', 'z-10'); }
-                    if(bioTextEl) { bioTextEl.classList.remove('text-gray-600'); bioTextEl.classList.add('text-gray-200', 'relative', 'z-10'); }
-
-                } else if (isPremiumValid(userData) && userData.selectedBgTheme && userData.selectedBgTheme !== 'bg-rank-default') {
-                    // خلفية ملونة للمميزين
-                    privateCard.style.background = 'none';
-                    privateCard.className = `p-6 rounded-3xl shadow-md text-center mb-6 mt-4 relative overflow-hidden text-white ${userData.selectedBgTheme}`;
-                    privateGradient.className = "hidden";
-                    
-                    if(nameText) { nameText.classList.remove('text-gray-800'); nameText.classList.add('text-white', 'relative', 'z-10'); }
-                    if(idText) { idText.classList.remove('text-gray-400'); idText.classList.add('text-gray-200', 'relative', 'z-10'); }
-                    if(bioTextEl) { bioTextEl.classList.remove('text-gray-600'); bioTextEl.classList.add('text-gray-200', 'relative', 'z-10'); }
-
-                } else {
-                    // الوضع الافتراضي (أبيض)
-                    privateCard.style.background = 'none';
-                    privateCard.className = "bg-white p-6 rounded-3xl shadow-sm text-center mb-6 mt-4 relative overflow-hidden";
-                    privateGradient.className = "absolute top-0 left-0 w-full h-16 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-10 z-0";
-                    
-                    if(nameText) { nameText.classList.remove('text-white'); nameText.classList.add('text-gray-800'); }
-                    if(idText) { idText.classList.remove('text-gray-200'); idText.classList.add('text-gray-400'); }
-                    if(bioTextEl) { bioTextEl.classList.remove('text-gray-200'); bioTextEl.classList.add('text-gray-600'); }
-                }
-            }
-            // -------------------------------------------------------------------------
-
-            let bioText = userData.bio || "لا يوجد سيرة ذاتية";
-            if (bioText.length > 40) {
-                bioText = bioText.substring(0, 40) + "...";
-            }
-            document.getElementById('profile-bio-text').innerText = bioText;
-            
-            const container = document.getElementById('profile-name-container');
-            const existingBadge = container.querySelector('.premium-badge');
-            if(existingBadge) existingBadge.remove();
-
-            if (userData.isPremium && userData.selectedBadge && isPremiumValid(userData)) {
-                const badgeSpan = document.createElement('span');
-                badgeSpan.className = "premium-badge";
-                badgeSpan.style.backgroundColor = userData.selectedBadgeColor || '#f59e0b';
-                badgeSpan.innerText = userData.selectedBadge;
-                container.insertBefore(badgeSpan, document.getElementById('profile-name-text').nextSibling);
-            }
-            
-
-            document.getElementById('wallet-balance').innerText = userData.balance || 0;
-            if ((userData.balance || 0) >= 100) {
-                document.getElementById('withdraw-section').classList.remove('hidden');
-                document.getElementById('withdraw-locked-msg').classList.add('hidden');
-            } else {
-                document.getElementById('withdraw-section').classList.add('hidden');
-                document.getElementById('withdraw-locked-msg').classList.remove('hidden');
-            }
+    if (privateCard && privateGradient) {
+        let isBgValid = false;
+        
+        if (window.getValidExpiryDate(userData.customBgExpiry) !== null) {
+            isBgValid = true;
         }
+
+        if (isBgValid) {
+            privateCard.style.background = `url('${userData.customBgImage}') center top / cover no-repeat`;
+            privateCard.className = "p-6 rounded-3xl shadow-xl text-center mb-6 mt-4 relative overflow-hidden border-2 border-indigo-400";
+            privateGradient.className = "absolute inset-0 bg-black/50 z-0"; 
+            if(nameText) { nameText.classList.remove('text-gray-800'); nameText.classList.add('text-white', 'relative', 'z-10'); }
+            if(idText) { idText.classList.remove('text-gray-400'); idText.classList.add('text-gray-200', 'relative', 'z-10'); }
+            if(bioTextEl) { bioTextEl.classList.remove('text-gray-600'); bioTextEl.classList.add('text-gray-200', 'relative', 'z-10'); }
+        } else {
+            privateCard.style.background = 'none';
+            privateCard.className = "bg-white p-6 rounded-3xl shadow-sm text-center mb-6 mt-4 relative overflow-hidden";
+            privateGradient.className = "absolute top-0 left-0 w-full h-16 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-10 z-0";
+            if(nameText) { nameText.classList.remove('text-white'); nameText.classList.add('text-gray-800'); }
+            if(idText) { idText.classList.remove('text-gray-200'); idText.classList.add('text-gray-400'); }
+            if(bioTextEl) { bioTextEl.classList.remove('text-gray-200'); bioTextEl.classList.add('text-gray-600'); }
+        }
+    }
+
+    let bioText = userData.bio || "لا يوجد سيرة ذاتية";
+    if (bioText.length > 40) {
+        bioText = bioText.substring(0, 40) + "...";
+    }
+    document.getElementById('profile-bio-text').innerText = bioText;
+    
+    const container = document.getElementById('profile-name-container');
+const existingBadge = container.querySelector('.premium-badge');
+if(existingBadge) existingBadge.remove();
+
+// فقط التوثيق المخصص من المتجر يعمل
+if (userData.customBadgeText && window.getValidExpiryDate(userData.customBadgeExpiry)) {
+    const badgeSpan = document.createElement('span');
+    badgeSpan.className = "premium-badge";
+    badgeSpan.style.backgroundColor = userData.customBadgeColor || '#e11d48';
+    badgeSpan.innerText = userData.customBadgeText;
+    container.insertBefore(badgeSpan, document.getElementById('profile-name-text').nextSibling);
+}
+
+    document.getElementById('wallet-balance').innerText = userData.balance || 0;
+    if ((userData.balance || 0) >= 100) {
+        document.getElementById('withdraw-section').classList.remove('hidden');
+        document.getElementById('withdraw-locked-msg').classList.add('hidden');
+    } else {
+        document.getElementById('withdraw-section').classList.add('hidden');
+        document.getElementById('withdraw-locked-msg').classList.remove('hidden');
+    }
+}
         
 function getHeroBadge(user) {
     const winnerData = JSON.parse(localStorage.getItem('last_winning_gov') || '{}');
@@ -3917,25 +3669,17 @@ function getHeroBadge(user) {
 }
         
         function setupHeaderUI() { 
-            const pointsElement = document.getElementById('header-points');
-            const points = userData.points || 0;
-            
-            if (points < 0) {
-                pointsElement.innerText = points;
-                pointsElement.classList.add('points-negative');
-            } else {
-                pointsElement.innerText = points;
-                pointsElement.classList.remove('points-negative');
-            }
-            
-            const addSubscriptionBtn = document.getElementById('add-subscription-btn');
-const premiumTab = document.getElementById('tab-premium');
-if (isPremiumValid(userData) && premiumTab && premiumTab.classList.contains('active')) {
-    addSubscriptionBtn.classList.remove('hidden');
-} else {
-    addSubscriptionBtn.classList.add('hidden');
+    const pointsElement = document.getElementById('header-points');
+    const points = userData.points || 0;
+    
+    if (points < 0) {
+        pointsElement.innerText = points;
+        pointsElement.classList.add('points-negative');
+    } else {
+        pointsElement.innerText = points;
+        pointsElement.classList.remove('points-negative');
+    }
 }
-        }
         
         function setupAdminUI() { 
             if (userData.email === ADMIN_EMAIL) {
@@ -3948,301 +3692,71 @@ if (isPremiumValid(userData) && premiumTab && premiumTab.classList.contains('act
             return code==='6sci'?'السادس العلمي':code==='6lit'?'السادس الأدبي':'الثالث متوسط'; 
         }
 
-        function isPremiumValid(user) {
-            if(!user.isPremium || !user.premiumExpiry) return false;
-            
-            try {
-                const now = new Date();
-                let expiry;
-                
-                // توافقية كاملة مع جميع صيغ الوقت لتجنب انهيار الكود
-                if (typeof user.premiumExpiry.toDate === 'function') {
-                    expiry = user.premiumExpiry.toDate();
-                } else if (user.premiumExpiry.seconds) {
-                    expiry = new Date(user.premiumExpiry.seconds * 1000);
-                } else {
-                    expiry = new Date(user.premiumExpiry);
-                }
-                
-                const isValid = expiry > now;
-                
-                // التأكد من وجود uid قبل الإيقاف لتجنب مشاكل الصلاحيات
-                if (!isValid && user.isPremium && user.uid) {
-                    deactivatePremiumFeatures(user.uid);
-                }
-                
-                return isValid;
-            } catch (error) {
-                console.error("Error parsing premium date:", error);
-                return false;
-            }
+window.updateStoreButtons = function() {
+    const now = new Date();
+
+    // 1. فحص خلفية المتجر
+    const bgBtn = document.getElementById('btn-buy-bg');
+    const bgPrice = document.getElementById('price-bg');
+    const bgStatus = document.getElementById('status-bg-display');
+    let hasActiveBg = false;
+    let daysLeftBg = 0;
+    
+    try {
+        const bgExpiryDate = window.getValidExpiryDate(userData.customBgExpiry);
+        if (bgExpiryDate) {
+            hasActiveBg = true;
+            daysLeftBg = Math.ceil((bgExpiryDate - now) / (1000 * 60 * 60 * 24));
         }
+    } catch(e) {}
 
-        async function deactivatePremiumFeatures(uid) {
-            try {
-                await updateDoc(doc(db, "users", uid), {
-                    isPremium: false,
-                    selectedBadge: null,
-                    selectedBadgeColor: null,
-                    selectedBgTheme: 'bg-rank-default'
-                });
-                
-                if (uid === currentUser?.uid) {
-                    userData.isPremium = false;
-                    userData.selectedBadge = null;
-                    userData.selectedBadgeColor = null;
-                    userData.selectedBgTheme = 'bg-rank-default';
-                    checkPremiumStatus();
-                    setupProfileUI();
-                }
-            } catch (error) {
-                console.error("Error deactivating premium:", error);
-            }
+    if (bgBtn && bgPrice && bgStatus) {
+        if (hasActiveBg) {
+            bgPrice.innerText = "مجاناً";
+            bgPrice.className = "bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-sm font-black border border-blue-100";
+            bgBtn.innerHTML = '<i class="fas fa-sync-alt"></i> تغيير الصورة';
+            bgBtn.onclick = () => buyStoreItem('bg', 0);
+            bgStatus.innerHTML = `<span class="text-green-500">✅ مفعل</span> - يتبقى ${daysLeftBg} يوم`;
+        } else {
+            bgPrice.innerText = "25$";
+            bgPrice.className = "bg-emerald-50 text-emerald-600 px-3 py-1 rounded-lg text-sm font-black border border-emerald-100";
+            bgBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> شراء وتفعيل';
+            bgBtn.onclick = () => buyStoreItem('bg', 25);
+            bgStatus.innerHTML = `<span class="text-gray-400">❌ غير مفعل</span>`;
         }
+    }
 
-        function checkPremiumStatus() {
-            const lockedView = document.getElementById('premium-locked-view');
-            const activeView = document.getElementById('premium-active-view');
-            
-            if (isPremiumValid(userData)) {
-                lockedView.classList.add('hidden');
-                activeView.classList.remove('hidden');
-                startPremiumTimer();
-            } else {
-                lockedView.classList.remove('hidden');
-                activeView.classList.add('hidden');
-                if(premiumInterval) clearInterval(premiumInterval);
-            }
+    // 2. فحص شعار المتجر
+    const badgeBtn = document.getElementById('btn-buy-badge');
+    const badgePrice = document.getElementById('price-badge');
+    const badgeStatus = document.getElementById('status-badge-display');
+    let hasActiveBadge = false;
+    let daysLeftBadge = 0;
+
+    try {
+        const badgeExpiryDate = window.getValidExpiryDate(userData.customBadgeExpiry);
+        if (badgeExpiryDate) {
+            hasActiveBadge = true;
+            daysLeftBadge = Math.ceil((badgeExpiryDate - now) / (1000 * 60 * 60 * 24));
         }
+    } catch(e) {}
 
-        function startPremiumTimer() {
-            if(premiumInterval) clearInterval(premiumInterval);
-            const display = document.getElementById('premium-countdown');
-            const expiry = userData.premiumExpiry.toDate();
-
-            function update() {
-                const now = new Date();
-                const diff = expiry - now;
-                if(diff <= 0) {
-                    display.innerText = "00:00:00:00";
-                    clearInterval(premiumInterval);
-                    deactivatePremiumFeatures(currentUser.uid);
-                    
-                    // إخفاء واجهة المميز فوراً وعرض واجهة إدخال الكود
-                    document.getElementById('premium-active-view').classList.add('hidden');
-                    document.getElementById('premium-locked-view').classList.remove('hidden');
-                    document.getElementById('add-subscription-btn').classList.add('hidden');
-                    showBeautifulAlert('info', 'انتهى الاشتراك', 'لقد انتهت مدة اشتراكك المميز، تم إرجاع حسابك للوضع العادي.');
-                    return;
-                }
-                
-                const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-                const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                display.innerText = `${months}:${days<10?'0'+days:days}:${hours<10?'0'+hours:hours}:${minutes<10?'0'+minutes:minutes}:${seconds<10?'0'+seconds:seconds}`;
-            }
-            update();
-            premiumInterval = setInterval(update, 1000);
+    if (badgeBtn && badgePrice && badgeStatus) {
+        if (hasActiveBadge) {
+            badgePrice.innerText = "مجاناً";
+            badgePrice.className = "bg-pink-50 text-pink-600 px-3 py-1 rounded-lg text-sm font-black border border-pink-100";
+            badgeBtn.innerHTML = '<i class="fas fa-sync-alt"></i> تغيير الشعار';
+            badgeBtn.onclick = () => buyStoreItem('badge', 0);
+            badgeStatus.innerHTML = `<span class="text-green-500">✅ مفعل</span> - يتبقى ${daysLeftBadge} يوم`;
+        } else {
+            badgePrice.innerText = "15$";
+            badgePrice.className = "bg-emerald-50 text-emerald-600 px-3 py-1 rounded-lg text-sm font-black border border-emerald-100";
+            badgeBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> شراء وتفعيل';
+            badgeBtn.onclick = () => buyStoreItem('badge', 15);
+            badgeStatus.innerHTML = `<span class="text-gray-400">❌ غير مفعل</span>`;
         }
-
-
-        window.showPremiumDetails = () => { 
-            document.getElementById('premium-details-modal').classList.remove('hidden'); 
-        }
-        
-        window.activatePremiumCode = async () => {
-            const codeInput = document.getElementById('premium-code-input').value.trim().toUpperCase();
-            if(!codeInput) {
-                showBeautifulAlert('warning', 'تنبيه', 'الرجاء إدخال الكود');
-                return;
-            }
-
-            try {
-                const q = query(collection(db, "premium_codes"), where("code", "==", codeInput));
-                const snap = await getDocs(q);
-                
-                if(snap.empty) {
-                    showBeautifulAlert('error', 'خطأ', '❌ الكود غير صحيح أو غير موجود');
-                    return;
-                }
-                
-                const codeDoc = snap.docs[0];
-                const codeData = codeDoc.data();
-
-                if(codeData.used) {
-                    showBeautifulAlert('error', 'خطأ', '❌ هذا الكود مستخدم من قبل ولا يمكن استخدامه مرة أخرى');
-                    return;
-                }
-
-                if(codeData.isActive === false) {
-                    showBeautifulAlert('error', 'خطأ', '❌ هذا الكود معطل من قبل الإدارة');
-                    return;
-                }
-
-                const durationDays = codeData.durationDays;
-                let newExpiry = new Date();
-                
-                if (isPremiumValid(userData)) {
-                    newExpiry = userData.premiumExpiry.toDate();
-                    newExpiry.setDate(newExpiry.getDate() + durationDays);
-                } else {
-                    newExpiry.setDate(newExpiry.getDate() + durationDays);
-                }
-
-                const batch = writeBatch(db);
-                
-                batch.update(doc(db, "premium_codes", codeDoc.id), { 
-                    used: true, 
-                    usedBy: currentUser.uid, 
-                    usedAt: serverTimestamp() 
-                });
-                
-                batch.update(doc(db, "users", currentUser.uid), { 
-                    isPremium: true,
-                    premiumExpiry: Timestamp.fromDate(newExpiry),
-                    dailyAIRemaining: 15
-                });
-                
-                await batch.commit();
-                
-                userData.isPremium = true;
-                userData.premiumExpiry = Timestamp.fromDate(newExpiry);
-                userData.dailyAIRemaining = 15;
-                dailyAIRemaining = 15;
-
-                showBeautifulAlert('success', 'مبروك!', `🎉 تم تفعيل الاشتراك المميز لمدة ${durationDays} يوم.\n\nالكود استخدم ولن يعمل مرة أخرى.`);
-                checkPremiumStatus();
-setupHeaderUI();
-                document.getElementById('premium-code-input').value = "";
-
-            } catch(e) { 
-                console.error("خطأ في تفعيل الكود:", e);
-                showBeautifulAlert('error', 'خطأ', '❌ حدث خطأ في تفعيل الكود: ' + e.message); 
-            }
-        };
-
-        document.getElementById('add-subscription-btn').addEventListener('click', function() {
-            if (!isPremiumValid(userData)) {
-                showBeautifulAlert('error', 'خطأ', '❌ يجب أن تكون مشتركاً مميزاً لاستخدام هذه الميزة');
-                return;
-            }
-            document.getElementById('add-subscription-modal').classList.remove('hidden');
-        });
-
-        window.addSubscriptionTime = async function() {
-            const codeInput = document.getElementById('add-subscription-code').value.trim().toUpperCase();
-            if(!codeInput) {
-                showBeautifulAlert('warning', 'تنبيه', 'الرجاء إدخال الكود');
-                return;
-            }
-
-            try {
-                const q = query(collection(db, "premium_codes"), where("code", "==", codeInput));
-                const snap = await getDocs(q);
-                
-                if(snap.empty) {
-                    showBeautifulAlert('error', 'خطأ', '❌ الكود غير صحيح أو غير موجود');
-                    return;
-                }
-                
-                const codeDoc = snap.docs[0];
-                const codeData = codeDoc.data();
-
-                if(codeData.used) {
-                    showBeautifulAlert('error', 'خطأ', '❌ هذا الكود مستخدم من قبل ولا يمكن استخدامه مرة أخرى');
-                    return;
-                }
-
-                if(codeData.isActive === false) {
-                    showBeautifulAlert('error', 'خطأ', '❌ هذا الكود معطل من قبل الإدارة');
-                    return;
-                }
-
-                const durationDays = codeData.durationDays;
-                let newExpiry = new Date();
-                
-                if (isPremiumValid(userData)) {
-                    newExpiry = userData.premiumExpiry.toDate();
-                    newExpiry.setDate(newExpiry.getDate() + durationDays);
-                } else {
-                    newExpiry.setDate(newExpiry.getDate() + durationDays);
-                }
-
-                const batch = writeBatch(db);
-                
-                batch.update(doc(db, "premium_codes", codeDoc.id), { 
-                    used: true, 
-                    usedBy: currentUser.uid, 
-                    usedAt: serverTimestamp() 
-                });
-                
-                batch.update(doc(db, "users", currentUser.uid), { 
-                    premiumExpiry: Timestamp.fromDate(newExpiry)
-                });
-                
-                await batch.commit();
-                
-                userData.premiumExpiry = Timestamp.fromDate(newExpiry);
-
-                showBeautifulAlert('success', 'تمت الإضافة', `🎉 تمت إضافة ${durationDays} يوم لاشتراكك!\n\nالمدة الجديدة: ${newExpiry.toLocaleDateString('ar-EG')}`);
-                checkPremiumStatus();
-                document.getElementById('add-subscription-code').value = "";
-                document.getElementById('add-subscription-modal').classList.add('hidden');
-
-            } catch(e) { 
-                console.error("خطأ في إضافة المدة:", e);
-                showBeautifulAlert('error', 'خطأ', '❌ حدث خطأ في إضافة المدة: ' + e.message); 
-            }
-        };
-
-        window.openBadgeSelector = () => {
-            const grid = document.getElementById('badge-grid');
-            grid.innerHTML = '';
-            BADGES_LIST.forEach(txt => {
-                const btn = document.createElement('button');
-                const colors = ['#f87171', '#fbbf24', '#34d399', '#60a5fa', '#818cf8', '#a78bfa', '#f472b6'];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                btn.className = "p-3 rounded-lg border-2 border-gray-100 font-bold text-white shadow-sm hover:scale-105 transition";
-                btn.style.backgroundColor = randomColor;
-                btn.innerText = txt;
-                btn.onclick = () => saveBadgeChoice(txt, randomColor);
-                grid.appendChild(btn);
-            });
-            document.getElementById('badge-selector-modal').classList.remove('hidden');
-        };
-
-        async function saveBadgeChoice(txt, color) {
-            await updateDoc(doc(db, "users", currentUser.uid), { selectedBadge: txt, selectedBadgeColor: color });
-            userData.selectedBadge = txt;
-            userData.selectedBadgeColor = color;
-            document.getElementById('badge-selector-modal').classList.add('hidden');
-            setupProfileUI();
-            showBeautifulAlert('success', 'تم التحديث', 'تم تحديث علامة التوثيق ✅');
-        }
-
-        window.openBgSelector = () => {
-            const list = document.getElementById('bg-grid');
-            list.innerHTML = '';
-            BACKGROUNDS_LIST.forEach(bg => {
-                const btn = document.createElement('button');
-                btn.className = `w-full h-20 rounded-xl shadow-md border-2 border-transparent hover:border-indigo-500 transition mb-2 ${bg.class} flex items-center justify-center`;
-                btn.innerHTML = `<span class="bg-white/80 px-3 py-1 rounded-full font-bold text-gray-800 text-sm">${bg.name}</span>`;
-                btn.onclick = () => saveBgChoice(bg.id, bg.class);
-                list.appendChild(btn);
-            });
-            document.getElementById('bg-selector-modal').classList.remove('hidden');
-        };
-
-        async function saveBgChoice(id, cssClass) {
-             await updateDoc(doc(db, "users", currentUser.uid), { selectedBgTheme: cssClass });
-             userData.selectedBgTheme = cssClass;
-             document.getElementById('bg-selector-modal').classList.add('hidden');
-             showBeautifulAlert('success', 'تم التحديث', 'تم تحديث خلفية التصنيف ✅');
-        }
+    }
+};
 
         window.setQType = (t) => {
             selectedQType = t;
@@ -4415,7 +3929,7 @@ async function startStudentMatch(sub, chapter, opponent) {
                 return;
             }
             
-            let limit = isPremiumValid(userData) ? 15 : 10;
+            let limit = 10;
             
             // خوارزمية Fisher-Yates لضمان عشوائية مطلقة في سحب الأسئلة (مستحيل التكرار النمطي)
             let shuffledArray = [...qDocs];
@@ -4534,53 +4048,6 @@ window.checkInterruptedGame = async function() {
         let hackerToolsUsed = { freeze: false, fifty: false };
 let isTimerFrozen = false;
 
-window.useFreezeTool = function() {
-    if (hackerToolsUsed.freeze || hasAnsweredCurrentQ || isTimerFrozen) return;
-    hackerToolsUsed.freeze = true;
-    isTimerFrozen = true;
-    playSound('click'); 
-    
-    const timerEl = document.getElementById('game-timer');
-    // تغيير شكل العداد ليدل على التجميد (لون أزرق ورمش) بدل الرسالة المزعجة
-    timerEl.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-500', 'border-4', 'animate-pulse');
-    
-    const btn = document.getElementById('tool-freeze');
-    btn.classList.add('opacity-50', 'pointer-events-none');
-    btn.classList.replace('bg-blue-100', 'bg-gray-100');
-    btn.classList.replace('text-blue-700', 'text-gray-400');
-    
-    // تم إزالة الـ showBeautifulAlert نهائياً لضمان السرعة
-    
-    setTimeout(() => {
-        isTimerFrozen = false;
-        if (timerEl) {
-            timerEl.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-500', 'border-4', 'animate-pulse');
-        }
-    }, 5000);
-};
-
-window.useFiftyFiftyTool = function() {
-    if (hackerToolsUsed.fifty || hasAnsweredCurrentQ || selectedQType === 'tf') return;
-    hackerToolsUsed.fifty = true;
-    playSound('click');
-    
-    const btn = document.getElementById('tool-fifty');
-    btn.classList.add('opacity-50', 'pointer-events-none');
-    btn.classList.replace('bg-purple-100', 'bg-gray-100');
-    btn.classList.replace('text-purple-700', 'text-gray-400');
-
-    const answerButtons = Array.from(document.querySelectorAll('#answers-container button'));
-    const wrongButtons = answerButtons.filter(b => b.dataset.value.toString() !== currentQuestionCorrectAnswer.toString());
-    
-    if (wrongButtons.length > 0) {
-        const randomIndex = Math.floor(Math.random() * wrongButtons.length);
-        const btnToHide = wrongButtons[randomIndex];
-        btnToHide.style.opacity = '0.3';
-        btnToHide.style.pointerEvents = 'none';
-        btnToHide.innerHTML = '<s>' + btnToHide.innerText + '</s>';
-    }
-};
-
 function renderGame(data) {
     if (isExitingGame) return;
     
@@ -4626,65 +4093,7 @@ function renderGame(data) {
         emojiUsedInCurrentQuestion = false;
         enableEmojiButtons();
         
-        // ------------------------------------------------------------
-        // --- السحر هنا: بناء أزرار الهكر برمجياً لضمان ظهورها 100% ---
-        let toolsContainer = document.getElementById('hacker-tools-container');
-        if (!toolsContainer) {
-            toolsContainer = document.createElement('div');
-            toolsContainer.id = 'hacker-tools-container';
-            toolsContainer.className = 'hidden justify-center gap-4 mb-4';
-            toolsContainer.innerHTML = `
-                <button id="tool-freeze" onclick="useFreezeTool()" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 shadow-sm border border-blue-200 hover:bg-blue-200 active:scale-95 transition">
-                    <i class="fas fa-snowflake"></i> تجميد 5ث
-                </button>
-                <button id="tool-fifty" onclick="useFiftyFiftyTool()" class="bg-purple-100 text-purple-700 px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 shadow-sm border border-purple-200 hover:bg-purple-200 active:scale-95 transition">
-                    <i class="fas fa-magic"></i> حذف إجابة
-                </button>
-            `;
-            // نضيفها قبل الخيارات بالضبط حتى مستحيل تنمسح بالغلط
-            const answersDiv = document.getElementById('answers-container');
-            answersDiv.parentNode.insertBefore(toolsContainer, answersDiv);
-        }
 
-        // فحص الأمان للمميز (حتى لو النت بطيء، راح يعرفك مميز)
-        let isUserPremium = false;
-        try {
-            isUserPremium = isPremiumValid(userData);
-        } catch(e) {
-            isUserPremium = userData && userData.isPremium;
-        }
-
-        // إذا مميز، واللعبة ضد طالب (وليس اختبار إنجاز)
-        if (isUserPremium && currentGameMode !== 'achievement_test') {
-            toolsContainer.classList.remove('hidden');
-            toolsContainer.style.display = 'flex';
-            
-            const freezeBtn = document.getElementById('tool-freeze');
-            const fiftyBtn = document.getElementById('tool-fifty');
-            
-            // تحديث شكل زر التجميد
-            if (hackerToolsUsed.freeze) {
-                freezeBtn.classList.add('opacity-50', 'pointer-events-none');
-                freezeBtn.className = freezeBtn.className.replace('bg-blue-100', 'bg-gray-100').replace('text-blue-700', 'text-gray-400');
-            } else {
-                freezeBtn.classList.remove('opacity-50', 'pointer-events-none');
-                freezeBtn.className = freezeBtn.className.replace('bg-gray-100', 'bg-blue-100').replace('text-gray-400', 'text-blue-700');
-            }
-            
-            // تحديث شكل زر حذف الإجابة
-            if (hackerToolsUsed.fifty || selectedQType === 'tf') {
-                fiftyBtn.classList.add('opacity-50', 'pointer-events-none');
-                fiftyBtn.className = fiftyBtn.className.replace('bg-purple-100', 'bg-gray-100').replace('text-purple-700', 'text-gray-400');
-            } else {
-                fiftyBtn.classList.remove('opacity-50', 'pointer-events-none');
-                fiftyBtn.className = fiftyBtn.className.replace('bg-gray-100', 'bg-purple-100').replace('text-gray-400', 'text-purple-700');
-            }
-        } else {
-            toolsContainer.classList.add('hidden');
-            toolsContainer.style.display = 'none';
-        }
-        // ------------------------------------------------------------
-        
         isTimerFrozen = false;
         document.getElementById('game-timer').classList.remove('text-blue-300', 'border-blue-400', 'border-4');
         
@@ -4985,14 +4394,25 @@ function triggerStudentAIResponse() {
                 
                 if (localMatchData && localMatchData.player2 && localMatchData.player2.uid !== 'AI_BOT') {
                     try {
-                        const opponentRef = doc(db, "users", localMatchData.player2.uid);
-                        await updateDoc(opponentRef, {
-                            points: increment(10)
-                        });
+                        const opId = localMatchData.player2.uid;
+                        const opponentRef = doc(db, "users", opId);
+                        
+                        // التعديل: جلب بيانات الخصم لإضافة النقاط لحسابه ومحافظته
+                        const opSnap = await getDoc(opponentRef);
+                        if (opSnap.exists()) {
+                            await updateDoc(opponentRef, { points: increment(10) });
+                            
+                            const opData = opSnap.data();
+                            if (opData.governorate) {
+                                try {
+                                    await updateDoc(doc(db, "governorates", opData.governorate), { totalPoints: increment(10) });
+                                } catch(e) { console.error(e); }
+                            }
+                        }
                         
                         // الإضافة: إرسال إشعار للخصم بسبب انسحابك
                         await addDoc(collection(db, "notifications"), {
-                            userId: localMatchData.player2.uid, 
+                            userId: opId, 
                             type: 'reward',
                             message: `🎉 لقد فزت! الخصم "${userData.name}" انسحب من المباراة أمامك. تمت إضافة +10 نقاط لرصيدك!`,
                             read: false, 
@@ -5105,12 +4525,11 @@ function showWithdrawalResult() {
         }
     } else {
         if (myScore > opScore) {
-            msg = "فوز ساحق!";
-            icon = "🏆";
-            playSound('win');
-            pointsGained = myScore * 2;
-            if (isPremiumValid(userData)) pointsGained *= 2;
-        } else if (myScore < opScore) {
+    msg = "فوز ساحق!";
+    icon = "🏆";
+    playSound('win');
+    pointsGained = myScore * 2;
+} else if (myScore < opScore) {
             msg = "حظ أوفر!";
             icon = "😢";
             playSound('lose');
@@ -5163,13 +4582,19 @@ function showWithdrawalResult() {
                         // أنت فزت، راح نخصم النقاط من الخصم
                         updateDoc(doc(db, "users", opId), { points: increment(-pointsGained) });
                     } else if (myScore < opScore) {
-                        // أنت خسرت، راح نضيف النقاط للخصم
+                        // أنت خسرت، راح نضيف النقاط للخصم ومحافظته
                         let opAdd = opScore * 2;
                         getDoc(doc(db, "users", opId)).then(opSnap => {
                             if (opSnap.exists()) {
                                 let opData = opSnap.data();
-                                if (opData.isPremium && opData.premiumExpiry?.toDate() > new Date()) opAdd *= 2;
                                 updateDoc(doc(db, "users", opId), { points: increment(opAdd) });
+                                
+                                // التعديل: جلب محافظة الخصم وتحديث نقاطها
+                                if (opData.governorate) {
+                                    try {
+                                        updateDoc(doc(db, "governorates", opData.governorate), { totalPoints: increment(opAdd) });
+                                    } catch (e) { console.error(e); }
+                                }
                             }
                         });
                     }
@@ -5434,9 +4859,12 @@ let currentKeyIndex = 0;
 let isQueueProcessing = false;
 let currentPreviewTaskId = null; // للاحتفاظ بالآيدي عند الارسال للمراجعة
 
-// عكس المفتاح
-function getActiveGeminiKey() {
-    return HIDDEN_GEMINI_KEYS[currentKeyIndex].split('').reverse().join('');
+function getGeminiKeyByIndex(index) {
+    const safeIndex = index % HIDDEN_GEMINI_KEYS.length;
+    const rawKey = HIDDEN_GEMINI_KEYS[safeIndex];
+    
+    // فك العكس حتى يرجع المفتاح لشكله الحقيقي قبل لا يروح لسيرفرات جوجل
+    return rawKey.split('').reverse().join('');
 }
 
 function rotateGeminiKey() {
@@ -5494,7 +4922,7 @@ window.startAIExtractionProcess = async function() {
     }
 
     const file = fileInput.files[0];
-    showAuthLoading('جاري قراءة وتحليل كتاب الـ PDF... (قد يستغرق دقائق حسب حجم الملف)');
+    showAuthLoading('جاري قراءة وتقسيم كتاب الـ PDF...');
 
     try {
         const fileBuffer = await file.arrayBuffer();
@@ -5508,12 +4936,25 @@ window.startAIExtractionProcess = async function() {
             fullText += `\n--- Page ${i} ---\n` + pageText;
         }
 
-        // التعديل العبقري: نقسم الملف إلى 8 أجزاء بالضبط مهما كان حجمه!
+        // فحص الأمان: التأكد من أن الـ PDF يحتوي على نص حقيقي وليس صور فقط
+        const textWithoutPages = fullText.replace(/--- Page \d+ ---/g, '').trim();
+        if (textWithoutPages.length < 100) {
+            hideAuthLoading();
+            showBeautifulAlert('error', 'ملف غير مدعوم', 'الملف عبارة عن صور (سكنر) أو لا يحتوي على نص قابل للقراءة. الذكاء الاصطناعي يحتاج لملف نصي حقيقي.');
+            return;
+        }
+
+        // تقسيم الملف إجبارياً إلى 8 أجزاء لاستخراج 400 سؤال
         const totalParts = 8;
-        const chunkSize = Math.ceil(fullText.length / totalParts); 
+        const chunkSize = Math.ceil(textWithoutPages.length / totalParts); 
         const chunks = [];
-        for (let i = 0; i < fullText.length; i += chunkSize) {
-            chunks.push(fullText.substring(i, i + chunkSize));
+        for (let i = 0; i < textWithoutPages.length; i += chunkSize) {
+            chunks.push(textWithoutPages.substring(i, i + chunkSize));
+        }
+
+        // ضمان وجود 8 أجزاء بالضبط حتى لو كان الملف صغيراً
+        while (chunks.length < 8) {
+            chunks.push("قم بتوليد أسئلة منهجية إضافية متعلقة بهذا الفصل بناءً على خبرتك.");
         }
 
         const taskId = 'task_' + Date.now();
@@ -5524,14 +4965,14 @@ window.startAIExtractionProcess = async function() {
             subject: subject,
             chapter: chapter,
             status: 'pending', 
-            totalChunks: chunks.length,
+            totalChunks: 8,
             currentChunk: 0,
             progress: 0,
             extractedQuestions: [],
             errorMsg: ''
         };
 
-        await localforage.setItem(`ai_chunks_${taskId}`, chunks);
+        await localforage.setItem(`ai_chunks_${taskId}`, chunks.slice(0, 8));
 
         const queue = getAIQueue();
         queue.push(newTask);
@@ -5541,7 +4982,7 @@ window.startAIExtractionProcess = async function() {
         document.getElementById('ai-file-name-display').innerText = 'اضغط لاختيار ملف PDF';
         
         hideAuthLoading();
-        showBeautifulAlert('success', 'تم الإضافة للطابور', 'تم تقسيم الملف إلى 8 أجزاء ذكية بنجاح. انتقل للنتائج للمتابعة.');
+        showBeautifulAlert('success', 'تم الإضافة للطابور', 'تم تقسيم الملف إلى 8 أجزاء. انتقل للنتائج للمتابعة واستخراج 400 سؤال.');
         switchAITab('results');
 
         startAIQueueProcessor();
@@ -5549,7 +4990,7 @@ window.startAIExtractionProcess = async function() {
     } catch (e) {
         hideAuthLoading();
         console.error(e);
-        showBeautifulAlert('error', 'فشل القراءة', 'حدث خطأ أثناء قراءة ملف الـ PDF. تأكد أنه ملف نصي وليس صور فقط.');
+        showBeautifulAlert('error', 'فشل القراءة', 'حدث خطأ أثناء قراءة ملف الـ PDF. يرجى المحاولة بملف آخر.');
     }
 };
 
@@ -5580,26 +5021,26 @@ function renderAIQueue() {
         let statusBadge = '';
         let progressBar = `<div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden mt-3"><div class="h-full bg-indigo-500 transition-all duration-300" style="width: ${task.progress}%"></div></div>`;
         let actionBtn = '';
-        let deleteBtn = `<button onclick="deleteAITask('${task.id}')" class="w-8 h-8 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition"><i class="fas fa-trash"></i></button>`;
+        let deleteBtn = `<button onclick="deleteAITask('${task.id}')" class="w-8 h-8 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition shadow-sm border border-red-100"><i class="fas fa-trash"></i></button>`;
 
         if (task.status === 'pending') {
             statusBadge = `<span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-[10px] font-bold">⏳ بالانتظار</span>`;
         } else if (task.status === 'processing') {
             statusBadge = `<span class="bg-blue-100 text-blue-600 px-2 py-1 rounded text-[10px] font-bold animate-pulse">⚙️ جاري الاستخراج (${task.progress}%)</span>`;
-            actionBtn = `<button onclick="pauseAITask('${task.id}')" class="bg-orange-100 text-orange-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-orange-200">إيقاف مؤقت</button>`;
+            actionBtn = `<button onclick="pauseAITask('${task.id}')" class="bg-orange-100 text-orange-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-orange-200 shadow-sm border border-orange-200">إيقاف مؤقت</button>`;
         } else if (task.status === 'paused') {
             statusBadge = `<span class="bg-orange-100 text-orange-600 px-2 py-1 rounded text-[10px] font-bold">⏸️ متوقف مؤقتاً</span>`;
-            actionBtn = `<button onclick="resumeAITask('${task.id}')" class="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-200"><i class="fas fa-play"></i> استمرار</button>`;
+            actionBtn = `<button onclick="resumeAITask('${task.id}')" class="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-green-200 shadow-sm border border-green-200"><i class="fas fa-play"></i> استمرار</button>`;
         } else if (task.status === 'success') {
             statusBadge = `<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-[10px] font-bold">✅ اكتمل بنجاح</span>`;
             progressBar = '';
             actionBtn = `
-                <button onclick="previewExtractedQuestions('${task.id}')" class="bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-200 flex-1"><i class="fas fa-eye"></i> عرض وتأكيد</button>
+                <button onclick="previewExtractedQuestions('${task.id}')" class="bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-200 flex-1 shadow-sm border border-indigo-200"><i class="fas fa-eye"></i> عرض وتأكيد</button>
             `;
-            deleteBtn = `<button onclick="deleteAITask('${task.id}')" class="w-8 h-8 shrink-0 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition"><i class="fas fa-times"></i></button>`;
+            deleteBtn = `<button onclick="deleteAITask('${task.id}')" class="w-8 h-8 shrink-0 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition shadow-sm border border-red-100"><i class="fas fa-times"></i></button>`;
         } else if (task.status === 'failed') {
             statusBadge = `<span class="bg-red-100 text-red-600 px-2 py-1 rounded text-[10px] font-bold" title="${task.errorMsg}">❌ فشل المعالجة</span>`;
-            actionBtn = `<button onclick="resumeAITask('${task.id}')" class="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-200"><i class="fas fa-redo"></i> إعادة المحاولة</button>`;
+            actionBtn = `<button onclick="resumeAITask('${task.id}')" class="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-200 shadow-sm border border-blue-200"><i class="fas fa-redo"></i> إعادة المحاولة</button>`;
         }
 
         html += `
@@ -5620,13 +5061,21 @@ function renderAIQueue() {
 
                 ${task.status === 'processing' || task.status === 'paused' ? `<p class="text-[10px] text-gray-400 font-bold mb-1">المتبقي: ${task.totalChunks - task.currentChunk} أجزاء من أصل ${task.totalChunks}</p>` : ''}
                 
-                ${task.status === 'success' ? `<p class="text-xs font-black text-emerald-600 mb-2 mt-2 bg-emerald-50 inline-block px-2 py-1 rounded-md">الأسئلة المستخرجة: ${task.extractedQuestions.length}</p>` : ''}
-
                 ${progressBar}
 
-                <div class="flex items-center gap-2 mt-4 pt-3 border-t border-gray-50">
-                    ${actionBtn}
-                    ${deleteBtn}
+                <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-50">
+                    
+                    <div class="bg-indigo-50 border border-indigo-100 px-2 py-1.5 rounded-xl flex items-center gap-2 shadow-sm">
+                        <i class="fas fa-list-ol text-indigo-500 text-sm"></i>
+                        <span class="text-[11px] font-black text-indigo-700">المستخرجة:</span>
+                        <span class="text-xs font-black text-indigo-900 bg-white px-2 py-0.5 rounded-lg shadow-inner border border-indigo-50">${task.extractedQuestions.length}</span>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        ${actionBtn}
+                        ${deleteBtn}
+                    </div>
+                    
                 </div>
             </div>
         `;
@@ -5776,12 +5225,11 @@ async function processNextInQueue() {
     if (!isQueueProcessing) return;
 
     let queue = getAIQueue();
-    // جلب أول مهمة بالانتظار أو قيد المعالجة (في حال غلق التطبيق ورجع)
     let activeTaskIndex = queue.findIndex(t => t.status === 'processing' || t.status === 'pending');
     
     if (activeTaskIndex === -1) {
         isQueueProcessing = false;
-        return; // الطابور فارغ أو كلشي مكتمل/متوقف
+        return; 
     }
 
     let task = queue[activeTaskIndex];
@@ -5792,45 +5240,79 @@ async function processNextInQueue() {
         const chunks = await localforage.getItem(`ai_chunks_${task.id}`);
         if (!chunks) throw new Error("فقدان بيانات الملف المقطعة.");
 
-        while (task.currentChunk < task.totalChunks && task.status === 'processing') {
-            const textChunk = chunks[task.currentChunk];
-            
-            // استدعاء الـ API الفعلي لجوجل جيمني
-            const newQuestions = await callGeminiAPI(textChunk);
-            
-            // دمج الأسئلة الجديدة
-            if (newQuestions && newQuestions.length > 0) {
-                task.extractedQuestions = task.extractedQuestions.concat(newQuestions);
-            }
+        let retries = 0; 
 
-            task.currentChunk++;
-            task.progress = Math.floor((task.currentChunk / task.totalChunks) * 100);
-            
-            // تحديث الـ Queue بالشاشة
-            queue = getAIQueue(); // جلب أحدث نسخة بحال المالك ضغط حذف
-            const idx = queue.findIndex(t => t.id === task.id);
-            if (idx === -1) {
-                // المالك قام بحذف الملف أثناء المعالجة
-                throw new Error("USER_DELETED");
-            }
-            queue[idx] = task;
-            saveAIQueue(queue);
+        // التعديل 1: إضافة فحص isQueueProcessing لمنع استمرار العمال (Loops) القديمة بالخلفية
+        while (task.currentChunk < task.totalChunks && task.status === 'processing' && isQueueProcessing) {
+            try {
+                const textChunk = chunks[task.currentChunk];
+                const newQuestions = await callGeminiAPI(textChunk, task.currentChunk);
+                
+                if (!newQuestions || newQuestions.length === 0) {
+                    throw new Error("EMPTY_RESPONSE");
+                }
 
-            // استراحة بسيطة لتجنب تجاوز حد الـ API
-            await new Promise(r => setTimeout(r, 2000));
+                // التعديل 2 الأهم: استدعاء أحدث حالة للطابور من الذاكرة "قبل" دمج الأسئلة (يمنع مسح الأسئلة السابقة)
+                queue = getAIQueue(); 
+                const idx = queue.findIndex(t => t.id === task.id);
+                
+                if (idx !== -1) {
+                    // تحديث بيانات المهمة لتطابق أحدث نسخة في الذاكرة (سحب الداتا الجديدة)
+                    task = queue[idx];
+                    
+                    // إضافة الأسئلة الجديدة للنسخة الأحدث حصراً
+                    task.extractedQuestions.push(...newQuestions);
+                    task.currentChunk++;
+                    retries = 0; 
+                    task.progress = Math.floor((task.currentChunk / task.totalChunks) * 100);
+                    
+                    // حفظها بقاعدة البيانات
+                    queue[idx] = task;
+                    saveAIQueue(queue);
+                } else {
+                    break; // تم حذف المهمة من الطابور
+                }
+
+                await new Promise(r => setTimeout(r, 5000));
+
+            } catch (apiError) {
+                if (apiError.message === "USER_DELETED") throw apiError;
+                
+                retries++;
+                if (retries >= 3) {
+                    console.warn(`فشل نهائي في استخراج الجزء ${task.currentChunk}، سيتم تجاوزه للمفتاح التالي.`);
+                    
+                    // تحديث آمن عند الفشل وتجاوز الجزء لمنع مسح داتا العمال الآخرين
+                    queue = getAIQueue();
+                    const idx = queue.findIndex(t => t.id === task.id);
+                    if (idx !== -1) {
+                        task = queue[idx];
+                        task.currentChunk++;
+                        retries = 0;
+                        queue[idx] = task;
+                        saveAIQueue(queue);
+                    }
+                } else {
+                    console.warn(`فشل في استخراج الجزء ${task.currentChunk}، محاولة ${retries}/3 بعد 5 ثواني...`);
+                    await new Promise(r => setTimeout(r, 5000)); 
+                }
+            }
         }
 
-        if (task.status === 'processing') {
-            task.status = 'success';
-            task.progress = 100;
-            saveAIQueue(queue);
+        // التعديل 3: التحقق الآمن بعد انتهاء اللوب بشكل كامل
+        if (task.status === 'processing' && task.currentChunk >= task.totalChunks) {
+            queue = getAIQueue();
+            const idx = queue.findIndex(t => t.id === task.id);
+            if (idx !== -1) {
+                queue[idx].status = 'success';
+                queue[idx].progress = 100;
+                saveAIQueue(queue);
+            }
         }
 
     } catch (e) {
-        if (e.message === "USER_DELETED") {
-            console.log("تم إلغاء المهمة من قبل المستخدم");
-        } else {
-            console.error("AI Error:", e);
+        if (e.message !== "USER_DELETED") {
+            console.error("Critical AI Error:", e);
             queue = getAIQueue();
             const idx = queue.findIndex(t => t.id === task.id);
             if (idx !== -1) {
@@ -5838,90 +5320,132 @@ async function processNextInQueue() {
                 queue[idx].errorMsg = e.message;
                 saveAIQueue(queue);
             }
-            rotateGeminiKey(); // التبديل لمفتاح ثاني بحال الفشل
         }
     }
 
-    // الانتقال للملف اللي بعده بالطابور
+    // استدعاء التاسك اللي بعده بهدوء
     setTimeout(() => {
         if (isQueueProcessing) processNextInQueue();
     }, 1000);
 }
 
-// الاتصال المباشر بنماذج جوجل Gemini
-async function callGeminiAPI(textChunk) {
-    // التعديل الجوهري: الأوامر مصممة لخلق 50 سؤال من خلال التلاعب بالمنهج حصراً
-    const prompt = `أنت خبير تربوي عراقي محترف في صياغة الأسئلة الوزارية الذكية.
-الهدف: بناء بنك أسئلة ضخم. مطلوب منك استخراج (50 سؤالاً) بالضبط من هذا النص (25 سؤال اختيارات mcq، و 25 سؤال صح/خطأ tf).
+async function callGeminiAPI(textChunk, chunkIndex) {
+    const apiKey = getGeminiKeyByIndex(chunkIndex);
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
-قواعد الابتكار المنهجي (للوصول للعدد 50 بدون أي تأليف من خارج النص):
-1. المنهج فقط: يمنع منعاً باتاً اختراع معلومات خارجية. كل معلومة يجب أن تكون من النص المرفق.
-2. تدوير الأفكار: إذا كانت المعلومات في النص لا تكفي لـ 50 سؤالاً، قم بـ "إعادة صياغة" الأسئلة والتلاعب بمنطقها. 
-   - كيف تفعل ذلك؟ اسأل عن نفس الفكرة بطريقة عكسية، حول النتيجة إلى سبب، استخرج سؤالاً عن التعريف ثم سؤالاً آخر عن التطبيق لنفس الفكرة.
-3. أسئلة الاختيارات (mcq): 3 خيارات فقط، متناسقة ومتقاربة بالطول لتصعيب التخمين (إجابة واحدة صحيحة واثنتان خاطئتان مأخوذتان من نفس النص للتمويه).
-4. أسئلة الصح/الخطأ (tf): نصفها عبارات صحيحة، ونصفها عبارات تم التلاعب بكلمة جوهرية فيها لتصبح خاطئة بشكل ذكي يختبر تركيز الطالب.
-5. الرموز: استخدم صيغة LaTeX (بين $ أو $$).
-6. التجاهل: تجاهل أرقام الصفحات، الفهارس، والحقوق.
-7. المخرجات: مصفوفة JSON نقية فقط (بدون أي نصوص إضافية، فقط الأقواس).
+    // الـ Prompt الخوارزمي الصارم لمنع الكسل وضمان المسح من البداية للنهاية
+    const prompt = `أنت خوارزمية استخراج بيانات شاملة (Exhaustive Data Scraper).
+تعليمات حرجة (CRITICAL INSTRUCTION):
+يجب عليك معالجة النص المرفق بالكامل، فقرة بفقرة، من الكلمة الأولى وحتى النقطة الأخيرة.
+يُمنع منعاً باتاً التوقف عند بداية أو منتصف النص. يجب أن تمر على كل سطر.
+من كل فقرة أو مفهوم تمر عليه، استخرج من 2 إلى 4 أسئلة وزارية ذكية.
+الهدف الإجباري: استخراج أكثر من 60 سؤالاً من هذا الجزء لضمان تغطية النص من بدايته لنهايته بالتساوي.
 
-الهيكل المطلوب (يجب أن يحتوي على 50 عنصر):
+شروط الصياغة:
+1. نوع (mcq): 3 خيارات (1 صحيح، 2 خطأ من نفس السياق).
+2. نوع (tf): عبارات صحيحة أو خاطئة.
+
+صيغة الإخراج (JSON Array ONLY):
 [
-  {
-    "type": "mcq",
-    "question": "نص السؤال المنهجي المعاد صياغته",
-    "answers": ["الخيار الأول", "الخيار الثاني", "الخيار الثالث"],
-    "correct": 0
-  },
-  {
-    "type": "tf",
-    "question": "نص العبارة المنهجية (التي قد تكون صحيحة أو تم التلاعب بها بذكاء لتصبح خاطئة)",
-    "correct": true
-  }
+  { "type": "mcq", "question": "السؤال", "answers": ["خيار1", "خيار2", "خيار3"], "correct": 0 },
+  { "type": "tf", "question": "العبارة", "correct": true }
 ]
 
-ابدأ العمل بتركيز عالي لاستخراج واستنطاق 50 سؤالاً من هذا النص:
+النص المرفق:
 ---
 ${textChunk}
 ---
 `;
 
-    // تبديل المفتاح السري قبل كل طلب (هذا راح يخلي كل قطعة من الـ 8 قطع تنسحب بمفتاح مختلف تماماً!)
-    rotateGeminiKey();
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${getActiveGeminiKey()}`;
-    
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: {
-                temperature: 0.4, // رفعناه قليلاً للـ 0.4 حتى نسمح له بالإبداع في "إعادة الصياغة والتلاعب بالعبارات" بدون أن يخترع أشياء من خياله
-                maxOutputTokens: 8192, 
-                topK: 40,
-                topP: 0.95
-            }
-        })
-    });
-
-    if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    if (!data.candidates || data.candidates.length === 0) return [];
-    
-    let responseText = data.candidates[0].content.parts[0].text.trim();
-    
     try {
-        const match = responseText.match(/\[[\s\S]*\]/);
-        if (match) {
-            return JSON.parse(match[0]);
-        } else {
-            return JSON.parse(responseText);
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                    temperature: 0.3, // تقليل الـ Temperature يجعله أكثر صرامة وتركيزاً على التغطية الكاملة للنص بدل الإبداع
+                    maxOutputTokens: 8192, // هذا أقصى حد مسموح به من سيرفرات جوجل للإخراج
+                    responseMimeType: "application/json" 
+                }
+            })
+        });
+
+        if (!response.ok) {
+            const errData = await response.text();
+            throw new Error(`API Error ${response.status}: ${errData}`);
         }
-    } catch (error) {
-        console.warn("⚠️ تم تجاوز هذا الجزء. الـ AI أرجع نصاً غير صالح كـ JSON. النص هو:", responseText);
-        return []; 
+
+        const data = await response.json();
+        
+        if (!data.candidates || data.candidates.length === 0) {
+            console.error("Gemini رفض الاستخراج (قد يكون بسبب الحماية الأمنية).");
+            return [];
+        }
+        
+        let responseText = data.candidates[0].content.parts[0].text.trim();
+        
+        // ----------------------------------------------------
+        // معالجة الـ JSON المقطوع (إذا استهلك كامل الـ 8192 توكن)
+        // ----------------------------------------------------
+        if (!responseText.endsWith(']')) {
+            const lastBrace = responseText.lastIndexOf('}');
+            if (lastBrace !== -1) {
+                // نغلق المصفوفة بالقوة بعد آخر سؤال مكتمل
+                responseText = responseText.substring(0, lastBrace + 1) + ']';
+            } else {
+                responseText += ']';
+            }
+        }
+
+        try {
+            let parsedQuestions = JSON.parse(responseText);
+            
+            // البارسير الذكي للبحث عن المصفوفة
+            if (!Array.isArray(parsedQuestions)) {
+                if (parsedQuestions.questions && Array.isArray(parsedQuestions.questions)) {
+                    parsedQuestions = parsedQuestions.questions;
+                } else if (parsedQuestions.data && Array.isArray(parsedQuestions.data)) {
+                    parsedQuestions = parsedQuestions.data;
+                } else {
+                    for (let key in parsedQuestions) {
+                        if (Array.isArray(parsedQuestions[key])) {
+                            parsedQuestions = parsedQuestions[key];
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            if (!Array.isArray(parsedQuestions)) return [];
+
+            return parsedQuestions.map(q => {
+                let isTf = (q.type === 'tf' || q.type === 'TF');
+                let correctVal = q.correct;
+                
+                if (isTf) {
+                    correctVal = (correctVal === 1 || correctVal === "1" || correctVal === true || String(correctVal).toLowerCase() === 'true' || correctVal === "صح");
+                } else {
+                    correctVal = parseInt(correctVal) || 0;
+                    if (correctVal > 2 || correctVal < 0) correctVal = 0; 
+                }
+
+                return {
+                    type: isTf ? 'tf' : 'mcq',
+                    question: q.question || 'سؤال غير معروف',
+                    answers: isTf ? [] : (Array.isArray(q.answers) ? q.answers : ["أ", "ب", "ج"]),
+                    correct: correctVal
+                };
+            }).filter(q => q.question);
+
+        } catch (parseError) {
+            console.error("فشل تحويل JSON للجزء " + chunkIndex + ". النص الراجع كان:", responseText);
+            return []; 
+        }
+
+    } catch (networkError) {
+        console.error("خطأ في الاتصال بالـ API للمفتاح رقم " + chunkIndex + ":", networkError);
+        throw networkError; 
     }
 }
 
@@ -5934,12 +5458,7 @@ ${textChunk}
                 loadAdminAllContent(); 
             }
             else if (screenId === 'screen-admin-stats') loadStatsContent();
-            else if (screenId === 'screen-admin-premium-users') loadPremiumUsers();
             else if (screenId === 'screen-wallet') setupProfileUI(); 
-            else if (screenId === 'screen-premium-in-profile') {
-                checkPremiumStatus();
-                setupHeaderUI();
-            }
             else if (screenId === 'screen-admin-users') {
                 loadBannedUsers();
             }
@@ -6335,21 +5854,17 @@ window.backToChallenges = () => {
     
     const navs = document.querySelectorAll('.nav-item');
     navs.forEach(n => { 
-        n.classList.remove('active', 'text-indigo-600', 'text-yellow-500'); 
+        n.classList.remove('active', 'text-indigo-600'); 
         n.classList.add('text-gray-400'); 
     });
     
     if(tab === 'challenges') navs[0].classList.add('active', 'text-indigo-600');
     if(tab === 'leaderboard') { navs[1].classList.add('active', 'text-indigo-600'); loadLeaderboard(); }
     if(tab === 'achievement') { 
-    navs[2].classList.add('active', 'text-indigo-600'); 
-    if(typeof initAchievementSystem === 'function') initAchievementSystem(); 
-}
-if(tab === 'premium') { 
-    navs[3].classList.add('active', 'text-yellow-500'); // صار ذهبي وبمكانه الصحيح
-    checkPremiumStatus(); 
-}
-    if(tab === 'profile') navs[4].classList.add('active', 'text-indigo-600');
+        navs[2].classList.add('active', 'text-indigo-600'); 
+        if(typeof initAchievementSystem === 'function') initAchievementSystem(); 
+    }
+    if(tab === 'profile') navs[2].classList.add('active', 'text-indigo-600'); 
 
     if (!skipHistory) {
         history.pushState({ tab: tab, type: 'main' }, '', '#' + tab);
@@ -6421,15 +5936,10 @@ function renderFromRAM(start, end) {
 
         if (globalIndex <= 9) cardClass = "bg-gradient-to-r from-indigo-50/50 to-blue-50/50 border-indigo-100 shadow-sm";
 
-if (u.customBgImage && u.customBgExpiry && u.customBgExpiry.toDate() > new Date()) {
+if (u.customBgImage && window.getValidExpiryDate(u.customBgExpiry)) {
             // إزالة اللون الأسود المدمج مع الصورة لعرضها بألوانها الحقيقية والصافية
             inlineStyle = `style="background-image: url('${u.customBgImage}'); background-size: cover; background-position: center;"`;
             cardClass = "border-indigo-400 shadow-xl text-white drop-shadow-md bg-black/20 bg-blend-overlay"; // إضافة تظليل خفيف جداً خلف النص فقط للحفاظ على وضوح القراءة
-        }
-        // إذا ماعنده مشتراة، نفحص خلفية المميزين العادية
-        else if (u.isPremium && u.premiumExpiry && u.premiumExpiry.toDate() > new Date() && u.selectedBgTheme && u.selectedBgTheme !== 'bg-rank-default') {
-            backgroundClass = u.selectedBgTheme;
-            cardClass = "border-white/40 shadow-md text-white"; 
         }
 
         let rankVisual = "";
@@ -6447,16 +5957,12 @@ if (u.customBgImage && u.customBgExpiry && u.customBgExpiry.toDate() > new Date(
 
         let badgeHtml = getHeroBadge(u);
         
-        // فحص الشعار المشترى من المتجر أولاً
-        if (u.customBadgeText && u.customBadgeExpiry && u.customBadgeExpiry.toDate() > new Date()) {
+// فحص الشعار المشترى من المتجر حصراً
+        if (u.customBadgeText && window.getValidExpiryDate(u.customBadgeExpiry)) {
             badgeHtml += `<span class="px-2 py-0.5 text-[9px] text-white rounded shadow-[0_0_8px_rgba(0,0,0,0.5)] mx-1 border border-white/50" style="background-color: ${u.customBadgeColor || '#e11d48'}">${u.customBadgeText}</span>`;
         } 
-        // إذا ماعنده مشترى، نفحص شعار المميزين العادي
-        else if (u.isPremium && u.premiumExpiry && u.premiumExpiry.toDate() > new Date() && u.selectedBadge) {
-            badgeHtml += `<span class="px-1.5 py-0.5 text-[9px] text-white rounded shadow-sm mx-1" style="background-color: ${u.selectedBadgeColor || '#f59e0b'}">${u.selectedBadge}</span>`;
-        }
         
-        let premiumStar = u.isPremium && u.premiumExpiry && u.premiumExpiry.toDate() > new Date() ? `<i class="fas fa-crown text-yellow-500 text-[10px] drop-shadow-sm ml-1"></i>` : '';
+        let premiumStar = '';
 
         let prizeMoney = "";
         const prizes = ['10$', '7$', '5$', '3$', '2$', '1$', '1$', '1$', '1$', '1$'];
@@ -6592,48 +6098,22 @@ if (u.customBgImage && u.customBgExpiry && u.customBgExpiry.toDate() > new Date(
                 const createdAt = uData.createdAt ? uData.createdAt.toDate().toLocaleDateString('ar-EG') : 'غير معروف';
                 const lastLogin = uData.lastLogin ? new Date(uData.lastLogin).toLocaleDateString('ar-EG') : 'لم يسجل دخول';
 
-                // التحقق من حالة المميز الحقيقية (الوقت)
-                let premiumText = '❌ لا';
-                if (uData.isPremium) {
-                    if (uData.premiumExpiry && uData.premiumExpiry.toDate() > new Date()) {
-                        premiumText = '✅ نعم (نشط)';
-                    } else {
-                        premiumText = '⚠️ منتهي الصلاحية';
-                        deactivatePremiumFeatures(docId); // تنظيف الداتا له وإلغاء مميزاته
-                    }
-                }
-
                 resDiv.innerHTML = `
-                    <div class="text-center mb-4">
-                        <img src="${uData.photo}" class="w-16 h-16 rounded-full mx-auto mb-2">
-                        <h3 class="font-bold">${uData.name}</h3>
-                        <p class="text-xs text-gray-500">ID: ${uData.uniqueId}</p>
-                        <p class="text-xs text-gray-500">${uData.email}</p>
-                    </div>
-                    <div class="mb-4 text-right">
-                        <p class="text-sm"><span class="font-bold">البريد الإلكتروني:</span> ${uData.email || 'غير معروف'}</p>
-                        <p class="text-sm"><span class="font-bold">كلمة المرور:</span> <span class="text-gray-400">(مشفرة في النظام)</span></p>
-                        <p class="text-sm"><span class="font-bold">تاريخ التسجيل:</span> ${createdAt}</p>
-                        <p class="text-sm"><span class="font-bold">آخر دخول:</span> ${lastLogin}</p>
-                        <p class="text-sm"><span class="font-bold">المرحلة الدراسية:</span> ${uData.grade ? getGradeName(uData.grade) : 'غير محدد'}</p>
-                        <p class="text-sm"><span class="font-bold">السيرة الذاتية:</span> ${uData.bio || 'لا يوجد'}</p>
-                        <p class="text-sm"><span class="font-bold">حالة الحظر:</span> ${isBanned ? '🛑 محظور' : '✅ نشط'}</p>
-                        <p class="text-sm"><span class="font-bold">حساب مميز:</span> ${premiumText}</p>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 mb-4 text-xs font-bold text-center">
-                        <div class="bg-gray-50 p-2 rounded">النقاط: ${uData.points || 0}</div>
-                        <div class="bg-gray-50 p-2 rounded">الدولارات: $${balance}</div>
-                    </div>
-                    <div class="mb-4 text-center">
-                        <p class="text-sm font-bold ${deserves ? 'text-green-600' : 'text-red-500'}">
-                            ${deserves ? '✅ يستحق السحب' : '❌ لا يستحق السحب'}
-                        </p>
-                        ${deserves ? `<button onclick="resetUserBalance('${docId}')" class="mt-2 bg-yellow-500 text-white px-4 py-2 rounded text-xs font-bold">تصفير الدولارات</button>` : ''}
-                    </div>
-                    <button onclick="toggleBan('${docId}', ${!isBanned})" class="w-full py-3 rounded-xl font-bold text-white ${isBanned ? 'bg-green-500' : 'bg-red-500'}">
-                        ${isBanned ? 'إلغاء الحظر (فك القيد)' : 'حظر المستخدم نهائياً'}
-                    </button>
-                `;
+    <div class="text-center mb-4">
+        <img src="${uData.photo}" class="w-16 h-16 rounded-full mx-auto mb-2">
+        <h3 class="font-bold">${uData.name}</h3>
+        <p class="text-xs text-gray-500">ID: ${uData.uniqueId}</p>
+        <p class="text-xs text-gray-500">${uData.email}</p>
+    </div>
+    <div class="mb-4 text-right">
+        <p class="text-sm"><span class="font-bold">البريد الإلكتروني:</span> ${uData.email || 'غير معروف'}</p>
+        <p class="text-sm"><span class="font-bold">تاريخ التسجيل:</span> ${createdAt}</p>
+        <p class="text-sm"><span class="font-bold">آخر دخول:</span> ${lastLogin}</p>
+        <p class="text-sm"><span class="font-bold">المرحلة الدراسية:</span> ${uData.grade ? getGradeName(uData.grade) : 'غير محدد'}</p>
+        <p class="text-sm"><span class="font-bold">السيرة الذاتية:</span> ${uData.bio || 'لا يوجد'}</p>
+        <p class="text-sm"><span class="font-bold">حالة الحظر:</span> ${isBanned ? '🛑 محظور' : '✅ نشط'}</p>
+    </div>
+    `;
             } catch (error) {
                 resDiv.innerHTML = '<p class="text-red-500">خطأ في البحث</p>';
             }
@@ -6656,183 +6136,7 @@ if (u.customBgImage && u.customBgExpiry && u.customBgExpiry.toDate() > new Date(
              }
         };
 
-        window.generateSubscriptionCode = async function() {
-            try {
-                if (!currentUser || !userData || userData.email !== ADMIN_EMAIL) {
-                    showBeautifulAlert('error', 'خطأ', '⛔ ليس لديك صلاحية للقيام بهذا الإجراء');
-                    return;
-                }
-
-                const durationSelect = document.getElementById('admin-sub-duration');
-                const durationDays = parseInt(durationSelect.value);
-                
-                if (!durationDays || durationDays <= 0) {
-                    showBeautifulAlert('warning', 'تنبيه', '⛔ يرجى تحديد مدة الاشتراك');
-                    return;
-                }
-
-                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-                let code;
-                let isUnique = false;
-                let attempts = 0;
-                
-                while (!isUnique && attempts < 10) {
-                    code = '';
-                    for (let i = 0; i < 8; i++) {
-                        code += chars.charAt(Math.floor(Math.random() * chars.length));
-                    }
-                    
-                    const q = query(collection(db, "premium_codes"), where("code", "==", code));
-                    const querySnapshot = await getDocs(q);
-                    isUnique = querySnapshot.empty;
-                    attempts++;
-                }
-                
-                if (!isUnique) {
-                    showBeautifulAlert('error', 'خطأ', '❌ تعذر إنشاء كود فريد، يرجى المحاولة مرة أخرى');
-                    return;
-                }
-
-                await addDoc(collection(db, "premium_codes"), {
-                    code: code,
-                    durationDays: durationDays,
-                    createdBy: currentUser.uid,
-                    createdAt: serverTimestamp(),
-                    used: false,
-                    usedBy: null,
-                    usedAt: null,
-                    isActive: true
-                });
-
-                const displayDiv = document.getElementById('generated-code-display');
-                const codeText = document.getElementById('gen-code-text');
-                
-                codeText.textContent = code;
-                displayDiv.classList.remove('hidden');
-                
-                showBeautifulAlert('success', 'تم الإنشاء', `✅ تم إنشاء كود اشتراك جديد:\n\nالكود: ${code}\nالمدة: ${durationDays} يوم\n\nالكود يستخدم مرة واحدة فقط!`);
-
-            } catch (error) {
-                console.error("خطأ في توليد الكود:", error);
-                showBeautifulAlert('error', 'خطأ', `❌ حدث خطأ في توليد الكود: ${error.message}`);
-            }
-        };
-
-        window.copyGenCode = function() {
-            const codeText = document.getElementById('gen-code-text').textContent;
-            if (!codeText || codeText === '...') {
-                showBeautifulAlert('warning', 'تنبيه', '⚠️ لا يوجد كود لعرضه');
-                return;
-            }
-            
-            navigator.clipboard.writeText(codeText)
-                .then(() => {
-                    showBeautifulAlert('success', 'تم النسخ', '✅ تم نسخ الكود إلى الحافظة!');
-                })
-                .catch(err => {
-                    console.error("خطأ في النسخ:", err);
-                    const tempInput = document.createElement('input');
-                    tempInput.value = codeText;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                    showBeautifulAlert('success', 'تم النسخ', '✅ تم نسخ الكود إلى الحافظة!');
-                });
-        };
-
-        window.deleteSubscriptionCode = async function() {
-            try {
-                const codeInput = document.getElementById('admin-delete-code-input').value.trim().toUpperCase();
-                
-                if (!codeInput) {
-                    showBeautifulAlert('warning', 'تنبيه', '⚠️ يرجى إدخال كود للحذف');
-                    return;
-                }
-
-                if (!confirm(`⚠️ هل أنت متأكد من حذف الكود "${codeInput}"؟\n\nهذا الإجراء نهائي ولا يمكن التراجع عنه.`)) {
-                    return;
-                }
-
-                const q = query(collection(db, "premium_codes"), where("code", "==", codeInput));
-                const querySnapshot = await getDocs(q);
-                
-                if (querySnapshot.empty) {
-                    showBeautifulAlert('error', 'خطأ', '❌ الكود غير موجود في قاعدة البيانات');
-                    return;
-                }
-
-                const codeDoc = querySnapshot.docs[0];
-                await deleteDoc(doc(db, "premium_codes", codeDoc.id));
-                
-                document.getElementById('admin-delete-code-input').value = '';
-                showBeautifulAlert('success', 'تم الحذف', `✅ تم حذف الكود "${codeInput}" بنجاح`);
-
-            } catch (error) {
-                console.error("خطأ في حذف الكود:", error);
-                showBeautifulAlert('error', 'خطأ', `❌ حدث خطأ في حذف الكود: ${error.message}`);
-            }
-        };
-
-        async function loadPremiumUsers() {
-            const listDiv = document.getElementById('premium-users-list');
-            listDiv.innerHTML = '<p class="text-center text-gray-400">جاري التحميل...</p>';
-            
-            try {
-                const q = query(collection(db, "users"), where("isPremium", "==", true));
-                const snap = await getDocs(q);
-                
-                let html = '';
-                const now = new Date();
-                let activePremiumCount = 0;
-                
-                snap.docs.forEach(userDoc => {
-                    const u = userDoc.data();
-                    let remainingDays = "منتهي";
-                    let isValid = false;
-
-                    // التحقق الدقيق من تاريخ الانتهاء
-                    if (u.premiumExpiry) {
-                        const expiry = u.premiumExpiry.toDate();
-                        const diff = expiry - now;
-                        if(diff > 0) {
-                            isValid = true;
-                            remainingDays = Math.ceil(diff / (1000 * 60 * 60 * 24)) + " يوم";
-                        }
-                    }
-
-                    // إذا كان الوقت قد انتهى، نقوم بإلغاء اشتراكه فوراً في قاعدة البيانات ولا نعرضه
-                    if (!isValid) {
-                        deactivatePremiumFeatures(userDoc.id); 
-                        return; // لا تعرضه في القائمة
-                    }
-                    
-                    activePremiumCount++;
-                    html += `
-                        <div class="bg-white rounded-xl p-4 border border-yellow-100 shadow-sm">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <p class="font-bold text-gray-800">${u.name}</p>
-                                    <p class="text-xs text-gray-500">ID: ${u.uniqueId}</p>
-                                </div>
-                                <div class="text-right">
-                                    <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded font-bold">${remainingDays}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                if(activePremiumCount === 0) {
-                    listDiv.innerHTML = '<p class="text-center text-gray-400 py-10">لا يوجد مستخدمين مميزين حالياً</p>';
-                } else {
-                    listDiv.innerHTML = html;
-                }
-
-            } catch (error) {
-                listDiv.innerHTML = '<p class="text-center text-gray-400">خطأ في تحميل المستخدمين المميزين</p>';
-            }
-        }
+        
 
         async function loadAdminBadges() {
             const container = document.getElementById('badges-list-container');
@@ -7951,8 +7255,6 @@ window.openPublicProfile = async function(uid) {
         let nameHtml = `<h2 id="pub-profile-name" class="text-xl font-black text-gray-800 drop-shadow-sm">${u.name || 'مستخدم مجهول'}</h2>${window.getLevelUI(u.level)}`;
         if (u.customBadgeText && u.customBadgeExpiry && u.customBadgeExpiry.toDate() > new Date()) {
             nameHtml += `<span class="px-2.5 py-0.5 text-[10px] text-white rounded-md shadow-[0_0_10px_rgba(0,0,0,0.5)] font-bold ml-1.5 border border-white/80 animate-pulse" style="background-color: ${u.customBadgeColor || '#e11d48'}">${u.customBadgeText}</span>`;
-        } else if (isPremiumValid(u) && u.selectedBadge) {
-            nameHtml += `<span class="px-2.5 py-0.5 text-[10px] text-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.3)] font-bold ml-1.5 border border-white/60" style="background-color: ${u.selectedBadgeColor || '#f59e0b'}">${u.selectedBadge}</span>`;
         }
         safeSetHTML('pub-profile-name-container', nameHtml);
 
@@ -7976,9 +7278,6 @@ window.openPublicProfile = async function(uid) {
 
         safeSetText('pub-stat-best-rank', finalBestRank ? `#${finalBestRank}` : '-');
         safeSetText('pub-stat-worst-rank', finalWorstRank ? `#${finalWorstRank}` : '-');
-        safeSetText('pub-stat-winstreak', u.bestWinStreak || u.winStreak || 0);
-        safeSetText('pub-stat-correct', u.bestCorrectStreak || 0);
-        safeSetText('pub-stat-worst', u.worstMatchScore !== undefined ? u.worstMatchScore : '-');
 
         let lastSeenText = 'غير متصل منذ فترة';
         let isOnline = false;
@@ -8044,62 +7343,6 @@ if (u.customBgImage && u.customBgExpiry && u.customBgExpiry.toDate() > new Date(
             const oldContainer = document.querySelector('#screen-public-profile .floating-emojis-container');
             if (oldContainer) oldContainer.remove();
 
-        } else if (isPremiumValid(u) && u.selectedBgTheme && u.selectedBgTheme !== 'bg-rank-default') {
-            // كود الإيموجيات القديم ينزل هنا طبيعي
-            if (headerBg) {
-                headerBg.className = `w-full h-28 relative rounded-b-[2.5rem] shadow-md z-10 transition-all duration-500 bg-transparent`;
-                headerBg.style.backgroundImage = ''; // مسح أي صورة سابقة
-            }
-            if (fullBg) {
-                fullBg.className = `absolute inset-0 z-0 transition-all duration-500 ${u.selectedBgTheme}`;
-                fullBg.style.backgroundImage = ''; // مسح الصورة
-                fullBg.style.opacity = '0.95';
-            }
-
-            const bgEmojiMap = {
-                'bg-love': '❤️', 'bg-medical': '✚', 'bg-law': '⚖️', 'bg-edu': '🎓',
-                'bg-eng': '⚙️', 'bg-smart': '💡', 'bg-space': '🌑', 'bg-galaxy': '🌌',
-                'bg-fire': '🔥', 'bg-ocean': '🌊', 'bg-forest': '🍃', 'bg-hacker': '💻',
-                'bg-royal': '👑', 'bg-neon': '✨', 'bg-cyberpunk': '👾', 'bg-crystal': '💎'
-            };
-
-            const selectedEmoji = bgEmojiMap[u.selectedBgTheme] || '🌟';
-            const oldContainer = document.querySelector('#screen-public-profile .floating-emojis-container');
-            if (oldContainer) oldContainer.remove();
-
-            const container = document.createElement('div');
-            container.className = 'floating-emojis-container';
-            container.style.cssText = `position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden;`;
-
-            const positions = [
-                { top: '8%', left: '15%' }, { top: '12%', left: '75%' },
-                { top: '40%', left: '3%' }, { top: '45%', left: '50%' },
-                { top: '38%', left: '90%' }, { top: '78%', left: '15%' }, { top: '82%', left: '75%' }
-            ];
-
-            for (let i = 0; i < 7; i++) {
-                const emoji = document.createElement('div');
-                emoji.innerText = selectedEmoji;
-                emoji.style.cssText = `position: absolute; font-size: 38px; top: ${positions[i].top}; left: ${positions[i].left}; opacity: 0.55; filter: drop-shadow(0 0 3px rgba(255,255,255,0.3)); pointer-events: none; animation: floatHorizontal${i} ${12 + (i * 1.5)}s linear infinite; z-index: 1;`;
-
-                const styleId = `dynamic-emoji-style-${i}`;
-                if (!document.querySelector(`#${styleId}`)) {
-                    const style = document.createElement('style');
-                    style.id = styleId;
-                    style.textContent = `@keyframes floatHorizontal${i} { 0% { transform: translateX(0%); opacity: 0.55; } 50% { opacity: 0.85; } 100% { transform: translateX(-150%); opacity: 0.55; } }`;
-                    document.head.appendChild(style);
-                }
-                container.appendChild(emoji);
-            }
-
-            if (profileScreen) {
-                profileScreen.appendChild(container);
-                const scrollContainer = profileScreen.querySelector('.scroll-container');
-                if (scrollContainer) {
-                    scrollContainer.style.position = 'relative';
-                    scrollContainer.style.zIndex = '10';
-                }
-            }
         } else {
             if (fullBg) {
                 fullBg.className = 'absolute inset-0 z-0 opacity-10 transition-all duration-500';
@@ -8244,113 +7487,255 @@ window.getLevelUI = function(level) {
         window.previewStoreBg = async (input) => {
             if (input.files[0]) {
                 const statusSpan = document.getElementById('store-bg-status');
-                statusSpan.innerText = "جاري الضغط...";
-                statusSpan.className = "text-[10px] text-blue-500 font-bold";
+                statusSpan.innerText = "جاري...";
+                statusSpan.className = "text-blue-500";
                 try {
                     tempStoreBgImage = await compressImage(input.files[0]);
-                    statusSpan.innerText = "صورة جاهزة ✅";
-                    statusSpan.className = "text-[10px] text-green-500 font-bold";
+                    statusSpan.innerText = "جاهزة ✅";
+                    statusSpan.className = "text-green-600";
                 } catch (e) {
-                    statusSpan.innerText = "خطأ بالصورة ❌";
-                    statusSpan.className = "text-[10px] text-red-500 font-bold";
+                    statusSpan.innerText = "خطأ ❌";
+                    statusSpan.className = "text-red-500";
                 }
             }
         };
+        
+        window.getValidExpiryDate = function(expiry) {
+    if (!expiry) return null;
+    try {
+        let expiryDate;
+        if (typeof expiry.toDate === 'function') {
+            expiryDate = expiry.toDate();
+        } else if (expiry.seconds) {
+            expiryDate = new Date(expiry.seconds * 1000);
+        } else {
+            expiryDate = new Date(expiry);
+        }
+        
+        if (expiryDate > new Date()) return expiryDate;
+        return null;
+    } catch (e) {
+        return null;
+    }
+};
 
         window.buyStoreItem = async (type, price) => {
-            if (!userData || (userData.balance || 0) < price) {
-                showBeautifulAlert('error', 'رصيد غير كافي', `تحتاج إلى ${price}$ لإتمام عملية الشراء. رصيدك الحالي هو ${userData.balance || 0}$.`);
-                return;
-            }
+    if (price > 0 && (!userData || (userData.balance || 0) < price)) {
+        showBeautifulAlert('error', 'رصيد غير كافي', `تحتاج إلى ${price}$ لإتمام عملية الشراء. رصيدك الحالي هو ${userData.balance || 0}$.`);
+        return;
+    }
 
-            if (!confirm(`هل أنت متأكد من شراء هذا العنصر مقابل ${price}$؟`)) return;
+    if (price > 0) {
+        if (!confirm(`هل أنت متأكد من شراء هذا العنصر مقابل ${price}$؟`)) return;
+    } else {
+        if (!confirm(`هل أنت متأكد من تغيير العنصر؟ (التغيير مجاني لأنك تملك هذا العنصر بالفعل)`)) return;
+    }
 
-            showAuthLoading('جاري معالجة الطلب وخصم الرصيد...');
+    showAuthLoading(price > 0 ? 'جاري معالجة الطلب وخصم الرصيد...' : 'جاري التحديث...');
 
-            try {
-                let updates = { balance: increment(-price) };
-                let successMsg = "";
-                let notifMsg = "";
+    try {
+        let updates = {};
+        if (price > 0) {
+            updates.balance = increment(-price);
+        }
+        let successMsg = "";
+        let notifMsg = "";
 
-                // تحديد تاريخ انتهاء الصلاحية (بعد 30 يوم من الآن)
-                const expiryDate = new Date();
-                expiryDate.setDate(expiryDate.getDate() + 30);
-                const expiryTimestamp = Timestamp.fromDate(expiryDate);
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 30);
+        const expiryTimestamp = Timestamp.fromDate(expiryDate);
 
-                if (type === 'sub') {
-                    // الاشتراك يتطلب تواصل يدوي
-                    notifMsg = `🎉 تم تأكيد طلبك لشراء (اشتراك مميز - شهر) مقابل ${price}$.\nيرجى مراسلة المالك لتسليمك كود التفعيل.`;
-                    successMsg = "تم خصم الرصيد! اضغط على زر التليجرام الجديد للتواصل مع المالك واستلام الكود.";
-                    
-                } else if (type === 'bg') {
-                    if (!tempStoreBgImage) { hideAuthLoading(); showBeautifulAlert('warning', 'تنبيه', 'يرجى اختيار صورة أولاً'); return; }
-                    updates.customBgImage = tempStoreBgImage;
-                    updates.customBgExpiry = expiryTimestamp;
-                    notifMsg = `🖼️ مبروك! تم تفعيل خلفيتك المخصصة بنجاح لمدة 30 يوم مقابل ${price}$.`;
-                    successMsg = "تم تفعيل الخلفية المخصصة بحسابك بنجاح!";
-                    userData.customBgImage = tempStoreBgImage;
-                    userData.customBgExpiry = expiryTimestamp;
+        if (type === 'bg') {
+            if (!tempStoreBgImage) { hideAuthLoading(); showBeautifulAlert('warning', 'تنبيه', 'يرجى اختيار صورة أولاً'); return; }
+            updates.customBgImage = tempStoreBgImage;
+            
+            // نجدد الوقت بس بحالة الشراء بفلوس، بالتغيير المجاني يبقى الوقت القديم يحسب
+            if (price > 0) updates.customBgExpiry = expiryTimestamp;
+            
+            notifMsg = price > 0 ? `🖼️ مبروك! تم تفعيل خلفيتك المخصصة بنجاح لمدة 30 يوم مقابل ${price}$.` : "";
+            successMsg = "تم تحديث الخلفية المخصصة بحسابك بنجاح!";
+            userData.customBgImage = tempStoreBgImage;
+            if (price > 0) userData.customBgExpiry = expiryTimestamp;
 
-                } else if (type === 'badge') {
-                    const txt = document.getElementById('store-badge-text').value.trim();
-                    if (!txt) { hideAuthLoading(); showBeautifulAlert('warning', 'تنبيه', 'يرجى كتابة الشعار أولاً'); return; }
-                    updates.customBadgeText = txt;
-                    updates.customBadgeExpiry = expiryTimestamp;
-                    // لون عشوائي فخم للشعار
-                    const colors = ['#f43f5e', '#8b5cf6', '#0ea5e9', '#10b981', '#f59e0b'];
-                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                    updates.customBadgeColor = randomColor;
-                    
-                    notifMsg = `🏷️ مبروك! تم تفعيل الشعار المخصص (${txt}) بنجاح لمدة 30 يوم مقابل ${price}$.`;
-                    successMsg = "تم تركيب الشعار بجانب اسمك بنجاح!";
-                    userData.customBadgeText = txt;
-                    userData.customBadgeExpiry = expiryTimestamp;
-                    userData.customBadgeColor = randomColor;
-                }
+        } else if (type === 'badge') {
+            const txt = document.getElementById('store-badge-text').value.trim();
+            if (!txt) { hideAuthLoading(); showBeautifulAlert('warning', 'تنبيه', 'يرجى كتابة الشعار أولاً'); return; }
+            updates.customBadgeText = txt;
+            
+            if (price > 0) updates.customBadgeExpiry = expiryTimestamp;
+            
+            const colors = ['#f43f5e', '#8b5cf6', '#0ea5e9', '#10b981', '#f59e0b'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            updates.customBadgeColor = randomColor;
+            
+            notifMsg = price > 0 ? `🏷️ مبروك! تم تفعيل الشعار المخصص (${txt}) بنجاح لمدة 30 يوم مقابل ${price}$.` : "";
+            successMsg = "تم تحديث الشعار المخصص بنجاح!";
+            
+            userData.customBadgeText = txt;
+            if (price > 0) userData.customBadgeExpiry = expiryTimestamp;
+            userData.customBadgeColor = randomColor;
+        }
 
-                // تنفيذ الخصم وتحديث البيانات
-                await updateDoc(doc(db, "users", currentUser.uid), updates);
+        await updateDoc(doc(db, "users", currentUser.uid), updates);
+        
+        if (price > 0 && notifMsg) {
+            await addDoc(collection(db, "notifications"), {
+                userId: currentUser.uid,
+                type: 'reward',
+                message: notifMsg,
+                read: false,
+                createdAt: serverTimestamp()
+            });
+            userData.balance -= price;
+            document.getElementById('store-user-balance').innerText = `$${userData.balance}`;
+        }
+
+        setupProfileUI(); 
+        if (window.updateStoreButtons) window.updateStoreButtons(); // تحديث أزرار المتجر لايف
+        
+        if (type === 'sub') {
+            checkPremiumStatus(); 
+        }
+
+        hideAuthLoading();
+        showBeautifulAlert('success', 'عملية ناجحة', successMsg);
+        checkNotifications(); 
+
+    } catch (error) {
+        hideAuthLoading();
+        console.error("Store Error:", error);
+        showBeautifulAlert('error', 'خطأ', 'فشلت العملية: ' + error.message);
+    }
+};
+
+const originalOpenPage = window.openPage;
+window.openPage = async (screenId, skipHistory = false) => {
+    if (screenId === 'screen-hacker-store') {
+        document.getElementById('store-user-balance').innerText = `$${userData.balance || 0}`;
+        // استدعاء دالة تحديث الأزرار عند فتح المتجر
+        if(window.updateStoreButtons) window.updateStoreButtons(); 
+    }
+    originalOpenPage(screenId, skipHistory);
+};
+
+window.openKeysTestModal = function() {
+    const modal = document.getElementById('ai-keys-test-modal');
+    const list = document.getElementById('keys-test-results-list');
+    const status = document.getElementById('keys-test-status');
+    const btn = document.getElementById('btn-start-keys-test');
+    
+    list.innerHTML = `
+        <div class="flex flex-col items-center justify-center h-full opacity-50">
+            <i class="fas fa-key text-5xl text-gray-300 mb-3"></i>
+            <p class="text-sm font-bold text-gray-400">اضغط على بدء الفحص لاختبار الـ ${HIDDEN_GEMINI_KEYS.length} مفاتيح</p>
+        </div>`;
+    status.innerText = "جاهز للفحص";
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-play"></i> بدء الفحص الآن';
+    btn.className = "w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-black py-3 rounded-xl shadow-md hover:opacity-90 transition flex items-center justify-center gap-2";
+    
+    modal.classList.remove('hidden');
+};
+
+window.startKeysTest = async function() {
+    const list = document.getElementById('keys-test-results-list');
+    const status = document.getElementById('keys-test-status');
+    const btn = document.getElementById('btn-start-keys-test');
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الفحص...';
+    btn.className = "w-full bg-slate-300 text-slate-500 font-black py-3 rounded-xl flex items-center justify-center gap-2 cursor-not-allowed";
+    list.innerHTML = '';
+    
+    const testPrompt = `Reply with exactly this JSON array: [{"type": "tf", "question": "test", "correct": true}]`;
+
+    let validCount = 0;
+    let invalidCount = 0;
+
+    for (let i = 0; i < HIDDEN_GEMINI_KEYS.length; i++) {
+        const rawKey = HIDDEN_GEMINI_KEYS[i];
+        // السحر هنا: فك العكس حتى يرجع المفتاح لشكله الحقيقي (يبدأ بـ AIza)
+        const realKey = rawKey.split('').reverse().join('');
+        
+        // إخفاء المفتاح الحقيقي للعرض في الواجهة (حتى يبين AIzaSy....)
+        const displayKey = realKey.substring(0, 6) + "........" + realKey.substring(realKey.length - 4);
+        
+        status.innerText = `جاري فحص المفتاح ${i + 1} من ${HIDDEN_GEMINI_KEYS.length}...`;
+        
+        const cardId = `key-test-${i}`;
+        list.innerHTML += `
+            <div id="${cardId}" class="bg-white p-3 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-2">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-black text-slate-600 bg-slate-100 px-2 py-1 rounded">مفتاح #${i + 1}</span>
+                    <span id="${cardId}-status" class="text-[10px] font-bold text-blue-500 animate-pulse"><i class="fas fa-circle-notch fa-spin"></i> يفحص...</span>
+                </div>
+                <p class="text-[10px] font-mono text-gray-400 border-b border-gray-50 pb-2">${displayKey}</p>
+                <div id="${cardId}-msg" class="text-[10px] font-bold text-gray-500">جاري الاتصال بسيرفر جوجل...</div>
+            </div>
+        `;
+        
+        list.scrollTop = list.scrollHeight;
+
+        try {
+            // نستخدم realKey المعدل والمضبوط
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${realKey}`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: testPrompt }] }],
+                    generationConfig: { maxOutputTokens: 50 }
+                })
+            });
+
+            const statusEl = document.getElementById(`${cardId}-status`);
+            const msgEl = document.getElementById(`${cardId}-msg`);
+            const cardEl = document.getElementById(cardId);
+
+            if (!response.ok) {
+                invalidCount++;
+                const errData = await response.json();
+                let exactReason = errData.error?.message || "سبب غير معروف";
                 
-                // إرسال الإشعار
-                await addDoc(collection(db, "notifications"), {
-                    userId: currentUser.uid,
-                    type: 'reward',
-                    message: notifMsg,
-                    read: false,
-                    createdAt: serverTimestamp()
-                });
+                let arReason = "مرفوض من جوجل";
+                if (exactReason.includes("API key not valid")) arReason = "المفتاح خطأ أو محذوف من حساب جوجل.";
+                else if (exactReason.includes("quota") || exactReason.includes("exhausted")) arReason = "الحصة المجانية خلصت (الليميت طار).";
+                else if (exactReason.includes("billing")) arReason = "المفتاح يحتاج تفعيل الدفع (Billing) بحساب جوجل.";
+                else if (response.status === 429) arReason = "تم حظر المفتاح مؤقتاً لكثرة الطلبات (Rate Limit).";
 
-                userData.balance -= price;
-                document.getElementById('store-user-balance').innerText = `$${userData.balance}`;
-                setupProfileUI(); // تحديث واجهة حسابي الأساسية
-                
-                // إذا كان اشتراك، نغير الزر إلى رابط تليجرام
-                if (type === 'sub') {
-                    const btn = document.getElementById('btn-buy-sub');
-                    btn.innerText = 'استلام الكود (تليجرام)';
-                    btn.className = 'bg-blue-500 text-white px-5 py-2 rounded-xl font-bold shadow-md hover:bg-blue-600 transition flex items-center gap-2';
-                    btn.onclick = () => window.open('https://t.me/mslmr19', '_blank');
+                cardEl.classList.replace('border-gray-200', 'border-red-300');
+                cardEl.classList.add('bg-red-50/30');
+                statusEl.innerHTML = `<span class="text-red-500"><i class="fas fa-times-circle"></i> فشل</span>`;
+                msgEl.innerHTML = `<span class="text-red-600">${arReason}</span><br><span class="text-gray-400 text-[8px] mt-1 block">(${exactReason})</span>`;
+            
+            } else {
+                const data = await response.json();
+                if (data.candidates && data.candidates.length > 0) {
+                    validCount++;
+                    cardEl.classList.replace('border-gray-200', 'border-green-300');
+                    cardEl.classList.add('bg-green-50/30');
+                    statusEl.innerHTML = `<span class="text-green-600"><i class="fas fa-check-circle"></i> شغال</span>`;
+                    msgEl.innerHTML = `<span class="text-green-600">المفتاح يعمل بكفاءة ويستخرج البيانات طبيعياً.</span>`;
+                } else {
+                    invalidCount++;
+                    cardEl.classList.replace('border-gray-200', 'border-orange-300');
+                    statusEl.innerHTML = `<span class="text-orange-500"><i class="fas fa-exclamation-triangle"></i> محظور أمنياً</span>`;
+                    msgEl.innerHTML = `<span class="text-orange-600">المفتاح شغال بس جوجل دا ترفض توليد الأسئلة بسبب سياسة الاستخدام.</span>`;
                 }
-
-                hideAuthLoading();
-                showBeautifulAlert('success', 'عملية ناجحة', successMsg);
-                checkNotifications(); // تحديث نقطة الإشعارات الحمراء
-
-            } catch (error) {
-                hideAuthLoading();
-                console.error("Store Error:", error);
-                showBeautifulAlert('error', 'خطأ', 'فشلت عملية الشراء: ' + error.message);
             }
-        };
+        } catch (networkError) {
+            invalidCount++;
+            document.getElementById(`${cardId}-status`).innerHTML = `<span class="text-red-500"><i class="fas fa-wifi"></i> خطأ شبكة</span>`;
+            document.getElementById(`${cardId}-msg`).innerHTML = `<span class="text-red-600">لم يتمكن التطبيق من الوصول لسيرفرات جوجل (تأكد من النت أو الـ VPN).</span>`;
+        }
+    }
 
-        // دالة مساعدة لتحديث رصيد المتجر عند فتحه
-        const originalOpenPage = window.openPage;
-        window.openPage = async (screenId, skipHistory = false) => {
-            if (screenId === 'screen-hacker-store') {
-                document.getElementById('store-user-balance').innerText = `$${userData.balance || 0}`;
-            }
-            originalOpenPage(screenId, skipHistory);
-        };
+    status.innerHTML = `انتهى الفحص: <span class="text-green-400">${validCount} شغال</span> | <span class="text-red-400">${invalidCount} عاطل</span>`;
+    
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-redo"></i> إعادة الفحص';
+    btn.className = "w-full bg-slate-100 text-slate-600 border border-slate-200 font-black py-3 rounded-xl hover:bg-slate-200 transition flex items-center justify-center gap-2";
+};
 
     </script>
 </body>
