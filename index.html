@@ -2301,7 +2301,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 40;
+        const CURRENT_APP_VERSION = 41;
 
 async function checkForUpdates() {
     try {
@@ -3220,12 +3220,27 @@ async function checkAndApplyIndividualReset(uid, uData) {
             }
         };
 
-        window.logout = () => {
-            if(adminListenerUnsubscribe) adminListenerUnsubscribe(); 
-            if(matchListenerUnsubscribe) matchListenerUnsubscribe();
-            if(govsListenerUnsubscribe) govsListenerUnsubscribe();
-            if(premiumInterval) clearInterval(premiumInterval);
-            signOut(auth).then(() => {
+        window.logout = async () => {
+            try {
+                showAuthLoading('جاري تسجيل الخروج...');
+
+                // 1. عزل تنظيف المستمعات بـ try/catch منفصل حتى مستحيل توقف عملية الخروج
+                try { if (typeof adminListenerUnsubscribe !== 'undefined' && adminListenerUnsubscribe) adminListenerUnsubscribe(); } catch(e) {}
+                try { if (typeof matchListenerUnsubscribe !== 'undefined' && matchListenerUnsubscribe) matchListenerUnsubscribe(); } catch(e) {}
+                try { if (typeof govsListenerUnsubscribe !== 'undefined' && govsListenerUnsubscribe) govsListenerUnsubscribe(); } catch(e) {}
+                try { if (typeof globalLeaderboardUnsubscribe !== 'undefined' && globalLeaderboardUnsubscribe) globalLeaderboardUnsubscribe(); } catch(e) {}
+                try { if (typeof premiumInterval !== 'undefined' && premiumInterval) clearInterval(premiumInterval); } catch(e) {}
+
+                // 2. تسجيل الخروج الفعلي من فايربيس
+                await signOut(auth);
+                
+                // 3. تصفير الذاكرة
+                currentUser = null;
+                userData = null;
+                
+                hideAuthLoading();
+                
+                // 4. توجيه الواجهة
                 document.getElementById('main-app').classList.add('hidden');
                 document.getElementById('intro-screen').classList.remove('hidden');
                 
@@ -3234,7 +3249,13 @@ async function checkAndApplyIndividualReset(uid, uData) {
                     document.getElementById('auth-screen').classList.remove('hidden');
                     switchAuthTab('login');
                 }, 1500);
-            });
+
+            } catch (error) {
+                hideAuthLoading();
+                console.error("Logout Error:", error);
+                // كشف الخطأ الحقيقي مباشرة بدل الرسالة الجاهزة
+                showBeautifulAlert('error', 'خطأ في الخروج', error.message || 'حدث خطأ غير معروف');
+            }
         };
 
         function getIraqDate() {
