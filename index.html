@@ -1717,6 +1717,11 @@
             <span class="font-bold text-sm text-gray-700">التوثيقات</span>
         </button>
         
+        <button onclick="openPage('screen-admin-news'); loadAdminNewsList();" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2 hover:bg-gray-50">
+    <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600"><i class="fas fa-images text-xl"></i></div>
+    <span class="font-bold text-sm text-gray-700">الأخبار</span>
+</button>
+        
         <button onclick="openPage('screen-admin-ai-extract')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center gap-2 hover:bg-gray-50">
     <div class="w-12 h-12 bg-fuchsia-100 rounded-full flex items-center justify-center text-fuchsia-600">
         <i class="fas fa-robot text-xl"></i>
@@ -1880,6 +1885,7 @@
 </div>
 
         <div id="screen-admin-users" class="screen pt-20">
+            <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
                 <button onclick="openPage('screen-admin-hub')" class="text-gray-500"><i class="fas fa-arrow-right text-xl"></i></button>
                 <h1 class="font-bold text-lg text-gray-800">إدارة المستخدمين</h1>
             </div>
@@ -1964,13 +1970,79 @@
     <div onclick="switchTab('leaderboard')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400">
         <i class="fas fa-trophy text-xl mb-1"></i><span class="text-[10px] font-bold">التصنيف</span>
     </div>
+    <div onclick="switchTab('news')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400">
+        <i class="fas fa-newspaper text-xl mb-1"></i><span class="text-[10px] font-bold">الأخبار</span>
+    </div>
     <div onclick="switchTab('profile')" class="nav-item flex-1 flex flex-col items-center justify-center h-full cursor-pointer text-gray-400 relative">
         <i class="fas fa-user text-xl mb-1"></i><span class="text-[10px] font-bold">حسابي</span>
         <div id="profile-tab-badge" class="red-dot"></div>
     </div>
 </div>
         
+        <div id="tab-news" class="screen pt-20 bg-slate-50">
+    <div class="absolute top-0 w-full h-20 bg-white/95 backdrop-blur-sm shadow-sm z-30 flex items-center px-5 gap-4">
+        <h1 class="font-black text-lg text-indigo-900">أخبار وإعلانات 📰</h1>
+    </div>
+    <div class="scroll-container px-4 pt-6 pb-28 flex flex-col items-center justify-center h-full">
         
+        <div id="news-slider-container" class="relative w-full max-w-md h-[65vh] max-h-[650px] min-h-[400px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-gray-100 flex-shrink-0">
+            <div id="news-slides-wrapper" class="w-full h-full relative">
+                <div class="absolute inset-0 flex items-center justify-center text-gray-400 font-bold">
+                    <i class="fas fa-spinner fa-spin text-3xl"></i>
+                </div>
+            </div>
+            
+            <div id="news-dots-wrapper" class="absolute bottom-4 left-0 w-full flex justify-center gap-2 z-20">
+                </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="screen-admin-news" class="screen pt-20 bg-slate-50">
+    <div class="absolute top-0 w-full h-20 bg-white shadow-sm z-30 flex items-center px-5 gap-4">
+        <button onclick="openPage('screen-admin-hub')" class="text-gray-500 hover:text-indigo-600 transition"><i class="fas fa-arrow-right text-xl"></i></button>
+        <h1 class="font-black text-lg text-gray-800">إدارة الأخبار والصور</h1>
+    </div>
+    
+    <div class="scroll-container px-5 py-6 space-y-4 pb-24">
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+            <h3 class="font-bold text-indigo-800 mb-4 border-b pb-2">نشر صورة جديدة 📸</h3>
+            
+            <div class="border-2 border-dashed border-indigo-200 rounded-2xl p-6 text-center cursor-pointer hover:bg-indigo-50 transition mb-4" onclick="document.getElementById('news-image-input').click()">
+                <img id="news-image-preview" src="" class="hidden w-full max-h-64 object-contain rounded-xl mb-3">
+                <div id="news-image-placeholder">
+                    <i class="fas fa-images text-4xl text-indigo-300 mb-2"></i>
+                    <p class="font-bold text-indigo-600 text-sm">اضغط لاختيار صورة (يُفضل صورة طولية)</p>
+                </div>
+                <input type="file" id="news-image-input" accept="image/*" class="hidden" onchange="previewNewsImage(this)">
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">رابط توجيهي (اختياري)</label>
+                    <input type="url" id="news-link-input" placeholder="https://t.me/..." class="input-box text-left" dir="ltr">
+                    <p class="text-[9px] text-gray-400 mt-1">إذا تركته فارغاً، الصورة ستكون للعرض فقط.</p>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 mb-1">مدة العرض (بالأيام)</label>
+                    <input type="number" id="news-days-input" placeholder="مثال: 3" class="input-box" min="1" max="30" value="3">
+                </div>
+            </div>
+
+            <button onclick="publishNewsImage()" class="w-full mt-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black py-3.5 rounded-xl shadow-lg hover:scale-[1.02] active:scale-95 transition flex items-center justify-center gap-2">
+                <i class="fas fa-paper-plane"></i> نشر الصورة الآن
+            </button>
+        </div>
+
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100">
+            <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">الأخبار الفعالة حالياً</h3>
+            <div id="admin-news-list" class="space-y-3">
+                <p class="text-xs text-gray-400 text-center">جاري التحميل...</p>
+            </div>
+        </div>
+    </div>
+</div>
         
         <div id="edit-modal" class="modal-overlay hidden">
             <div class="modal-content relative">
@@ -2301,7 +2373,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 41;
+        const CURRENT_APP_VERSION = 42;
 
 async function checkForUpdates() {
     try {
@@ -2386,10 +2458,12 @@ async function loadGameSounds() {
 }
 loadGameSounds();
 
+// مصفوفة لحفظ الأصوات الشغالة حالياً حتى نكدر نوقفها بأي لحظة
+let activeSounds = [];
+
 // دالة تشغيل الصوت بنظام Web Audio API (بدون التأثير على تطبيقات الخلفية)
 window.playSound = function(type) {
     if (sfxBuffers[type]) {
-        // المتصفحات الحديثة توقف الصوت لحد ما المستخدم يضغط على الشاشة، هذا السطر يفعله
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
         }
@@ -2397,15 +2471,27 @@ window.playSound = function(type) {
         const source = audioCtx.createBufferSource();
         source.buffer = sfxBuffers[type];
         
-        // التحكم بمستوى الصوت (0.4 يمثل 40%)
         const gainNode = audioCtx.createGain();
         gainNode.gain.value = 0.4; 
         
-        // ربط العُقد وتشغيل الصوت
         source.connect(gainNode);
         gainNode.connect(audioCtx.destination);
         source.start(0);
+        
+        // حفظ الصوت بالمصفوفة ولما يخلص ينمسح منها تلقائياً
+        activeSounds.push(source);
+        source.onended = () => {
+            activeSounds = activeSounds.filter(s => s !== source);
+        };
     }
+};
+
+// دالة جديدة لإيقاف جميع الأصوات فوراً (راح نستخدمها من نسد شاشة الفوز)
+window.stopAllSounds = function() {
+    activeSounds.forEach(source => {
+        try { source.stop(); } catch(e) {}
+    });
+    activeSounds = []; // تصفير الذاكرة
 };
 
 // تفعيل صوت النقرة (Click) على كل أزرار التطبيق تلقائياً
@@ -2752,7 +2838,7 @@ window.globalLeaderboardData = [];
 
 async function checkAndApplyIndividualReset(uid, uData) {
     const currentWeek = getCurrentWeekId();
-    if (uData.lastWeekId === currentWeek) return; // الطالب محدث وما يحتاج تصفير
+    if (uData.lastWeekId === currentWeek) return; 
 
     const previousWeek = uData.lastWeekId || getPreviousWeekId();
     const snapshotRef = doc(db, "weekly_snapshots", previousWeek);
@@ -2766,14 +2852,12 @@ async function checkAndApplyIndividualReset(uid, uData) {
         lastWeekId: currentWeek 
     };
 
-    // 1. نظام الجوائز والسناب شات (معزول تماماً في Try/Catch حتى لو فشل ما يأثر على تصفير الطالب)
     try {
         const snapDoc = await getDoc(snapshotRef);
         
         if (!snapDoc.exists()) {
             console.log("يتم الآن إنشاء لقطة الأسبوع الماضي (Snapshot)...");
             
-            // استخدام getDocs و setDoc العادي بدل Transaction لمنع التعليق
             const qUsers = query(collection(db, "users"), orderBy("points", "desc"), limit(50));
             const topUsersSnap = await getDocs(qUsers);
             let topUsersData = {};
@@ -2805,7 +2889,6 @@ async function checkAndApplyIndividualReset(uid, uData) {
             govsSnapshotData = govsList;
             winningGovName = winner;
 
-            // تحديث المحافظات
             const globalBatch = writeBatch(db);
             const expiryDate = Date.now() + (7 * 24 * 60 * 60 * 1000);
             
@@ -2830,7 +2913,6 @@ async function checkAndApplyIndividualReset(uid, uData) {
             winningGovName = data.winningGov || null;
         }
 
-        // --- حساب جوائز اللاعب ---
         let myRankInfo = snapshotData[uid];
         let rewardMsg = "";
 
@@ -2870,20 +2952,34 @@ async function checkAndApplyIndividualReset(uid, uData) {
             govMsgText = `🚩 محافظتك (${uData.governorate}) أنهت الأسبوع بالمركز #${myGovRank} برصيد ${myGovPoints} نقطة.`;
         }
 
-        if (myRankInfo && myRankInfo.points >= 150 && myRankInfo.rank <= 10) {
-            const rank = myRankInfo.rank;
+        let hasPoints = myRankInfo ? myRankInfo.points > 0 : uData.points > 0;
+        
+        if (hasPoints) {
+            const rank = myRankInfo ? myRankInfo.rank : 999;
             let prizeMoney = 0;
+            let leveledUp = false;
 
-            if (rank === 1) { prizeMoney = 10; updates.level = increment(1); }
-            else if (rank === 2) prizeMoney = 7;
-            else if (rank === 3) prizeMoney = 5;
-            else if (rank === 4) prizeMoney = 3;
-            else if (rank === 5) prizeMoney = 2;
-            else if (rank <= 10) prizeMoney = 1;
+            // شرط ترقية المستوى: المركز الأول يحصل على ترقية دائماً (بشرط عنده نقاط أكبر من 0)
+            if (rank === 1) {
+                updates.level = increment(1);
+                leveledUp = true;
+            }
+
+            // شرط الجوائز المالية: التوب 10 + تحقيق 150 نقطة على الأقل
+            if (rank <= 10 && myRankInfo.points >= 150) {
+                if (rank === 1) prizeMoney = 10;
+                else if (rank === 2) prizeMoney = 7;
+                else if (rank === 3) prizeMoney = 5;
+                else if (rank === 4) prizeMoney = 3;
+                else if (rank === 5) prizeMoney = 2;
+                else if (rank <= 10) prizeMoney = 1;
+            }
 
             if (prizeMoney > 0) {
+                // إذا حصل على جائزة مالية
                 updates.balance = increment(prizeMoney);
-                let levelUpMsg = rank === 1 ? "\n\n⭐ ارتفع مستوى حسابك درجة إضافية لأنك البطل الأول! ⭐" : "";
+                let levelUpMsg = leveledUp ? "\n\n⭐ ارتفع مستوى حسابك درجة إضافية لأنك البطل الأول! ⭐" : "";
+                
                 rewardMsg = `مرحباً يا بطل! 🌟\nانتهى التحدي وحان وقت الحصاد...\n\n🥇 المركز العالمي: #${rank}\n💎 النقاط المجموعة: ${myRankInfo.points} نقطة\n💵 الجائزة: ${prizeMoney}$ دولار (تمت إضافتها لمحفظتك)${levelUpMsg}\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nتم تصفير نقاطك لتبدأ بداية جديدة وقوية. استعد للأسبوع الجديد! 🚀`;
                 
                 addDoc(collection(db, "notifications"), {
@@ -2891,31 +2987,37 @@ async function checkAndApplyIndividualReset(uid, uData) {
                     message: rewardMsg,
                     read: false, createdAt: serverTimestamp()
                 });
-            }
-        } else if (uData.points > 0) {
-            let currentRankText = myRankInfo ? `#${myRankInfo.rank}` : "+50";
-            let currentPoints = myRankInfo ? myRankInfo.points : uData.points;
-            rewardMsg = `مرحباً بك في تحديات الأسبوع الجديد! 🚀\n\n📈 إحصائياتك في الأسبوع الماضي:\n- المركز: ${currentRankText} عالمياً\n- النقاط: ${currentPoints} نقطة\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nلم يحالفك الحظ للوصول للـ 10 الأوائل (يجب تحقيق 150 نقطة كحد أدنى)، لكن الأسبوع الجديد فرصة للتعويض!\nتم تصفير النقاط لتبدأ بقوة نحو القمة. 🔥`;
+            } else {
+                // إذا لم يحصل على جائزة مالية (نقاطه أقل من 150، أو مركزه خارج التوب 10)
+                let currentRankText = myRankInfo ? `#${rank}` : "+50";
+                let currentPoints = myRankInfo ? myRankInfo.points : uData.points;
+                
+                // رسالة خاصة تظهر فقط للمركز الأول إذا ملحق يجيب 150 نقطة
+                let levelUpMsg = leveledUp ? "\n\n⭐ مبروك! رغم عدم وصولك لـ 150 نقطة للحصول على الجائزة المالية، لكن لأنك البطل الأول عالمياً ارتفع مستوى حسابك درجة إضافية! ⭐" : "";
+                
+                rewardMsg = `مرحباً بك في تحديات الأسبوع الجديد! 🚀\n\n📈 إحصائياتك في الأسبوع الماضي:\n- المركز: ${currentRankText} عالمياً\n- النقاط: ${currentPoints} نقطة\n\n📊 حصاد المحافظات:\n${govMsgText}\n\nلم يحالفك الحظ للحصول على الجائزة المالية (يجب تحقيق 150 نقطة كحد أدنى والوصول للتوب 10).${levelUpMsg}\n\nتم تصفير النقاط لتبدأ بقوة نحو القمة. 🔥`;
 
-            addDoc(collection(db, "notifications"), {
-                    userId: uid, type: 'weekly',
-                    message: rewardMsg,
-                    read: false, createdAt: serverTimestamp()
-            });
+                addDoc(collection(db, "notifications"), {
+                        userId: uid, type: 'weekly',
+                        message: rewardMsg,
+                        read: false, createdAt: serverTimestamp()
+                });
+            }
         }
     } catch (error) {
-        console.error("خطأ في نظام السناب شات (تم التجاوز لإكمال التصفير الفعلي للطالب):", error);
+        console.error("خطأ في نظام السناب شات:", error);
     }
 
-    // 2. التصفير الفعلي والإجباري للمستخدم (مستحيل يفشل حتى لو فشل السناب شات)
     try {
         await updateDoc(doc(db, "users", uid), updates);
         
         userData.points = 0;
         userData.lastWeekId = currentWeek;
         if (updates.balance) userData.balance = (userData.balance || 0) + updates.balance.operand;
+        if (updates.level) userData.level = (userData.level || 1) + 1; // السطر السحري لتحديث اللفل بالشاشة فوراً
         
         setupHeaderUI();
+        setupProfileUI(); // تحديث واجهة البروفايل لعرض اللفل والفلوس الجديدة
         console.log("تم تصفير الطالب بنجاح ونقله للأسبوع: " + currentWeek);
     } catch (error) {
         console.error("خطأ قاتل: فشل تصفير المستخدم بالداتا بيس:", error);
@@ -4028,7 +4130,7 @@ window.checkInterruptedGame = async function() {
     
     let gradeCondition = userData.grade;
     
-    // الشرط الصارم: المشترك فقط للسادس العلمي والأدبي حصراً
+    // التعامل مع المواد المشتركة
     if (sharedSubjects.includes(sub)) {
         if (userData.grade === '6sci' || userData.grade === '6lit') {
             gradeCondition = ['6sci', '6lit'];
@@ -4037,31 +4139,61 @@ window.checkInterruptedGame = async function() {
         }
     }
     
-    // --- التعديل الجذري (0 قراءات Firestore) ---
-    // 1. التأكد من وجود الأسئلة في الرام، وإذا ماكو نجيبها من الذاكرة الداخلية
-    if (!window.cachedQuestionsArray || window.cachedQuestionsArray.length === 0) {
+    let localQuestions = [];
+
+    // 1. المحاولة الأولى: جلب من الـ RAM أو ذاكرة الهاتف
+    if (window.cachedQuestionsArray && window.cachedQuestionsArray.length > 0) {
+        localQuestions = window.cachedQuestionsArray;
+    } else {
         const localData = await localforage.getItem('all_questions_data');
         if (localData && localData.length > 0) {
             window.cachedQuestionsArray = localData;
-        } else {
-            showBeautifulAlert('warning', 'تحديث مطلوب', 'يجب الانتظار قليلاً أو إعادة تشغيل التطبيق لتحميل حزمة الأسئلة الأساسية.');
-            return [];
+            localQuestions = localData;
         }
     }
 
-    // 2. الفلترة المحلية (Local Filtering) سريعة كالبرق ومجانية 100%
-    const list = window.cachedQuestionsArray.filter(q => {
-        // فحص المرحلة
-        const matchesGrade = Array.isArray(gradeCondition) ? gradeCondition.includes(q.grade) : (q.grade === gradeCondition);
-        // فحص باقي الشروط
-        const matchesSubject = q.subject === sub;
-        const matchesChapter = q.chapter === chapter;
-        const matchesType = q.type === type;
-        
-        return matchesGrade && matchesSubject && matchesChapter && matchesType;
-    });
+    // 2. فلترة الأسئلة المحلية (إذا موجودة)
+    if (localQuestions.length > 0) {
+        const list = localQuestions.filter(q => {
+            const matchesGrade = Array.isArray(gradeCondition) ? gradeCondition.includes(q.grade) : (q.grade === gradeCondition);
+            const matchesSubject = q.subject === sub;
+            const matchesChapter = q.chapter === chapter;
+            const matchesType = q.type === type;
+            return matchesGrade && matchesSubject && matchesChapter && matchesType;
+        });
 
-    return list;
+        // إذا لكينا أسئلة بالذاكرة، نرجعها فوراً ونوفر قراءات
+        if (list.length > 0) return list;
+    }
+
+    // 3. المحاولة الثانية (الطوارئ): الجلب المباشر من قاعدة بيانات Firebase
+    console.log("الذاكرة المحلية فارغة أو لا تحتوي على هذا الفصل، جاري السحب من Firebase...");
+    try {
+        // نسحب حسب المادة والنوع فقط لتجنب مشاكل الفهارس (Indexes) في فايربيس
+        const qRef = collection(db, "questions");
+        const q = query(qRef, where("subject", "==", sub), where("type", "==", type));
+        const snap = await getDocs(q);
+
+        let fallbackList = [];
+        snap.forEach(doc => {
+            const data = doc.data();
+            data.id = doc.id;
+            
+            // تطبيق باقي الفلاتر (الصف والفصل) يدوياً
+            const matchesGrade = Array.isArray(gradeCondition) ? gradeCondition.includes(data.grade) : (data.grade === gradeCondition);
+            const matchesChapter = data.chapter === chapter;
+            
+            if (matchesGrade && matchesChapter) {
+                fallbackList.push(data);
+            }
+        });
+
+        return fallbackList;
+
+    } catch (error) {
+        console.error("خطأ في جلب الأسئلة الاحتياطية من فايربيس:", error);
+        return [];
+    }
 }
         
         let emojiUsedInCurrentQuestion = false;
@@ -4833,6 +4965,11 @@ async function promptForRevengeSubject(opponentName) {
      localStorage.removeItem('active_match_session');
      clearTimeout(aiTimeoutId);
      
+     // التعديل: إيقاف الصوت المزعج فوراً عند الضغط على زر الإغلاق
+     if (typeof window.stopAllSounds === 'function') {
+         window.stopAllSounds();
+     }
+     
      document.getElementById('result-screen').classList.add('hidden');
      document.getElementById('game-overlay').classList.add('hidden');
      document.getElementById('searching-ui').classList.add('hidden');
@@ -4943,7 +5080,7 @@ window.startAIExtractionProcess = async function() {
     }
 
     const file = fileInput.files[0];
-    showAuthLoading('جاري قراءة وتقسيم كتاب الـ PDF...');
+    showAuthLoading('جاري قراءة الملف بالكامل (نظام الكتلة الواحدة)...');
 
     try {
         const fileBuffer = await file.arrayBuffer();
@@ -4953,29 +5090,14 @@ window.startAIExtractionProcess = async function() {
         for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
             const content = await page.getTextContent();
-            const pageText = content.items.map(item => item.str).join(' ');
-            fullText += `\n--- Page ${i} ---\n` + pageText;
+            fullText += content.items.map(item => item.str).join(' ') + '\n';
         }
 
-        // فحص الأمان: التأكد من أن الـ PDF يحتوي على نص حقيقي وليس صور فقط
-        const textWithoutPages = fullText.replace(/--- Page \d+ ---/g, '').trim();
+        const textWithoutPages = fullText.trim();
         if (textWithoutPages.length < 100) {
             hideAuthLoading();
-            showBeautifulAlert('error', 'ملف غير مدعوم', 'الملف عبارة عن صور (سكنر) أو لا يحتوي على نص قابل للقراءة. الذكاء الاصطناعي يحتاج لملف نصي حقيقي.');
+            showBeautifulAlert('error', 'ملف غير مدعوم', 'الملف عبارة عن صور (سكنر) أو لا يحتوي على نص قابل للقراءة.');
             return;
-        }
-
-        // تقسيم الملف إجبارياً إلى 8 أجزاء لاستخراج 400 سؤال
-        const totalParts = 8;
-        const chunkSize = Math.ceil(textWithoutPages.length / totalParts); 
-        const chunks = [];
-        for (let i = 0; i < textWithoutPages.length; i += chunkSize) {
-            chunks.push(textWithoutPages.substring(i, i + chunkSize));
-        }
-
-        // ضمان وجود 8 أجزاء بالضبط حتى لو كان الملف صغيراً
-        while (chunks.length < 8) {
-            chunks.push("قم بتوليد أسئلة منهجية إضافية متعلقة بهذا الفصل بناءً على خبرتك.");
         }
 
         const taskId = 'task_' + Date.now();
@@ -4986,14 +5108,15 @@ window.startAIExtractionProcess = async function() {
             subject: subject,
             chapter: chapter,
             status: 'pending', 
-            totalChunks: 8,
+            totalChunks: 1, // تم دمجها ككتلة واحدة مثل دالتك القوية
             currentChunk: 0,
             progress: 0,
             extractedQuestions: [],
             errorMsg: ''
         };
 
-        await localforage.setItem(`ai_chunks_${taskId}`, chunks.slice(0, 8));
+        // حفظ النص بالكامل ككتلة واحدة
+        await localforage.setItem(`ai_chunks_${taskId}`, [textWithoutPages]);
 
         const queue = getAIQueue();
         queue.push(newTask);
@@ -5003,7 +5126,7 @@ window.startAIExtractionProcess = async function() {
         document.getElementById('ai-file-name-display').innerText = 'اضغط لاختيار ملف PDF';
         
         hideAuthLoading();
-        showBeautifulAlert('success', 'تم الإضافة للطابور', 'تم تقسيم الملف إلى 8 أجزاء. انتقل للنتائج للمتابعة واستخراج 400 سؤال.');
+        showBeautifulAlert('success', 'تم الإضافة للطابور', 'تمت إضافة الملف كطابور واحد! سيتم استخراج مئات الأسئلة دفعة واحدة 🚀.');
         switchAITab('results');
 
         startAIQueueProcessor();
@@ -5060,8 +5183,13 @@ function renderAIQueue() {
             `;
             deleteBtn = `<button onclick="deleteAITask('${task.id}')" class="w-8 h-8 shrink-0 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition shadow-sm border border-red-100"><i class="fas fa-times"></i></button>`;
         } else if (task.status === 'failed') {
-            statusBadge = `<span class="bg-red-100 text-red-600 px-2 py-1 rounded text-[10px] font-bold" title="${task.errorMsg}">❌ فشل المعالجة</span>`;
+            statusBadge = `<span class="bg-red-100 text-red-600 px-2 py-1 rounded text-[10px] font-bold">❌ فشل المعالجة</span>`;
             actionBtn = `<button onclick="resumeAITask('${task.id}')" class="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-200 shadow-sm border border-blue-200"><i class="fas fa-redo"></i> إعادة المحاولة</button>`;
+            
+            // تم إضافة طباعة الخطأ بوضوح تام حتى نعرف السبب مباشرة
+            progressBar = `<div class="w-full mt-3 bg-red-50 border border-red-200 p-2.5 rounded-lg">
+                               <p class="text-[10px] text-red-700 font-bold break-words"><i class="fas fa-info-circle"></i> السبب: ${task.errorMsg || 'خطأ غير معروف'}</p>
+                           </div>`;
         }
 
         html += `
@@ -5259,68 +5387,56 @@ async function processNextInQueue() {
 
     try {
         const chunks = await localforage.getItem(`ai_chunks_${task.id}`);
-        if (!chunks) throw new Error("فقدان بيانات الملف المقطعة.");
+        if (!chunks || !chunks[0]) throw new Error("فقدان بيانات الملف.");
 
         let retries = 0; 
 
-        // التعديل 1: إضافة فحص isQueueProcessing لمنع استمرار العمال (Loops) القديمة بالخلفية
         while (task.currentChunk < task.totalChunks && task.status === 'processing' && isQueueProcessing) {
             try {
                 const textChunk = chunks[task.currentChunk];
-                const newQuestions = await callGeminiAPI(textChunk, task.currentChunk);
+                const newQuestions = await callGeminiAPI(textChunk, task.currentChunk, task.subject);
                 
                 if (!newQuestions || newQuestions.length === 0) {
-                    throw new Error("EMPTY_RESPONSE");
+                    throw new Error("لم يتم إرجاع أي أسئلة.");
                 }
 
-                // التعديل 2 الأهم: استدعاء أحدث حالة للطابور من الذاكرة "قبل" دمج الأسئلة (يمنع مسح الأسئلة السابقة)
                 queue = getAIQueue(); 
                 const idx = queue.findIndex(t => t.id === task.id);
                 
                 if (idx !== -1) {
-                    // تحديث بيانات المهمة لتطابق أحدث نسخة في الذاكرة (سحب الداتا الجديدة)
                     task = queue[idx];
-                    
-                    // إضافة الأسئلة الجديدة للنسخة الأحدث حصراً
                     task.extractedQuestions.push(...newQuestions);
                     task.currentChunk++;
                     retries = 0; 
-                    task.progress = Math.floor((task.currentChunk / task.totalChunks) * 100);
-                    
-                    // حفظها بقاعدة البيانات
+                    task.progress = 100;
                     queue[idx] = task;
                     saveAIQueue(queue);
                 } else {
-                    break; // تم حذف المهمة من الطابور
+                    break; 
                 }
 
                 await new Promise(r => setTimeout(r, 5000));
 
             } catch (apiError) {
-                if (apiError.message === "USER_DELETED") throw apiError;
-                
                 retries++;
                 if (retries >= 3) {
-                    console.warn(`فشل نهائي في استخراج الجزء ${task.currentChunk}، سيتم تجاوزه للمفتاح التالي.`);
-                    
-                    // تحديث آمن عند الفشل وتجاوز الجزء لمنع مسح داتا العمال الآخرين
                     queue = getAIQueue();
                     const idx = queue.findIndex(t => t.id === task.id);
                     if (idx !== -1) {
                         task = queue[idx];
-                        task.currentChunk++;
-                        retries = 0;
+                        task.status = 'failed';
+                        // حفظ الخطأ الحقيقي لعرضه بالواجهة
+                        task.errorMsg = apiError.message || "فشل بعد 3 محاولات";
                         queue[idx] = task;
                         saveAIQueue(queue);
                     }
+                    break;
                 } else {
-                    console.warn(`فشل في استخراج الجزء ${task.currentChunk}، محاولة ${retries}/3 بعد 5 ثواني...`);
                     await new Promise(r => setTimeout(r, 5000)); 
                 }
             }
         }
 
-        // التعديل 3: التحقق الآمن بعد انتهاء اللوب بشكل كامل
         if (task.status === 'processing' && task.currentChunk >= task.totalChunks) {
             queue = getAIQueue();
             const idx = queue.findIndex(t => t.id === task.id);
@@ -5332,142 +5448,167 @@ async function processNextInQueue() {
         }
 
     } catch (e) {
-        if (e.message !== "USER_DELETED") {
-            console.error("Critical AI Error:", e);
-            queue = getAIQueue();
-            const idx = queue.findIndex(t => t.id === task.id);
-            if (idx !== -1) {
-                queue[idx].status = 'failed';
-                queue[idx].errorMsg = e.message;
-                saveAIQueue(queue);
-            }
+        queue = getAIQueue();
+        const idx = queue.findIndex(t => t.id === task.id);
+        if (idx !== -1) {
+            queue[idx].status = 'failed';
+            queue[idx].errorMsg = e.message;
+            saveAIQueue(queue);
         }
     }
 
-    // استدعاء التاسك اللي بعده بهدوء
     setTimeout(() => {
         if (isQueueProcessing) processNextInQueue();
     }, 1000);
 }
 
-async function callGeminiAPI(textChunk, chunkIndex) {
-    const apiKey = getGeminiKeyByIndex(chunkIndex);
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+async function callGeminiAPI(textChunk, chunkIndex, subject) {
+    // تم إصلاح أسماء النماذج وإضافة -latest لتتوافق مع تحديثات سيرفرات جوجل لتجنب خطأ 404
+    const modelsToTry = ['gemini-2.0-flash', 'gemini-1.5-flash-latest', 'gemini-1.5-pro-latest'];
+    let safeIndex = parseInt(chunkIndex) || 0;
 
-    // الـ Prompt الخوارزمي الصارم لمنع الكسل وضمان المسح من البداية للنهاية
-    const prompt = `أنت خوارزمية استخراج بيانات شاملة (Exhaustive Data Scraper).
-تعليمات حرجة (CRITICAL INSTRUCTION):
-يجب عليك معالجة النص المرفق بالكامل، فقرة بفقرة، من الكلمة الأولى وحتى النقطة الأخيرة.
-يُمنع منعاً باتاً التوقف عند بداية أو منتصف النص. يجب أن تمر على كل سطر.
-من كل فقرة أو مفهوم تمر عليه، استخرج من 2 إلى 4 أسئلة وزارية ذكية.
-الهدف الإجباري: استخراج أكثر من 60 سؤالاً من هذا الجزء لضمان تغطية النص من بدايته لنهايته بالتساوي.
+    // البرومبت الانتحاري: استخراج لأقصى حد ممكن وتقسيم صارم
+    const prompt = `أنت خبير تربوي عراقي محترف ومتخصص في منهج مادة (${subject || 'المادة المرفقة'}).
+    مهمتك قراءة النص المرفق بتركيز عميق واستخراج أقصى عدد ممكن من الأسئلة الشاملة.
+    (استخرج أسئلة بأكبر عدد ممكن، استمر بالاستخراج ولا تتوقف أبداً حتى تستنفد كل حرف في النص وتصل للحد الأقصى المطلق للإخراج).
+    
+    شروط الاستخراج (إجباري جداً):
+    1. استخرج الأسئلة حصرياً من النص المرفق. ممنوع التأليف الخارجي نهائياً.
+    2. يجب أن تقسم الأسئلة بالتساوي تماماً (النصف أسئلة اختيارات mcq، والنصف الآخر أسئلة صح وخطأ tf).
+    3. لأسئلة الاختيارات (mcq): ضع 3 خيارات فقط، وواحد منها فقط صحيح (الـ correct يكون 0 أو 1 أو 2).
+    4. لأسئلة الصح والخطأ (tf): اجعل الجملة صحيحة أو خاطئة علمياً بذكاء (الـ correct يكون true أو false).
+    5. الإخراج يجب أن يكون مصفوفة JSON فقط بدون أي نص إضافي أو شرح لتجنب الأعطال البرمجية.
 
-شروط الصياغة:
-1. نوع (mcq): 3 خيارات (1 صحيح، 2 خطأ من نفس السياق).
-2. نوع (tf): عبارات صحيحة أو خاطئة.
+    صيغة الإخراج المطلوبة (JSON Array ONLY):
+    [
+      { "type": "mcq", "question": "السؤال هنا", "answers": ["خيار1", "خيار2", "خيار3"], "correct": 0 },
+      { "type": "tf", "question": "الجملة هنا", "correct": true }
+    ]
 
-صيغة الإخراج (JSON Array ONLY):
-[
-  { "type": "mcq", "question": "السؤال", "answers": ["خيار1", "خيار2", "خيار3"], "correct": 0 },
-  { "type": "tf", "question": "العبارة", "correct": true }
-]
+    النص المرفق:
+    ---
+    ${textChunk}
+    ---`;
 
-النص المرفق:
----
-${textChunk}
----
-`;
+    let keyOffset = 0;
+    let lastErrorMessage = "خطأ غير معروف";
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }],
-                generationConfig: {
-                    temperature: 0.3, // تقليل الـ Temperature يجعله أكثر صرامة وتركيزاً على التغطية الكاملة للنص بدل الإبداع
-                    maxOutputTokens: 8192, // هذا أقصى حد مسموح به من سيرفرات جوجل للإخراج
-                    responseMimeType: "application/json" 
-                }
-            })
-        });
+    while (keyOffset < HIDDEN_GEMINI_KEYS.length) {
+        let currentKey = getGeminiKeyByIndex(safeIndex + keyOffset);
 
-        if (!response.ok) {
-            const errData = await response.text();
-            throw new Error(`API Error ${response.status}: ${errData}`);
-        }
-
-        const data = await response.json();
-        
-        if (!data.candidates || data.candidates.length === 0) {
-            console.error("Gemini رفض الاستخراج (قد يكون بسبب الحماية الأمنية).");
-            return [];
-        }
-        
-        let responseText = data.candidates[0].content.parts[0].text.trim();
-        
-        // ----------------------------------------------------
-        // معالجة الـ JSON المقطوع (إذا استهلك كامل الـ 8192 توكن)
-        // ----------------------------------------------------
-        if (!responseText.endsWith(']')) {
-            const lastBrace = responseText.lastIndexOf('}');
-            if (lastBrace !== -1) {
-                // نغلق المصفوفة بالقوة بعد آخر سؤال مكتمل
-                responseText = responseText.substring(0, lastBrace + 1) + ']';
-            } else {
-                responseText += ']';
-            }
-        }
-
-        try {
-            let parsedQuestions = JSON.parse(responseText);
+        for (let i = 0; i < modelsToTry.length; i++) {
+            let currentModel = modelsToTry[i];
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${currentKey}`;
             
-            // البارسير الذكي للبحث عن المصفوفة
-            if (!Array.isArray(parsedQuestions)) {
-                if (parsedQuestions.questions && Array.isArray(parsedQuestions.questions)) {
-                    parsedQuestions = parsedQuestions.questions;
-                } else if (parsedQuestions.data && Array.isArray(parsedQuestions.data)) {
-                    parsedQuestions = parsedQuestions.data;
-                } else {
-                    for (let key in parsedQuestions) {
-                        if (Array.isArray(parsedQuestions[key])) {
-                            parsedQuestions = parsedQuestions[key];
-                            break;
-                        }
+            try {
+                console.log(`محاولة الاستخراج: المفتاح [${safeIndex + keyOffset}] | النموذج [${currentModel}]`);
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.text();
+                    lastErrorMessage = `API Error ${response.status} (${currentModel}): ${errData.substring(0, 100)}`;
+                    
+                    if (response.status === 429 || errData.includes('quota') || errData.includes('API_KEY_INVALID')) {
+                        console.warn(`المفتاح محظور أو مستنزف. التحويل للمفتاح التالي...`);
+                        break; 
+                    } else {
+                        console.warn(`فشل النموذج ${currentModel}، التحويل للنموذج التالي...`);
+                        continue;
                     }
                 }
-            }
-            
-            if (!Array.isArray(parsedQuestions)) return [];
 
-            return parsedQuestions.map(q => {
-                let isTf = (q.type === 'tf' || q.type === 'TF');
-                let correctVal = q.correct;
+                const data = await response.json();
                 
-                if (isTf) {
-                    correctVal = (correctVal === 1 || correctVal === "1" || correctVal === true || String(correctVal).toLowerCase() === 'true' || correctVal === "صح");
-                } else {
-                    correctVal = parseInt(correctVal) || 0;
-                    if (correctVal > 2 || correctVal < 0) correctVal = 0; 
+                if (!data.candidates || data.candidates.length === 0) {
+                    lastErrorMessage = "تم رفض الاستخراج من قبل السيرفر (قد يكون بسبب فلتر الأمان).";
+                    continue; 
+                }
+                
+                let responseText = data.candidates[0].content.parts[0].text.trim();
+                
+                // تنظيف الشوائب والماركداون
+                if (responseText.startsWith('```json')) {
+                    responseText = responseText.replace(/^```json/, '').replace(/```$/, '').trim();
+                } else if (responseText.startsWith('```')) {
+                    responseText = responseText.replace(/^```/, '').replace(/```$/, '').trim();
                 }
 
-                return {
-                    type: isTf ? 'tf' : 'mcq',
-                    question: q.question || 'سؤال غير معروف',
-                    answers: isTf ? [] : (Array.isArray(q.answers) ? q.answers : ["أ", "ب", "ج"]),
-                    correct: correctVal
-                };
-            }).filter(q => q.question);
+                if (!responseText.endsWith(']')) {
+                    const lastValidBrace = responseText.lastIndexOf('}');
+                    if (lastValidBrace !== -1) {
+                        responseText = responseText.substring(0, lastValidBrace + 1) + '\n]';
+                    } else {
+                        responseText += ']';
+                    }
+                }
 
-        } catch (parseError) {
-            console.error("فشل تحويل JSON للجزء " + chunkIndex + ". النص الراجع كان:", responseText);
-            return []; 
+                try {
+                    let parsedQuestions = JSON.parse(responseText);
+                    
+                    if (!Array.isArray(parsedQuestions)) {
+                        if (parsedQuestions.questions && Array.isArray(parsedQuestions.questions)) {
+                            parsedQuestions = parsedQuestions.questions;
+                        } else if (parsedQuestions.data && Array.isArray(parsedQuestions.data)) {
+                            parsedQuestions = parsedQuestions.data;
+                        } else {
+                            for (let key in parsedQuestions) {
+                                if (Array.isArray(parsedQuestions[key])) {
+                                    parsedQuestions = parsedQuestions[key];
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (!Array.isArray(parsedQuestions)) {
+                        lastErrorMessage = "الاستجابة لم تكن مصفوفة أسئلة صالحة.";
+                        continue; 
+                    }
+
+                    console.log(`✅ تم استخراج ${parsedQuestions.length} سؤال بنجاح بواسطة ${currentModel}`);
+
+                    return parsedQuestions.map(q => {
+                        let isTf = (q.type === 'tf' || q.type === 'TF');
+                        let correctVal = q.correct;
+                        
+                        if (isTf) {
+                            correctVal = (correctVal === 1 || correctVal === "1" || correctVal === true || String(correctVal).toLowerCase() === 'true' || correctVal === "صح");
+                        } else {
+                            correctVal = parseInt(correctVal) || 0;
+                            if (correctVal > 2 || correctVal < 0) correctVal = 0; 
+                        }
+
+                        return {
+                            type: isTf ? 'tf' : 'mcq',
+                            question: q.question || 'سؤال غير معروف',
+                            answers: isTf ? [] : (Array.isArray(q.answers) ? q.answers : ["أ", "ب", "ج"]),
+                            correct: correctVal
+                        };
+                    }).filter(q => q.question);
+
+                } catch (parseError) {
+                    console.error("فشل تحويل JSON مع النموذج " + currentModel + ". جاري المحاولة بنموذج آخر...");
+                    lastErrorMessage = "فشل في هيكلة البيانات (JSON Parse Error).";
+                    continue; 
+                }
+
+            } catch (networkError) {
+                console.warn(`خطأ شبكة مع النموذج ${currentModel}، جاري المحاولة بنموذج آخر...`);
+                lastErrorMessage = "خطأ في الشبكة أو انقطاع الاتصال.";
+                continue; 
+            }
         }
-
-    } catch (networkError) {
-        console.error("خطأ في الاتصال بالـ API للمفتاح رقم " + chunkIndex + ":", networkError);
-        throw networkError; 
+        
+        keyOffset++;
     }
+    
+    throw new Error(`فشلت العملية. آخر خطأ: ${lastErrorMessage}`);
 }
 
         window.openPage = async (screenId, skipHistory = false) => {
@@ -5869,24 +6010,38 @@ window.backToChallenges = () => {
         }
 
         window.switchTab = (tab, skipHistory = false) => {
+    // 1. إخفاء كل الشاشات
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    const targetScreen = document.getElementById('tab-'+tab);
+    
+    // 2. إظهار الشاشة المطلوبة
+    const targetScreen = document.getElementById('tab-' + tab);
     if(targetScreen) targetScreen.classList.add('active');
     
+    // 3. تصفير ألوان كل الأزرار بالشريط السفلي للرصاصي
     const navs = document.querySelectorAll('.nav-item');
     navs.forEach(n => { 
         n.classList.remove('active', 'text-indigo-600'); 
         n.classList.add('text-gray-400'); 
     });
     
+    // 4. تلوين الزر الصحيح بالنيلي (حسب الترتيب الجديد)
     if(tab === 'challenges') navs[0].classList.add('active', 'text-indigo-600');
-    if(tab === 'leaderboard') { navs[1].classList.add('active', 'text-indigo-600'); loadLeaderboard(); }
-    if(tab === 'achievement') { 
-        navs[2].classList.add('active', 'text-indigo-600'); 
-        if(typeof initAchievementSystem === 'function') initAchievementSystem(); 
+    if(tab === 'leaderboard') { 
+        navs[1].classList.add('active', 'text-indigo-600'); 
+        loadLeaderboard(); 
     }
-    if(tab === 'profile') navs[2].classList.add('active', 'text-indigo-600'); 
+    if(tab === 'news') { 
+        navs[2].classList.add('active', 'text-indigo-600'); 
+        loadStudentNews(); // تحميل الأخبار من ندخل للقسم
+    }
+    if(tab === 'profile') navs[3].classList.add('active', 'text-indigo-600');
 
+    // 5. إيقاف سلايدر الأخبار إذا طلعنا من قسم الأخبار لتوفير البطارية
+    if (tab !== 'news' && typeof newsCarouselInterval !== 'undefined' && newsCarouselInterval) {
+        clearInterval(newsCarouselInterval);
+    }
+
+    // 6. حفظ السجل لزر الرجوع بالموبايل
     if (!skipHistory) {
         history.pushState({ tab: tab, type: 'main' }, '', '#' + tab);
     }
@@ -7756,6 +7911,275 @@ window.startKeysTest = async function() {
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-redo"></i> إعادة الفحص';
     btn.className = "w-full bg-slate-100 text-slate-600 border border-slate-200 font-black py-3 rounded-xl hover:bg-slate-200 transition flex items-center justify-center gap-2";
+};
+
+// ==========================================
+// 📰 نظام الأخبار والصور الإعلانية
+// ==========================================
+
+let newsCarouselInterval = null;
+let currentNewsSlide = 0;
+let tempNewsImageBase64 = null;
+
+// دالة ضغط الصور بدقة عالية جداً مخصصة للأخبار (تسمح بأبعاد تصل إلى 1200 بكسل)
+async function compressNewsHighQuality(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            const img = new Image();
+            img.src = e.target.result;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                let width = img.width;
+                let height = img.height;
+                const maxSize = 1200; // دقة عالية جداً
+                
+                if (width > height) {
+                    if (width > maxSize) {
+                        height = Math.round((height * maxSize) / width);
+                        width = maxSize;
+                    }
+                } else {
+                    if (height > maxSize) {
+                        width = Math.round((width * maxSize) / height);
+                        height = maxSize;
+                    }
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // جودة 0.85 للحفاظ على نقاء الصورة وحجم معقول
+                resolve(canvas.toDataURL('image/jpeg', 0.85));
+            };
+        };
+    });
+}
+
+// معاينة الصورة في لوحة التحكم
+window.previewNewsImage = async (input) => {
+    if (input.files[0]) {
+        showAuthLoading('جاري معالجة الصورة بدقة عالية...');
+        try {
+            tempNewsImageBase64 = await compressNewsHighQuality(input.files[0]);
+            document.getElementById('news-image-preview').src = tempNewsImageBase64;
+            document.getElementById('news-image-preview').classList.remove('hidden');
+            document.getElementById('news-image-placeholder').classList.add('hidden');
+        } catch (e) {
+            showBeautifulAlert('error', 'خطأ', 'فشلت معالجة الصورة');
+        }
+        hideAuthLoading();
+    }
+};
+
+// نشر الصورة (للمالك)
+window.publishNewsImage = async () => {
+    if (!tempNewsImageBase64) {
+        showBeautifulAlert('warning', 'تنبيه', 'يرجى اختيار صورة أولاً.');
+        return;
+    }
+
+    const link = document.getElementById('news-link-input').value.trim();
+    const days = parseInt(document.getElementById('news-days-input').value) || 3;
+
+    showAuthLoading('جاري النشر للطلاب...');
+
+    try {
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + days);
+
+        await addDoc(collection(db, "news_banners"), {
+            imageUrl: tempNewsImageBase64,
+            link: link,
+            createdAt: serverTimestamp(),
+            expiryDate: Timestamp.fromDate(expiryDate)
+        });
+
+        hideAuthLoading();
+        showBeautifulAlert('success', 'تم النشر', 'تم نشر الخبر بنجاح وسيظهر لجميع الطلاب!');
+        
+        // تصفير الحقول
+        tempNewsImageBase64 = null;
+        document.getElementById('news-image-input').value = '';
+        document.getElementById('news-link-input').value = '';
+        document.getElementById('news-days-input').value = '3';
+        document.getElementById('news-image-preview').classList.add('hidden');
+        document.getElementById('news-image-placeholder').classList.remove('hidden');
+        
+        loadAdminNewsList(); // تحديث القائمة
+    } catch (e) {
+        hideAuthLoading();
+        showBeautifulAlert('error', 'خطأ', 'فشل نشر الخبر: ' + e.message);
+    }
+};
+
+// تحميل الأخبار للطالب وعرضها كـ Slider مع التنظيف التلقائي
+window.loadStudentNews = async () => {
+    const wrapper = document.getElementById('news-slides-wrapper');
+    const dotsWrapper = document.getElementById('news-dots-wrapper');
+    
+    if (!wrapper) return;
+
+    try {
+        const q = query(collection(db, "news_banners"));
+        const snap = await getDocs(q);
+        
+        let validNews = [];
+        let batches = [];
+        let currentBatch = writeBatch(db);
+        let opCount = 0;
+        
+        const now = new Date();
+
+        snap.forEach(docSnap => {
+            const data = docSnap.data();
+            const expiry = data.expiryDate ? data.expiryDate.toDate() : new Date(0);
+            
+            if (expiry < now) {
+                currentBatch.delete(docSnap.ref);
+                opCount++;
+                if (opCount >= 490) {
+                    batches.push(currentBatch.commit());
+                    currentBatch = writeBatch(db);
+                    opCount = 0;
+                }
+            } else {
+                validNews.push({ id: docSnap.id, ...data });
+            }
+        });
+        
+        if (opCount > 0) batches.push(currentBatch.commit());
+        await Promise.all(batches); 
+
+        validNews.sort((a, b) => (b.createdAt?.toDate() || 0) - (a.createdAt?.toDate() || 0));
+
+        if (validNews.length === 0) {
+            wrapper.innerHTML = `
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-white">
+                    <i class="fas fa-newspaper text-5xl mb-3 opacity-30"></i>
+                    <p class="font-bold">لا توجد أخبار حالياً</p>
+                </div>`;
+            dotsWrapper.innerHTML = '';
+            if (newsCarouselInterval) clearInterval(newsCarouselInterval);
+            return;
+        }
+
+        let slidesHtml = '';
+        let dotsHtml = '';
+
+        validNews.forEach((news, idx) => {
+            const activeClass = idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0';
+            const clickEvent = news.link ? `onclick="window.open('${news.link}', '_blank')"` : '';
+            const cursorClass = news.link ? 'cursor-pointer' : '';
+
+            // ⚠️ التعديل هنا: تم تغيير background-size إلى 100% 100% لضغط الصورة بالكامل داخل الإطار
+            slidesHtml += `
+                <div class="news-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${activeClass} ${cursorClass}" ${clickEvent} style="background-image: url('${news.imageUrl}'); background-size: 100% 100%; background-position: center; background-repeat: no-repeat;">
+                </div>`;
+                
+            const dotActive = idx === 0 ? 'bg-white w-4 border border-gray-300 shadow-sm' : 'bg-white/50 w-2 border border-gray-300';
+            dotsHtml += `<div class="news-dot h-2 rounded-full transition-all duration-300 ${dotActive}" id="dot-${idx}"></div>`;
+        });
+
+        wrapper.innerHTML = slidesHtml;
+        dotsWrapper.innerHTML = dotsHtml;
+
+        if (newsCarouselInterval) clearInterval(newsCarouselInterval);
+        currentNewsSlide = 0;
+        
+        if (validNews.length > 1) {
+            newsCarouselInterval = setInterval(() => {
+                const slides = document.querySelectorAll('.news-slide');
+                const dots = document.querySelectorAll('.news-dot');
+                
+                slides[currentNewsSlide].classList.replace('opacity-100', 'opacity-0');
+                slides[currentNewsSlide].classList.replace('z-10', 'z-0');
+                dots[currentNewsSlide].classList.replace('w-4', 'w-2');
+                dots[currentNewsSlide].classList.replace('bg-white', 'bg-white/50');
+                
+                currentNewsSlide = (currentNewsSlide + 1) % validNews.length;
+                
+                slides[currentNewsSlide].classList.replace('opacity-0', 'opacity-100');
+                slides[currentNewsSlide].classList.replace('z-0', 'z-10');
+                dots[currentNewsSlide].classList.replace('w-2', 'w-4');
+                dots[currentNewsSlide].classList.replace('bg-white/50', 'bg-white');
+                
+            }, 3000);
+        }
+
+    } catch (e) {
+        console.error("خطأ في تحميل الأخبار:", e);
+    }
+};
+
+// جلب قائمة الأخبار للمالك لغرض حذفها يدوياً
+window.loadAdminNewsList = async () => {
+    const list = document.getElementById('admin-news-list');
+    list.innerHTML = '<p class="text-xs text-gray-400 text-center"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</p>';
+    
+    try {
+        const snap = await getDocs(query(collection(db, "news_banners")));
+        if (snap.empty) {
+            list.innerHTML = '<p class="text-xs text-gray-400 text-center">لا توجد أخبار فعالة.</p>';
+            return;
+        }
+
+        let html = '';
+        snap.forEach(doc => {
+            const data = doc.data();
+            html += `
+                <div class="flex items-center gap-3 bg-gray-50 p-2 rounded-xl border border-gray-100">
+                    <img src="${data.imageUrl}" class="w-12 h-16 object-cover rounded-lg">
+                    <div class="flex-1">
+                        <p class="text-[10px] text-gray-500 truncate">${data.link ? '🔗 به رابط' : 'بدون رابط'}</p>
+                    </div>
+                    <button onclick="deleteNewsItem('${doc.id}')" class="w-8 h-8 rounded-full bg-red-100 text-red-500 flex items-center justify-center hover:bg-red-200 transition">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>`;
+        });
+        list.innerHTML = html;
+    } catch (e) {
+        list.innerHTML = '<p class="text-xs text-red-400 text-center">خطأ في التحميل.</p>';
+    }
+};
+
+// حذف الخبر يدوياً من قبل المالك
+window.deleteNewsItem = async (id) => {
+    if (confirm("هل تريد حذف هذه الصورة من الأخبار؟")) {
+        try {
+            await deleteDoc(doc(db, "news_banners", id));
+            showBeautifulAlert('success', 'تم الحذف', 'تم حذف الخبر بنجاح.');
+            loadAdminNewsList();
+        } catch (e) {
+            showBeautifulAlert('error', 'خطأ', 'فشل الحذف.');
+        }
+    }
+};
+
+// تحديث دالة التنقل (switchTab) لتشغيل الأخبار عند الدخول لقسمها
+const originalSwitchTab = window.switchTab;
+window.switchTab = (tab, skipHistory = false) => {
+    // استدعاء الدالة الأصلية
+    originalSwitchTab(tab, skipHistory);
+    
+    // إيقاف السلايدر إذا طلعنا من القسم، وتشغيله إذا دخلنا
+    if (tab !== 'news' && newsCarouselInterval) {
+        clearInterval(newsCarouselInterval);
+    }
+    
+    if (tab === 'news') {
+        const navs = document.querySelectorAll('.nav-item');
+        // تلوين الزر الجديد (الأخبار) باللون النشط
+        navs.forEach(n => { n.classList.remove('active', 'text-indigo-600'); n.classList.add('text-gray-400'); });
+        navs[2].classList.add('active', 'text-indigo-600'); // لأن ترتيبه الثالث
+        
+        loadStudentNews();
+    }
 };
 
     </script>
