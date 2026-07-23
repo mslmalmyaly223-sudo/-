@@ -2373,7 +2373,7 @@
         
         const ADMIN_EMAIL = "mslmalmyaly223@gmail.com";
         
-        const CURRENT_APP_VERSION = 42;
+        const CURRENT_APP_VERSION = 45;
 
 async function checkForUpdates() {
     try {
@@ -2518,7 +2518,6 @@ document.addEventListener('click', function(e) {
             return arr;
         }
 
-        // قاعدة بيانات الفصول لكل مادة حسب الصف
         const chaptersData = {
     '6sci': {
         'اسلامية': ['أحكام التلاوة', 'الفصل الاول', 'الفصل الثاني', 'الفصل الثالث', 'الفصل الرابع', 'الفصل الخامس'],
@@ -2535,10 +2534,10 @@ document.addEventListener('click', function(e) {
         'قواعد': ['الاستفهام', 'النفي', 'التوكيد', 'النداء', 'التقديم والتأخير', 'التعجب', 'المدح والذم'],
         'ادب': ['الجزء الأول', 'الجزء الثاني'],
         'انكليزي': generateChapters(8, 'الوحدة'),
-        'تاريخ': generateChapters(6),
+        'تاريخ': generateChapters(7), // تم التعديل من 6 إلى 7
         'رياضيات': generateChapters(4),
         'جغرافية': generateChapters(6),
-        'اقتصاد': generateChapters(5)
+        'اقتصاد': generateChapters(6) // تم التعديل من 5 إلى 6
     },
     '3med': {
         'اسلامية': ['أحكام التلاوة', 'الفصل الاول', 'الفصل الثاني', 'الفصل الثالث', 'الفصل الرابع', 'الفصل الخامس'],
@@ -6448,175 +6447,180 @@ window.deleteBadge = async function(index) {
         };
 
         async function loadReviewQuestions() {
-            const listDiv = document.getElementById('review-questions-list');
+    const listDiv = document.getElementById('review-questions-list');
+    
+    if (!userData || userData.email !== ADMIN_EMAIL) {
+        listDiv.innerHTML = `
+            <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-center">
+                <i class="fas fa-shield-alt text-yellow-500 text-2xl mb-2"></i>
+                <p class="text-yellow-700 font-bold text-sm">⛔ صلاحية محدودة</p>
+                <p class="text-gray-600 text-xs mt-1">هذا القسم مخصص للإدارة فقط</p>
+            </div>
+        `;
+        return;
+    }
+    
+    listDiv.innerHTML = GLOBAL_LOADER_HTML;
+    
+    try {
+        const baseQ = query(collection(db, "pending_questions"), where("status", "==", "pending"));
+        
+        // 1. استخراج العدد الكلي بسرعة الصاروخ بدون سحب البيانات للرام
+        const countSnap = await getCountFromServer(baseQ);
+        const totalDocsCount = countSnap.data().count;
+        
+        if (totalDocsCount === 0) {
+            listDiv.innerHTML = `
+                <div class="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
+                    <i class="fas fa-check-circle text-green-500 text-3xl mb-2"></i>
+                    <p class="text-green-700 font-bold text-sm">🎉 صندوق المراجعة فارغ</p>
+                    <p class="text-gray-600 text-xs mt-1">لا توجد أسئلة أو اقتراحات جديدة</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // 2. سحب أحدث 50 سؤال فقط لعرضها في الشاشة (لمنع تجميد الهاتف)
+        const displayQ = query(collection(db, "pending_questions"), where("status", "==", "pending"), limit(50));
+        const snapshot = await getDocs(displayQ);
+        
+        let items = [];
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            items.push({
+                id: doc.id,
+                ...data,
+                createdAt: data.createdAt ? data.createdAt.toDate() : new Date(),
+                timestamp: data.createdAt ? data.createdAt.toDate().getTime() : Date.now()
+            });
+        });
+        
+        items.sort((a, b) => b.timestamp - a.timestamp);
+        
+        let html = `
+            <div class="mb-4 p-3 bg-white rounded-2xl border border-indigo-100 shadow-sm">
+                <div class="text-center mb-3 pb-3 border-b border-gray-100">
+                    <h3 class="font-black text-indigo-800 text-lg">إجمالي الطلبات: <span class="bg-indigo-100 px-2 py-0.5 rounded-lg">${totalDocsCount}</span></h3>
+                    <p class="text-[10px] text-gray-500 font-bold mt-1">⚠️ يتم عرض أحدث ${items.length} طلب فقط لتسريع التطبيق.<br> (أزرار القبول والرفض بالأسفل تشمل جميع الطلبات الـ ${totalDocsCount}).</p>
+                </div>
+                <div class="flex gap-2 w-full">
+                    <button onclick="rejectAllPendingQuestions()" class="flex-1 bg-gradient-to-r from-red-500 to-rose-600 text-white px-3 py-2.5 rounded-xl text-sm font-bold shadow-md hover:scale-[1.02] active:scale-95 transition flex justify-center items-center gap-2">
+                        <i class="fas fa-times-circle"></i> رفض الكل
+                    </button>
+                    <button onclick="acceptAllPendingQuestions()" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-3 py-2.5 rounded-xl text-sm font-bold shadow-md hover:scale-[1.02] active:scale-95 transition flex justify-center items-center gap-2">
+                        <i class="fas fa-check-double"></i> قبول الكل
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        items.forEach((item, index) => {
+            const data = item;
+            const dateStr = data.createdAt.toLocaleDateString('ar-EG', {
+                year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
             
-            if (!userData || userData.email !== ADMIN_EMAIL) {
-                listDiv.innerHTML = `
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-center">
-                        <i class="fas fa-shield-alt text-yellow-500 text-2xl mb-2"></i>
-                        <p class="text-yellow-700 font-bold text-sm">⛔ صلاحية محدودة</p>
-                        <p class="text-gray-600 text-xs mt-1">هذا القسم مخصص للإدارة فقط</p>
+            if (data.type === 'suggestion') {
+                html += `
+                    <div class="bg-white p-3 rounded-lg shadow-sm mb-3 border-r-4 border-r-orange-500 border border-gray-100">
+                        <div class="flex justify-between items-start w-full mb-2">
+                            <span class="bg-orange-50 text-orange-600 px-2 py-0.5 rounded text-[10px] font-bold">💡 اقتراح</span>
+                            <div class="text-[10px] text-gray-400">📅 ${dateStr}</div>
+                        </div>
+                        <p class="text-xs font-bold text-gray-800 mb-2 leading-relaxed">${data.question}</p>
+                        <div class="pt-2 border-t border-gray-50 flex justify-between items-center mb-2">
+                            <p class="text-[10px] text-gray-500">
+                                📤 <span class="font-bold text-purple-600">${data.senderName || 'مجهول'}</span>
+                            </p>
+                        </div>
+                        <button onclick="deleteSuggestion('${item.id}')" class="w-full bg-red-50 text-red-600 py-1.5 rounded-lg text-xs font-bold hover:bg-red-100 transition">
+                            <i class="fas fa-trash text-[10px]"></i> حذف
+                        </button>
                     </div>
                 `;
-                return;
-            }
-            
-            listDiv.innerHTML = GLOBAL_LOADER_HTML;
-            
-            try {
-                const q = query(collection(db, "pending_questions"), where("status", "==", "pending"));
-                const snapshot = await getDocs(q);
-                
-                if (snapshot.empty) {
-                    listDiv.innerHTML = `
-                        <div class="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-                            <i class="fas fa-check-circle text-green-500 text-3xl mb-2"></i>
-                            <p class="text-green-700 font-bold text-sm">🎉 صندوق المراجعة فارغ</p>
-                            <p class="text-gray-600 text-xs mt-1">لا توجد أسئلة أو اقتراحات جديدة</p>
+            } else {
+                let answersHtml = '';
+                if (data.type === 'mcq') {
+                    answersHtml = `
+                        <div class="bg-gray-50 p-2 rounded-lg mt-2 mb-2">
+                            <p class="text-[10px] text-gray-400 mb-1 font-bold">الخيارات:</p>
+                            ${(data.answers || []).map((ans, idx) => `
+                                <div class="text-xs p-1 mb-1 rounded ${idx === data.correct ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-white border border-gray-100 text-gray-600'}">
+                                    <span class="font-bold">${idx + 1}.</span> ${ans || '...'}
+                                    ${idx === data.correct ? '<span class="text-[10px] ml-1">✓</span>' : ''}
+                                </div>
+                            `).join('')}
                         </div>
                     `;
-                    return;
+                } else {
+                    answersHtml = `
+                        <div class="bg-gray-50 p-2 rounded-lg mt-2 mb-2 flex items-center justify-between">
+                            <span class="text-[10px] text-gray-400 font-bold">الإجابة الصحيحة:</span>
+                            <span class="text-xs font-bold px-2 py-0.5 rounded ${data.correct ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                ${data.correct ? '✅ صح' : '❌ خطأ'}
+                            </span>
+                        </div>
+                    `;
                 }
                 
-                let items = [];
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    items.push({
-                        id: doc.id,
-                        ...data,
-                        createdAt: data.createdAt ? data.createdAt.toDate() : new Date(),
-                        timestamp: data.createdAt ? data.createdAt.toDate().getTime() : Date.now()
-                    });
-                });
-                
-                items.sort((a, b) => b.timestamp - a.timestamp);
-                
-                let html = `
-                    <div class="mb-3 p-2.5 bg-indigo-50 rounded-lg border border-indigo-100">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="font-bold text-indigo-700 text-xs">إجمالي الطلبات: ${items.length}</p>
-                                <p class="text-[10px] text-indigo-500">(من الأحدث للأقدم)</p>
+                html += `
+                    <div class="bg-white p-3 rounded-lg shadow-sm mb-3 border-r-4 ${index === 0 ? 'border-r-blue-500' : 'border-r-emerald-500'} border border-gray-100">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex gap-1 flex-wrap">
+                                <span class="bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded text-[10px] font-bold">${data.grade ? getGradeName(data.grade) : 'غير محدد'}</span>
+                                <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-[10px] font-bold">${data.subject || 'غير محدد'}</span>
+                                <span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[10px] font-bold">${data.type === 'mcq' ? 'اختيارات' : 'صح/خطأ'}</span>
                             </div>
-                            <div class="flex gap-2">
-                                <button onclick="rejectAllPendingQuestions()" class="bg-gradient-to-r from-red-500 to-rose-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm hover:scale-105 active:scale-95 transition flex items-center gap-1">
-                                    <i class="fas fa-times-circle"></i> رفض الكل
-                                </button>
-                                <button onclick="acceptAllPendingQuestions()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm hover:scale-105 active:scale-95 transition flex items-center gap-1">
-                                    <i class="fas fa-check-double"></i> قبول الكل
-                                </button>
-                            </div>
+                            <div class="text-[10px] text-gray-400">📅 ${dateStr}</div>
+                        </div>
+                        <p class="text-xs font-bold text-gray-800 pr-2 border-r-2 border-gray-200">${data.question || 'لا يوجد نص للسؤال'}</p>
+                        ${answersHtml}
+                        <div class="pt-2 border-t border-gray-50 flex justify-between items-center mb-2">
+                            <p class="text-[10px] text-gray-500">
+                                📤 <span class="font-bold text-purple-600">${data.senderName || data.senderId || 'مجهول'}</span>
+                            </p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <button onclick="acceptQuestion('${item.id}')" class="flex-1 bg-emerald-500 text-white py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-600 transition">
+                                <i class="fas fa-check"></i> قبول
+                            </button>
+                            <button onclick="rejectQuestion('${item.id}')" class="flex-1 bg-red-50 text-red-500 py-1.5 rounded-lg text-xs font-bold hover:bg-red-100 transition border border-red-100">
+                                <i class="fas fa-times"></i> رفض
+                            </button>
                         </div>
                     </div>
                 `;
-                
-                items.forEach((item, index) => {
-                    const data = item;
-                    const dateStr = data.createdAt.toLocaleDateString('ar-EG', {
-                        year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-                    });
-                    
-                    if (data.type === 'suggestion') {
-                        html += `
-                            <div class="bg-white p-3 rounded-lg shadow-sm mb-3 border-r-4 border-r-orange-500 border border-gray-100">
-                                <div class="flex justify-between items-start w-full mb-2">
-                                    <span class="bg-orange-50 text-orange-600 px-2 py-0.5 rounded text-[10px] font-bold">💡 اقتراح</span>
-                                    <div class="text-[10px] text-gray-400">📅 ${dateStr}</div>
-                                </div>
-                                <p class="text-xs font-bold text-gray-800 mb-2 leading-relaxed">${data.question}</p>
-                                <div class="pt-2 border-t border-gray-50 flex justify-between items-center mb-2">
-                                    <p class="text-[10px] text-gray-500">
-                                        📤 <span class="font-bold text-purple-600">${data.senderName || 'مجهول'}</span>
-                                    </p>
-                                </div>
-                                <button onclick="deleteSuggestion('${item.id}')" class="w-full bg-red-50 text-red-600 py-1.5 rounded-lg text-xs font-bold hover:bg-red-100 transition">
-                                    <i class="fas fa-trash text-[10px]"></i> حذف
-                                </button>
-                            </div>
-                        `;
-                    } else {
-                        let answersHtml = '';
-                        if (data.type === 'mcq') {
-                            answersHtml = `
-                                <div class="bg-gray-50 p-2 rounded-lg mt-2 mb-2">
-                                    <p class="text-[10px] text-gray-400 mb-1 font-bold">الخيارات:</p>
-                                    ${(data.answers || []).map((ans, idx) => `
-                                        <div class="text-xs p-1 mb-1 rounded ${idx === data.correct ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-white border border-gray-100 text-gray-600'}">
-                                            <span class="font-bold">${idx + 1}.</span> ${ans || '...'}
-                                            ${idx === data.correct ? '<span class="text-[10px] ml-1">✓</span>' : ''}
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            `;
-                        } else {
-                            answersHtml = `
-                                <div class="bg-gray-50 p-2 rounded-lg mt-2 mb-2 flex items-center justify-between">
-                                    <span class="text-[10px] text-gray-400 font-bold">الإجابة الصحيحة:</span>
-                                    <span class="text-xs font-bold px-2 py-0.5 rounded ${data.correct ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
-                                        ${data.correct ? '✅ صح' : '❌ خطأ'}
-                                    </span>
-                                </div>
-                            `;
-                        }
-                        
-                        html += `
-                            <div class="bg-white p-3 rounded-lg shadow-sm mb-3 border-r-4 ${index === 0 ? 'border-r-blue-500' : 'border-r-emerald-500'} border border-gray-100">
-                                <div class="flex justify-between items-start mb-2">
-                                    <div class="flex gap-1 flex-wrap">
-                                        <span class="bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded text-[10px] font-bold">${data.grade ? getGradeName(data.grade) : 'غير محدد'}</span>
-                                        <span class="bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded text-[10px] font-bold">${data.subject || 'غير محدد'}</span>
-                                        <span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[10px] font-bold">${data.type === 'mcq' ? 'اختيارات' : 'صح/خطأ'}</span>
-                                    </div>
-                                    <div class="text-[10px] text-gray-400">📅 ${dateStr}</div>
-                                </div>
-                                <p class="text-xs font-bold text-gray-800 pr-2 border-r-2 border-gray-200">${data.question || 'لا يوجد نص للسؤال'}</p>
-                                ${answersHtml}
-                                <div class="pt-2 border-t border-gray-50 flex justify-between items-center mb-2">
-                                    <p class="text-[10px] text-gray-500">
-                                        📤 <span class="font-bold text-purple-600">${data.senderName || data.senderId || 'مجهول'}</span>
-                                    </p>
-                                </div>
-                                <div class="flex gap-2 mt-2">
-                                    <button onclick="acceptQuestion('${item.id}')" class="flex-1 bg-emerald-500 text-white py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-600 transition">
-                                        <i class="fas fa-check"></i> قبول
-                                    </button>
-                                    <button onclick="rejectQuestion('${item.id}')" class="flex-1 bg-red-50 text-red-500 py-1.5 rounded-lg text-xs font-bold hover:bg-red-100 transition border border-red-100">
-                                        <i class="fas fa-times"></i> رفض
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    }
-                });
-                
-                html += `
-                    <div class="mt-4 text-center">
-                        <button onclick="loadReviewQuestions()" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-gray-200 transition inline-flex items-center gap-2">
-                            <i class="fas fa-sync-alt"></i> تحديث القائمة
-                        </button>
-                    </div>
-                `;
-                
-                listDiv.innerHTML = html;
-                if (window.MathJax) {
-                    setTimeout(() => {
-                        MathJax.typesetPromise([listDiv]).catch((err) => console.log(err));
-                    }, 50);
-                }
-                
-            } catch (error) {
-                console.error("❌ خطأ في تحميل البيانات:", error);
-                listDiv.innerHTML = `
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-                        <i class="fas fa-exclamation-triangle text-red-500 text-xl mb-2"></i>
-                        <p class="text-red-700 font-bold text-xs">فشل في تحميل البيانات</p>
-                        <button onclick="loadReviewQuestions()" class="mt-3 bg-red-100 text-red-700 px-4 py-1.5 rounded text-xs font-bold hover:bg-red-200 transition">
-                            إعادة المحاولة
-                        </button>
-                    </div>
-                `;
             }
+        });
+        
+        html += `
+            <div class="mt-4 text-center">
+                <button onclick="loadReviewQuestions()" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-gray-200 transition inline-flex items-center gap-2">
+                    <i class="fas fa-sync-alt"></i> تحديث القائمة
+                </button>
+            </div>
+        `;
+        
+        listDiv.innerHTML = html;
+        if (window.MathJax) {
+            setTimeout(() => {
+                MathJax.typesetPromise([listDiv]).catch((err) => console.log(err));
+            }, 50);
         }
+        
+    } catch (error) {
+        console.error("❌ خطأ في تحميل البيانات:", error);
+        listDiv.innerHTML = `
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+                <i class="fas fa-exclamation-triangle text-red-500 text-xl mb-2"></i>
+                <p class="text-red-700 font-bold text-xs">فشل في تحميل البيانات</p>
+                <button onclick="loadReviewQuestions()" class="mt-3 bg-red-100 text-red-700 px-4 py-1.5 rounded text-xs font-bold hover:bg-red-200 transition">
+                    إعادة المحاولة
+                </button>
+            </div>
+        `;
+    }
+}
 
         window.acceptQuestion = async function(questionId) {
             try {
@@ -6857,85 +6861,116 @@ window.syncQuestionsPacket = async function() {
         window.acceptAllPendingQuestions = async function() {
     if(!confirm("هل أنت متأكد من قبول جميع الأسئلة المعلقة؟ (بمجرد الموافقة، ستنزل الأسئلة بقاعدة البيانات الأصلية وتصبح جاهزة للحزمة)")) return;
     try {
-        const q = query(collection(db, "pending_questions"), where("status", "==", "pending"));
-        const snap = await getDocs(q);
+        const baseQ = query(collection(db, "pending_questions"), where("status", "==", "pending"));
         
-        if(snap.empty) {
+        // سحب العدد الكلي فقط (بدون تحميل البيانات للرام)
+        const countSnap = await getCountFromServer(baseQ);
+        const totalDocs = countSnap.data().count;
+        
+        if(totalDocs === 0) {
             showBeautifulAlert('info', 'لا يوجد', 'لا توجد طلبات معلقة للموافقة عليها.');
             return;
         }
+
+        const progressOverlay = document.createElement('div');
+        progressOverlay.className = "modal-overlay";
+        progressOverlay.style.zIndex = "999999";
+        progressOverlay.style.display = "flex";
+        progressOverlay.innerHTML = `
+            <div class="modal-content text-center p-8 bg-white border-2 border-green-500 shadow-2xl rounded-3xl" style="max-width: 350px;">
+                <div class="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                    <i class="fas fa-cloud-upload-alt text-3xl"></i>
+                </div>
+                <h3 class="font-black text-gray-800 mb-2">جاري رفع الأسئلة...</h3>
+                <p id="accept-progress-text" class="text-xs font-bold text-gray-500 mb-4">0 من ${totalDocs} سؤال</p>
+                <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                    <div id="accept-progress-bar" class="h-full bg-gradient-to-r from-green-400 to-emerald-600 w-0 transition-all duration-300"></div>
+                </div>
+                <p id="accept-percent-text" class="text-xs font-black text-green-600 mt-2">0%</p>
+            </div>
+        `;
+        document.body.appendChild(progressOverlay);
         
-        showBeautifulAlert('info', 'جاري العمل', 'جاري معالجة وقبول جميع الطلبات ونقلها لقاعدة البيانات الأصلية، يرجى الانتظار...');
+        let processedCount = 0;
         
-        let batches = [];
-        let currentBatch = writeBatch(db);
-        let opCount = 0;
-        
-        snap.forEach(docSnap => {
-            const data = docSnap.data();
+        // اللوب الذكي: نسحب 400، نعالجها، نمسحها من الرام، ونرجع نسحب 400 غيرها
+        while (true) {
+            const chunkQ = query(collection(db, "pending_questions"), where("status", "==", "pending"), limit(400));
+            const snap = await getDocs(chunkQ);
             
-            if(data.type === 'suggestion') {
-                currentBatch.update(doc(db, "pending_questions", docSnap.id), { 
-                    status: 'accepted', 
-                    reviewedAt: serverTimestamp(), 
-                    reviewedBy: currentUser.uid 
-                });
-                opCount++;
-            } else {
-                // هنا يتم نقل السؤال بشكل رسمي لجدول الأسئلة الفعلي (questions)
-                const newQRef = doc(collection(db, "questions"));
-                currentBatch.set(newQRef, {
-                    question: data.question,
-                    answers: data.answers || [],
-                    correct: data.correct,
-                    type: data.type,
-                    grade: data.grade,
-                    subject: data.subject,
-                    chapter: data.chapter || '',
-                    createdAt: serverTimestamp()
-                });
-                opCount++;
+            if (snap.empty) break; // إذا خلصن نطلع من اللوب
+            
+            let currentBatch = writeBatch(db);
+            
+            snap.forEach(docSnap => {
+                const data = docSnap.data();
                 
-                // تحديث حالة الطلب إلى مقبول
-                currentBatch.update(doc(db, "pending_questions", docSnap.id), { 
-                    status: 'accepted', 
-                    reviewedAt: serverTimestamp(), 
-                    reviewedBy: currentUser.uid 
-                });
-                opCount++;
-                
-                if (data.senderId && data.senderId !== 'AI_GEMINI') {
-                    const userRef = doc(db, "users", data.senderId);
-                    currentBatch.update(userRef, { points: increment(5) });
-                    opCount++;
-                    
-                    const notifRef = doc(collection(db, "notifications"));
-                    currentBatch.set(notifRef, {
-                        userId: data.senderId, type: 'reward',
-                        message: `🎉 تم قبول سؤالك في مادة ${data.subject || ''} وحصلت على مكافأة +5 نقاط!`,
-                        read: false, createdAt: serverTimestamp()
+                if(data.type === 'suggestion') {
+                    currentBatch.update(doc(db, "pending_questions", docSnap.id), { 
+                        status: 'accepted', 
+                        reviewedAt: serverTimestamp(), 
+                        reviewedBy: currentUser.uid 
                     });
-                    opCount++;
+                } else {
+                    const newQRef = doc(collection(db, "questions"));
+                    currentBatch.set(newQRef, {
+                        question: data.question,
+                        answers: data.answers || [],
+                        correct: data.correct,
+                        type: data.type,
+                        grade: data.grade,
+                        subject: data.subject,
+                        chapter: data.chapter || '',
+                        createdAt: serverTimestamp()
+                    });
+                    
+                    currentBatch.update(doc(db, "pending_questions", docSnap.id), { 
+                        status: 'accepted', 
+                        reviewedAt: serverTimestamp(), 
+                        reviewedBy: currentUser.uid 
+                    });
+                    
+                    if (data.senderId && data.senderId !== 'AI_GEMINI') {
+                        const userRef = doc(db, "users", data.senderId);
+                        currentBatch.update(userRef, { points: increment(5) });
+                        
+                        const notifRef = doc(collection(db, "notifications"));
+                        currentBatch.set(notifRef, {
+                            userId: data.senderId, type: 'reward',
+                            message: `🎉 تم قبول سؤالك في مادة ${data.subject || ''} وحصلت على مكافأة +5 نقاط!`,
+                            read: false, createdAt: serverTimestamp()
+                        });
+                    }
                 }
-            }
+                processedCount++;
+            });
             
-            if(opCount >= 490) {
-                batches.push(currentBatch.commit());
-                currentBatch = writeBatch(db);
-                opCount = 0;
-            }
-        });
+            // نرفع الدفعة
+            await currentBatch.commit();
+            
+            // نحدث الواجهة
+            let percent = Math.floor((processedCount / totalDocs) * 100);
+            if(percent > 100) percent = 100;
+            
+            document.getElementById('accept-progress-bar').style.width = percent + '%';
+            document.getElementById('accept-percent-text').innerText = percent + '%';
+            document.getElementById('accept-progress-text').innerText = `${processedCount} من ${totalDocs} سؤال`;
+            
+            // نعطي استراحة للموبايل حتى يفرغ الرام
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
         
-        if(opCount > 0) batches.push(currentBatch.commit());
-        await Promise.all(batches);
-        
-        showBeautifulAlert('success', 'تم القبول بنجاح', `✅ تم قبول جميع الأسئلة وحفظها في قاعدة البيانات! اذهب الآن لزر "تكوين ورفع الحزمة" لإرسالها للطلاب.`);
+        document.body.removeChild(progressOverlay);
+        showBeautifulAlert('success', 'تم القبول بنجاح', `✅ تم قبول جميع الأسئلة (${processedCount} سؤال) وحفظها في قاعدة البيانات! اذهب الآن لزر "تكوين ورفع الحزمة".`);
         loadReviewQuestions();
         checkPendingQuestionsNotification();
         
     } catch (e) {
+        const overlay = document.querySelector('.modal-overlay[style*="999999"]');
+        if (overlay) document.body.removeChild(overlay);
+        
         console.error("خطأ في القبول الجماعي:", e);
-        showBeautifulAlert('error', 'خطأ', 'حدث خطأ أثناء الموافقة الجماعية');
+        showBeautifulAlert('error', 'خطأ', 'حدث خطأ أثناء الموافقة الجماعية: ' + e.message);
     }
 };
         
