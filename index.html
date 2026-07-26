@@ -956,7 +956,7 @@
         </svg>
         <div class="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 text-center w-full">
             <p class="najafi-kufi-text text-indigo-900/60 font-black text-lg tracking-widest">
-                بفخر منتج نجفي
+            بفخر منتج 
             </p>
         </div>
     </div>
@@ -6789,7 +6789,7 @@ window.syncQuestionsPacket = async function() {
 
                 let questionsData = null;
 
-                // --- بداية الكود المعدل والمتوازن ---
+                // 🛑 الكود الصارم الجديد: صفر قراءات من فايربيس 🛑
                 try {
                     // المحاولة الأولى: سحب الملف الكامل بشكل مباشر
                     const response = await fetch(bundleUrl);
@@ -6797,56 +6797,35 @@ window.syncQuestionsPacket = async function() {
                     questionsData = await response.json();
                 } catch (fetchError) {
                     try {
-                        console.log("مشكلة بالحماية (CORS)، تفعيل البروكسي للسحب من المتصفح...");
-                        statusTxt.innerText = "جاري الاتصال السريع (وضع الويب)... 🚀";
-                        // المحاولة الثانية: استخدام بروكسي لتخطي مشكلة جيثوب والمتصفحات
-                        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(bundleUrl);
-                        const proxyResponse = await fetch(proxyUrl);
-                        if (!proxyResponse.ok) throw new Error("Proxy Error");
-                        questionsData = await proxyResponse.json();
-                    } catch (proxyError) {
-                        console.log("الرابط السريع والبروكسي معطلان، تفعيل المزامنة الجزئية الذكية من Firestore...");
-                        statusTxt.innerText = "جاري سحب الأسئلة الجديدة فقط... 🔄";
-                        progBar.style.width = '50%';
+                        console.log("مشكلة بالحماية (CORS)، تفعيل سيرفر AllOrigins القوي...");
+                        statusTxt.innerText = "جاري سحب الحزمة (سيرفر بديل 1)... 🌐";
                         
-                        // المحاولة الثالثة (الطوارئ الذكية): سحب الأسئلة الجديدة فقط!
-                        const localData = await localforage.getItem('all_questions_data') || [];
-                        
-                        if (localTimestamp && localData.length > 0) {
-                            const q = query(collection(db, "questions"), where("createdAt", ">", new Date(localTimestamp)));
-                            const qSnap = await getDocs(q);
+                        // المحاولة الثانية: سيرفر AllOrigins (أقوى وموثوق لملفات JSON)
+                        const proxy1 = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(bundleUrl);
+                        const res1 = await fetch(proxy1);
+                        if (!res1.ok) throw new Error("Proxy 1 Error");
+                        questionsData = await res1.json();
+                    } catch (proxy1Error) {
+                        try {
+                            console.log("فشل السيرفر الأول، تفعيل سيرفر CorsProxy...");
+                            statusTxt.innerText = "جاري سحب الحزمة (سيرفر بديل 2)... 🚀";
                             
-                            let newQs = [];
-                            qSnap.forEach(doc => {
-                                const data = doc.data();
-                                newQs.push({
-                                    id: doc.id,
-                                    question: data.question,
-                                    answers: data.answers || [],
-                                    correct: data.correct,
-                                    type: data.type,
-                                    grade: data.grade,
-                                    subject: data.subject,
-                                    chapter: data.chapter || ''
-                                });
-                            });
-                            
-                            questionsData = [...localData, ...newQs];
-                            console.log(`تم سحب ${newQs.length} سؤال جديد فقط بدلاً من سحب الكل!`);
-                        } else {
-                            const qSnap = await getDocs(collection(db, "questions"));
-                            questionsData = [];
-                            qSnap.forEach(doc => {
-                                const data = doc.data();
-                                questionsData.push({ id: doc.id, question: data.question, answers: data.answers || [], correct: data.correct, type: data.type, grade: data.grade, subject: data.subject, chapter: data.chapter || '' });
-                            });
+                            // المحاولة الثالثة: سيرفر CorsProxy
+                            const proxy2 = 'https://corsproxy.io/?' + encodeURIComponent(bundleUrl);
+                            const res2 = await fetch(proxy2);
+                            if (!res2.ok) throw new Error("Proxy 2 Error");
+                            questionsData = await res2.json();
+                        } catch (proxy2Error) {
+                            // ❌ تم مسح كود الطوارئ الذي يسحب من Firestore نهائياً ❌
+                            // إذا فشلت كل السيرفرات، نوقف العملية فوراً لحماية قراءاتك
+                            throw new Error("فشل تحميل الحزمة من جميع السيرفرات.");
                         }
                     }
                 }
-                // --- نهاية الكود المعدل والمتوازن ---
+                // 🛑 نهاية الكود الصارم 🛑
 
-                if (!questionsData || questionsData.length === 0) {
-                    throw new Error("لا توجد أسئلة متاحة حالياً في النظام.");
+                if (!questionsData || !Array.isArray(questionsData) || questionsData.length === 0) {
+                    throw new Error("الملف المحمل فارغ أو غير صالح.");
                 }
 
                 progBar.style.width = '80%';
@@ -6872,8 +6851,11 @@ window.syncQuestionsPacket = async function() {
     } catch (error) {
         console.error("خطأ المزامنة:", error);
         updateScreen.classList.add('hidden');
-        showBeautifulAlert('error', 'تنبيه', 'حدثت مشكلة في التحديث، سيتم استخدام الأسئلة المتوفرة بجهازك.');
         
+        // رسالة تنبيه للمستخدم تفيده بأن التحديث فشل وسيتم استخدام الأسئلة القديمة
+        showBeautifulAlert('error', 'فشل التحديث', 'لم نتمكن من تنزيل حزمة الأسئلة الجديدة بسبب ضعف الاتصال، سيتم استخدام الأسئلة المتوفرة بجهازك.');
+        
+        // تشغيل الأسئلة المخزونة سابقاً (إن وجدت) لكي لا يتوقف التطبيق
         const localData = await localforage.getItem('all_questions_data');
         if (localData) window.cachedQuestionsArray = localData;
     }
