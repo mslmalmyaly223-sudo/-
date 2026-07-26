@@ -956,7 +956,7 @@
         </svg>
         <div class="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 text-center w-full">
             <p class="najafi-kufi-text text-indigo-900/60 font-black text-lg tracking-widest">
-            بفخر منتج 
+                بفخر منتج نجفي
             </p>
         </div>
     </div>
@@ -6769,7 +6769,7 @@ window.syncQuestionsPacket = async function() {
     
     try {
         if (typeof localforage === 'undefined') {
-            showBeautifulAlert('error', 'خطأ برمجي', 'مكتبة localforage غير موجودة! تأكد من إضافتها.');
+            showBeautifulAlert('error', 'خطأ برمجي', 'مكتبة localforage غير موجودة!');
             return;
         }
 
@@ -6788,37 +6788,42 @@ window.syncQuestionsPacket = async function() {
                 progBar.style.width = '30%';
 
                 let questionsData = null;
+                // كسر الكاش حتى ما يجيب نسخة قديمة من الرابط
+                const safeUrl = bundleUrl + (bundleUrl.includes('?') ? '&' : '?') + 'nocache=' + Date.now();
 
-                // 🛑 الكود الصارم الجديد: صفر قراءات من فايربيس 🛑
+                // 🛑 الكود الصارم الجديد مع بروكسيات مغلفة (تتخطى حماية توكن فايربيس) 🛑
                 try {
-                    // المحاولة الأولى: سحب الملف الكامل بشكل مباشر
-                    const response = await fetch(bundleUrl);
-                    if (!response.ok) throw new Error("Storage Error");
-                    questionsData = await response.json();
-                } catch (fetchError) {
+                    // المحاولة 1: اتصال مباشر (للتطبيقات الأصلية)
+                    const res0 = await fetch(safeUrl);
+                    if (!res0.ok) throw new Error("Direct Failed");
+                    questionsData = await res0.json();
+                } catch (e1) {
                     try {
-                        console.log("مشكلة بالحماية (CORS)، تفعيل سيرفر AllOrigins القوي...");
-                        statusTxt.innerText = "جاري سحب الحزمة (سيرفر بديل 1)... 🌐";
+                        console.log("تفعيل السيرفر المغلف الأول...");
+                        statusTxt.innerText = "جاري تخطي حماية الملف (سيرفر 1)... 🌐";
                         
-                        // المحاولة الثانية: سيرفر AllOrigins (أقوى وموثوق لملفات JSON)
-                        const proxy1 = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(bundleUrl);
+                        // المحاولة 2: AllOrigins (طريقة الغلاف GET - مضمونة 100% لروابط فايربيس)
+                        const proxy1 = 'https://api.allorigins.win/get?url=' + encodeURIComponent(safeUrl);
                         const res1 = await fetch(proxy1);
-                        if (!res1.ok) throw new Error("Proxy 1 Error");
-                        questionsData = await res1.json();
-                    } catch (proxy1Error) {
+                        if (!res1.ok) throw new Error("Proxy 1 Failed");
+                        
+                        const data1 = await res1.json();
+                        // السيرفر يرجع البيانات كنص مغلف، نفتحه ونحوله إلى JSON محلياً
+                        questionsData = JSON.parse(data1.contents);
+                        
+                    } catch (e2) {
                         try {
-                            console.log("فشل السيرفر الأول، تفعيل سيرفر CorsProxy...");
-                            statusTxt.innerText = "جاري سحب الحزمة (سيرفر بديل 2)... 🚀";
+                            console.log("تفعيل السيرفر المغلف الثاني...");
+                            statusTxt.innerText = "جاري تخطي حماية الملف (سيرفر 2)... 🚀";
                             
-                            // المحاولة الثالثة: سيرفر CorsProxy
-                            const proxy2 = 'https://corsproxy.io/?' + encodeURIComponent(bundleUrl);
+                            // المحاولة 3: CodeTabs Proxy (مخصص للـ JSON)
+                            const proxy2 = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(safeUrl);
                             const res2 = await fetch(proxy2);
-                            if (!res2.ok) throw new Error("Proxy 2 Error");
+                            if (!res2.ok) throw new Error("Proxy 2 Failed");
                             questionsData = await res2.json();
-                        } catch (proxy2Error) {
-                            // ❌ تم مسح كود الطوارئ الذي يسحب من Firestore نهائياً ❌
-                            // إذا فشلت كل السيرفرات، نوقف العملية فوراً لحماية قراءاتك
-                            throw new Error("فشل تحميل الحزمة من جميع السيرفرات.");
+                            
+                        } catch (e3) {
+                            throw new Error("جميع السيرفرات فشلت في جلب الحزمة.");
                         }
                     }
                 }
@@ -6851,11 +6856,8 @@ window.syncQuestionsPacket = async function() {
     } catch (error) {
         console.error("خطأ المزامنة:", error);
         updateScreen.classList.add('hidden');
-        
-        // رسالة تنبيه للمستخدم تفيده بأن التحديث فشل وسيتم استخدام الأسئلة القديمة
         showBeautifulAlert('error', 'فشل التحديث', 'لم نتمكن من تنزيل حزمة الأسئلة الجديدة بسبب ضعف الاتصال، سيتم استخدام الأسئلة المتوفرة بجهازك.');
         
-        // تشغيل الأسئلة المخزونة سابقاً (إن وجدت) لكي لا يتوقف التطبيق
         const localData = await localforage.getItem('all_questions_data');
         if (localData) window.cachedQuestionsArray = localData;
     }
