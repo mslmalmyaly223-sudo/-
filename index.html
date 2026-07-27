@@ -956,7 +956,7 @@
         </svg>
         <div class="absolute bottom-[20%] left-1/2 transform -translate-x-1/2 text-center w-full">
             <p class="najafi-kufi-text text-indigo-900/60 font-black text-lg tracking-widest">
-                بفخر منتج نجفي
+                بفخر منتج نفي
             </p>
         </div>
     </div>
@@ -6785,49 +6785,21 @@ window.syncQuestionsPacket = async function() {
             if (!localTimestamp || localTimestamp < serverTimestamp) {
                 updateScreen.classList.remove('hidden');
                 statusTxt.innerText = "جاري تنزيل الأسئلة الجديدة لهاتفك... 🚀";
-                progBar.style.width = '30%';
+                progBar.style.width = '50%';
 
                 let questionsData = null;
-                // كسر الكاش حتى ما يجيب نسخة قديمة من الرابط
+                // كسر الكاش لضمان جلب أحدث نسخة من الرابط
                 const safeUrl = bundleUrl + (bundleUrl.includes('?') ? '&' : '?') + 'nocache=' + Date.now();
 
-                // 🛑 الكود الصارم الجديد مع بروكسيات مغلفة (تتخطى حماية توكن فايربيس) 🛑
+                // 🛑 السحب المباشر السريع (بعد فك حماية CORS) 🛑
                 try {
-                    // المحاولة 1: اتصال مباشر (للتطبيقات الأصلية)
-                    const res0 = await fetch(safeUrl);
-                    if (!res0.ok) throw new Error("Direct Failed");
-                    questionsData = await res0.json();
-                } catch (e1) {
-                    try {
-                        console.log("تفعيل السيرفر المغلف الأول...");
-                        statusTxt.innerText = "جاري تخطي حماية الملف (سيرفر 1)... 🌐";
-                        
-                        // المحاولة 2: AllOrigins (طريقة الغلاف GET - مضمونة 100% لروابط فايربيس)
-                        const proxy1 = 'https://api.allorigins.win/get?url=' + encodeURIComponent(safeUrl);
-                        const res1 = await fetch(proxy1);
-                        if (!res1.ok) throw new Error("Proxy 1 Failed");
-                        
-                        const data1 = await res1.json();
-                        // السيرفر يرجع البيانات كنص مغلف، نفتحه ونحوله إلى JSON محلياً
-                        questionsData = JSON.parse(data1.contents);
-                        
-                    } catch (e2) {
-                        try {
-                            console.log("تفعيل السيرفر المغلف الثاني...");
-                            statusTxt.innerText = "جاري تخطي حماية الملف (سيرفر 2)... 🚀";
-                            
-                            // المحاولة 3: CodeTabs Proxy (مخصص للـ JSON)
-                            const proxy2 = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(safeUrl);
-                            const res2 = await fetch(proxy2);
-                            if (!res2.ok) throw new Error("Proxy 2 Failed");
-                            questionsData = await res2.json();
-                            
-                        } catch (e3) {
-                            throw new Error("جميع السيرفرات فشلت في جلب الحزمة.");
-                        }
-                    }
+                    const response = await fetch(safeUrl);
+                    if (!response.ok) throw new Error("فشل الاتصال بملف الحزمة");
+                    questionsData = await response.json();
+                } catch (fetchError) {
+                    throw new Error("لا يمكن الوصول لملف الحزمة من المتصفح.");
                 }
-                // 🛑 نهاية الكود الصارم 🛑
+                // 🛑 نهاية السحب 🛑
 
                 if (!questionsData || !Array.isArray(questionsData) || questionsData.length === 0) {
                     throw new Error("الملف المحمل فارغ أو غير صالح.");
@@ -6856,7 +6828,7 @@ window.syncQuestionsPacket = async function() {
     } catch (error) {
         console.error("خطأ المزامنة:", error);
         updateScreen.classList.add('hidden');
-        showBeautifulAlert('error', 'فشل التحديث', 'لم نتمكن من تنزيل حزمة الأسئلة الجديدة بسبب ضعف الاتصال، سيتم استخدام الأسئلة المتوفرة بجهازك.');
+        showBeautifulAlert('error', 'فشل التحديث', 'لم نتمكن من تنزيل حزمة الأسئلة الجديدة، سيتم استخدام الأسئلة المتوفرة بجهازك.');
         
         const localData = await localforage.getItem('all_questions_data');
         if (localData) window.cachedQuestionsArray = localData;
